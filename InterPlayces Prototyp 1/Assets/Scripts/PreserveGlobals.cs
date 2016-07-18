@@ -30,7 +30,7 @@ public class PreserveGlobals : MonoBehaviour {
             DontDestroyOnLoad(global);
         }
 
-       // Application.LoadLevel("Spielfeld_MrRoboto");
+        Application.LoadLevel("Spielfeld_MrRoboto");
     }
 
     // Update is called once per frame

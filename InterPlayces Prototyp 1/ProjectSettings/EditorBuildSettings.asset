@@ -10,7 +10,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/old/Test02.unity
   - enabled: 0
-    path: Assets/_Scenes/MrRoboto_01.unity
+    path: Assets/_Scenes/old/MrRoboto_01.unity
   - enabled: 1
     path: Assets/_Scenes/Spielfeld_Globals.unity
   - enabled: 1

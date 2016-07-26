@@ -30,7 +30,7 @@ public class PlayPiece : MonoBehaviour {
 
        
             //Debug.Log("EXISTINGGGGG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            if (trackedCube.GetComponent<TrackCubePosition>().isVisible)
+            if (trackedCube.GetComponent<TrackCubePosition>().isVisible || trackedCube.GetComponent<TrackDummyPosition>().dummy.GetComponent<TrackingDummy>().isVisible)
             {
                 //Debug.Log("VISIBLLEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 

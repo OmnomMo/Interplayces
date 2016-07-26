@@ -44,6 +44,8 @@ public class GameState : MonoBehaviour {
         setup = new SetupState(setupInterface);
         play = new PlayState(playInterface);
 
+        currentState = new ParentState();
+
 
         UI_Containers = new List<GameObject>();
         //Add Containers to list

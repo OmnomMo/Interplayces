@@ -21,6 +21,7 @@ public class TrackCubePosition : MonoBehaviour {
     public bool isVisible;
 
     public GameObject customOrigin;
+
     
 
 	// Use this for initialization

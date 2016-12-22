@@ -1,29 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkPlayer : MonoBehaviour {
+public class NetworkPlayer : MonoBehaviour
+{
 
-    public enum PlayerTypes { Captain, Navigator, NavigatorAR, None}
+    public enum PlayerTypes { Captain, Navigator, NavigatorAR, None }
 
     PlayerTypes playerType;
 
 
     public Canvas dialogue;
     private static NetworkPlayer instance;
-    public static NetworkPlayer Instance { get { return instance;} }
+    public static NetworkPlayer Instance { get { return instance; } }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         instance = this;
         playerType = PlayerTypes.None;
-        
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         //Debug.Log(playerType + " is captain: " + (playerType == PlayerTypes.Captain) + " IsCaptain: " + isPlayerCaptain());
-	}
+    }
 
     public PlayerTypes getPlayerType()
     {
@@ -46,7 +49,7 @@ public class NetworkPlayer : MonoBehaviour {
     public void setPlayerNavigator()
     {
 
-       // Debug.Log("Set Player Navigator");
+        // Debug.Log("Set Player Navigator");
         playerType = PlayerTypes.Navigator;
         Camera.main.gameObject.GetComponent<CameraBehaviour>().ChangeCameraToNavigator();
 

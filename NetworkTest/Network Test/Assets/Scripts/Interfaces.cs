@@ -4,16 +4,13 @@ using UnityEngine;
 
 public interface ShipPart
 {
-    int posX
-    {
-        get;
-        set;
-    }
+    void SetID(int newID);
+    int getID();
 
-    int posY
-    {
-        get;
-        set;
-    }
+    void SetPosX(int newPosX);
+    int getPosX();
+
+    void SetPosY(int newPosY);
+    int getPosY();
 
 }

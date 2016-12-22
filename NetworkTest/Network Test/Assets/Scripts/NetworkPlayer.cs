@@ -34,7 +34,7 @@ public class NetworkPlayer : MonoBehaviour {
     {
 
 
-        Debug.Log("Set Player Captain");
+        //Debug.Log("Set Player Captain");
         playerType = PlayerTypes.Captain;
     }
 

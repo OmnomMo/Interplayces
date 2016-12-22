@@ -23,7 +23,7 @@ public class SpaceshipMovement : NetworkBehaviour {
             if (NetworkPlayer.Instance.isPlayerCaptain())
             {
 
-                Debug.Log("CaptainMyCaptain");
+                //Debug.Log("CaptainMyCaptain");
 
                 var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
                 //isAccelerating = Input.GetAxis("Vertical") > 0;

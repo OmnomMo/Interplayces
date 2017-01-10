@@ -10,6 +10,13 @@ public class SpaceshipParts : MonoBehaviour {
 
     public GameObject[,] parts;
 
+    private static SpaceshipParts instance;
+    public static SpaceshipParts Instance
+    {
+        get { return instance; }
+    }
+
+
     //public void CreateParts()
     //{
     //    for (int x = 0; x < parts.GetLength(0); x++)
@@ -73,11 +80,11 @@ public class SpaceshipParts : MonoBehaviour {
                 if (parts[x, y] != null)
                 {
 
-                    Debug.Log(" center = " + parts[x, y].transform.localPosition.x + "/" + parts[x, y].transform.localPosition.z);
+                   // Debug.Log(" center = " + parts[x, y].transform.localPosition.x + "/" + parts[x, y].transform.localPosition.z);
                     nParts++;
                     center.x = center.x + parts[x, y].transform.localPosition.x;
                     center.y = center.y + parts[x, y].transform.localPosition.z;
-                    Debug.Log("nParts=" + nParts + " center = " + center.x + "/" + center.y);
+                   // Debug.Log("nParts=" + nParts + " center = " + center.x + "/" + center.y);
                 }
             }
         }
@@ -91,6 +98,8 @@ public class SpaceshipParts : MonoBehaviour {
     // Use this for initialization
     void Start () {
         parts = new GameObject[5,7];
+        instance = this;
+        SpaceShipPlans.Instance.BuildSpaceShip();
 	}
 	
 	// Update is called once per frame

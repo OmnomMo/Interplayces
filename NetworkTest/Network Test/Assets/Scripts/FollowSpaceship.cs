@@ -18,7 +18,7 @@ public class FollowSpaceship : MonoBehaviour {
     {
 
         camPos.x = spaceship.position.x;
-        camPos.y = 20;
+        camPos.y = 40;
         camPos.z = spaceship.position.z;
 
         transform.position = camPos;

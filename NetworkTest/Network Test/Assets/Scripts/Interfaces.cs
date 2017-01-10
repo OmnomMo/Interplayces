@@ -8,9 +8,9 @@ public interface ShipPart
     int getID();
 
     void SetPosX(int newPosX);
-    int getPosX();
+    int GetPosX();
 
     void SetPosY(int newPosY);
-    int getPosY();
+    int GetPosY();
 
 }

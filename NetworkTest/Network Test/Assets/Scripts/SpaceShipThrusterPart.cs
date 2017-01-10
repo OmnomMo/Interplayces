@@ -1,26 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceshipBatteryPart : MonoBehaviour, ShipPart {
+public class SpaceShipThrusterPart : MonoBehaviour, ShipPart {
 
-    public float energy { get; set; }
+    public float maxPower;
+    public bool isFiring;
 
     public int ID;
     public int posX;
     public int posY;
 
     // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 
     public void SetID(int newID)
     {
@@ -37,7 +37,7 @@ public class SpaceshipBatteryPart : MonoBehaviour, ShipPart {
         posX = newPosX;
     }
 
-    public int getPosX()
+    public int GetPosX()
     {
         return posX;
     }
@@ -47,10 +47,8 @@ public class SpaceshipBatteryPart : MonoBehaviour, ShipPart {
         posY = newPosY;
     }
 
-    public int getPosY()
+    public int GetPosY()
     {
         return posY;
     }
-
-
 }

@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class DragAround : MonoBehaviour {
+public class DragAround : NetworkBehaviour {
 
+    [SyncVar]
     public bool dragged;
     public GameObject partContainer;
 
@@ -14,7 +16,10 @@ public class DragAround : MonoBehaviour {
 	
     void OnMouseDown()
     {
-        dragged = true;
+        if (GameState.Instance.isPlayerCaptain())
+        {
+            NetworkActions.Instance.CmdDragSphere(gameObject);
+        }
 
     }
 
@@ -24,6 +29,16 @@ public class DragAround : MonoBehaviour {
         {
             partContainer.GetComponent<FollowSphere>().isOnField = true;
         }
+    }
+    [ClientRpc]
+    public void RpcStartDrag()
+    {
+        dragged = true;
+    }
+    [ClientRpc]
+    public void RpcStopDrag()
+    {
+        dragged = false;
     }
 
     void OnTriggerExit(Collider other)
@@ -49,7 +64,7 @@ public class DragAround : MonoBehaviour {
 
         if (Input.GetMouseButtonUp(0))
         {
-            dragged = false;
+            NetworkActions.Instance.CmdStopDragSphere(gameObject);
         }
 	}
 }

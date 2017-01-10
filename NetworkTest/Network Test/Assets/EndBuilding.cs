@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class EndBuilding : MonoBehaviour {
+public class EndBuilding : NetworkBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    private static EndBuilding instance;
+
+    public static EndBuilding Instance { get { return instance; } }
+
+
+    // Use this for initialization
+    void Start () {
+        instance = this;
 	}
 
-    public void EndPhase()
+    [ClientRpc]
+    public void RpcEndPhase()
     {
-
         SpaceShipPlans.Instance.ClearAllParts();
 
 
@@ -21,7 +27,7 @@ public class EndBuilding : MonoBehaviour {
         var currentNode = shipParts.First;
 
         //Iterate over list and add to plan;
-        while ((currentNode!=null))
+        while ((currentNode != null))
         {
             GameObject part = currentNode.Value;
             ShipPart sPart = null;
@@ -45,11 +51,22 @@ public class EndBuilding : MonoBehaviour {
 
         Debug.Log(SpaceShipPlans.Instance.ToString());
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        GameObject.Find("NetworkManager").GetComponent<NetworkManager>().ServerChangeScene("Main");
+        // UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+    }
+
+    
+
+    public void EndPhase()
+    {
+        NetworkActions.Instance.CmdEndPhase();
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+
 }

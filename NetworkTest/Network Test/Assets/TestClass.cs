@@ -38,10 +38,13 @@ public class TestClass: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+
+        //Debug.Log("captain: " + GameState.Instance.isPlayerCaptain() + "\nnavigator: " + GameState.Instance.isPlayerNavigator());
         if (Input.GetButtonDown("DebugButton"))
         {
-            SpawnParts();
+            Debug.Log("Debug!");
+            EndBuilding.Instance.EndPhase();
         }
-	}
+    }
 }

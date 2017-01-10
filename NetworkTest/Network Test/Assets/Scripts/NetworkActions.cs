@@ -23,6 +23,14 @@ public class NetworkActions : NetworkBehaviour {
 	
 	}
 
+
+   [Command]
+   public void CmdEndPhase()
+    { 
+        EndBuilding.Instance.RpcEndPhase();
+    }
+    
+
     [Command]
     public void CmdHighlightPlanet (int nPlanet)
     {
@@ -31,9 +39,24 @@ public class NetworkActions : NetworkBehaviour {
     }
 
     [Command]
+    public void CmdDragSphere (GameObject sphere)
+    {
+        Debug.Log("Drag!");
+        sphere.GetComponent<DragAround>().dragged = true;
+        //sphere.GetComponent<DragAround>().RpcStartDrag();
+    }
+
+    [Command]
+    public void CmdStopDragSphere(GameObject sphere)
+    {
+        sphere.GetComponent<DragAround>().dragged = false;
+       // sphere.GetComponent<DragAround>().RpcStopDrag();
+    }
+
+    [Command]
     public void CmdStopPlanetHighlight(int nPlanet)
     {
-
+        
         PlanetNavigation.Instance.RpcUnsetActivePlanet(nPlanet);
     }
 

@@ -69,12 +69,12 @@ public class PlanetNavigation : NetworkBehaviour {
         isActive = true;
         activePlanet = nPlanet;
 
-        if (NetworkPlayer.Instance.isPlayerNavigator())
+        if (GameState.Instance.isPlayerNavigator())
         {
             planets[activePlanet].GetComponent<HighlightPlanet>().SetHighlight();
         }
 
-        if (NetworkPlayer.Instance.isPlayerCaptain())
+        if (GameState.Instance.isPlayerCaptain())
         {
             pointer.GetComponent<PointToTarget>().setTargetPlanet(planets[activePlanet].transform);
         }
@@ -84,11 +84,11 @@ public class PlanetNavigation : NetworkBehaviour {
     public void RpcUnsetActivePlanet(int nPlanet)
     {
         isActive = false;
-        if (NetworkPlayer.Instance.isPlayerNavigator())
+        if (GameState.Instance.isPlayerNavigator())
         {
             planets[activePlanet].GetComponent<HighlightPlanet>().UnsetHighlight();
         }
-        if (NetworkPlayer.Instance.isPlayerCaptain())
+        if (GameState.Instance.isPlayerCaptain())
         {
             pointer.GetComponent<PointToTarget>().unsetTargetPlanet();
         }

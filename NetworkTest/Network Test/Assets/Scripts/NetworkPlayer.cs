@@ -4,9 +4,7 @@ using System.Collections;
 public class NetworkPlayer : MonoBehaviour
 {
 
-    public enum PlayerTypes { Captain, Navigator, NavigatorAR, None }
-
-    PlayerTypes playerType;
+    
 
 
     public Canvas dialogue;
@@ -18,7 +16,8 @@ public class NetworkPlayer : MonoBehaviour
     {
 
         instance = this;
-        playerType = PlayerTypes.None;
+        Object.DontDestroyOnLoad(gameObject);
+        
 
     }
 
@@ -28,51 +27,10 @@ public class NetworkPlayer : MonoBehaviour
         //Debug.Log(playerType + " is captain: " + (playerType == PlayerTypes.Captain) + " IsCaptain: " + isPlayerCaptain());
     }
 
-    public PlayerTypes getPlayerType()
+   
+    public GameState.PlayerTypes GetPlayerType()
     {
-        return playerType;
-    }
-
-    public void setPlayerCaptain()
-    {
-
-
-        //Debug.Log("Set Player Captain");
-        playerType = PlayerTypes.Captain;
-    }
-
-    public bool isPlayerCaptain()
-    {
-        return (playerType == PlayerTypes.Captain);
-    }
-
-    public void setPlayerNavigator()
-    {
-
-        // Debug.Log("Set Player Navigator");
-        playerType = PlayerTypes.Navigator;
-        Camera.main.gameObject.GetComponent<CameraBehaviour>().ChangeCameraToNavigator();
-
-        Camera.main.GetComponent<References>().navigatorInterface.SetActive(true);
-        Camera.main.GetComponent<References>().energyBar.GetComponent<EnergyBar>().Initialize();
-
-        //transform.Find("Interface Navigator").gameObject.SetActive(true);
-        //GameObject.Find("EnergyBar").GetComponent<EnergyBar>().Initialize();
-    }
-
-    public bool isPlayerNavigator()
-    {
-        return (playerType == PlayerTypes.Navigator);
-    }
-
-    public void setPlayerNavigatorAR()
-    {
-        playerType = PlayerTypes.NavigatorAR;
-    }
-
-    public bool isPlayerNavigatorAR()
-    {
-        return (playerType == PlayerTypes.NavigatorAR);
+        return GameState.Instance.getPlayerType();
     }
 
     public void removeCanvas()

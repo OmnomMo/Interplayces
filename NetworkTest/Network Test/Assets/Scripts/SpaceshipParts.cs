@@ -92,7 +92,10 @@ public class SpaceshipParts : MonoBehaviour {
         center.x = center.x / nParts;
         center.y = center.y / nParts;
 
-        partsParent.transform.localPosition = new Vector3(-1*center.x,0, -1 * center.y);
+        if (nParts > 0)
+        {
+            partsParent.transform.localPosition = new Vector3(-1 * center.x, 0, -1 * center.y);
+        }
     }
 
     // Use this for initialization

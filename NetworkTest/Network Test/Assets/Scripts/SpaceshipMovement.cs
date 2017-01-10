@@ -27,9 +27,9 @@ public class SpaceshipMovement : NetworkBehaviour {
         
 
 
-            if (NetworkPlayer.Instance.isPlayerCaptain())
+            if (GameState.Instance.isPlayerCaptain())
             {
-
+                Debug.Log("Control enabled");
                 ////Debug.Log("CaptainMyCaptain");
 
                 //var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
@@ -44,11 +44,11 @@ public class SpaceshipMovement : NetworkBehaviour {
 
                 bool noVerticalInput = Input.GetAxis("VerticalKeyboard") < 0.1f && Input.GetAxis("VerticalKeyboard") > -0.1f;
 
-                Debug.Log("" + noHorizontalInput + noVerticalInput);
+               // Debug.Log("" + noHorizontalInput + noVerticalInput);
 
                 if (!(noHorizontalInput && noVerticalInput))
                 {
-                    Debug.Log("Rotation changing maybe!");
+                   // Debug.Log("Rotation changing maybe!");
                     rotationTarget.transform.position = new Vector3(Camera.main.transform.position.x + 5 * Input.GetAxis("HorizontalKeyboard"), transform.position.y, Camera.main.transform.position.z + 5 * Input.GetAxis("VerticalKeyboard"));
                     transform.LookAt(rotationTarget.transform);
                 }

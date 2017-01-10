@@ -18,7 +18,7 @@ public class HighlightPlanet : MonoBehaviour {
     void OnMouseDown()
     {
 
-        if (NetworkPlayer.Instance.isPlayerNavigator())
+        if (GameState.Instance.isPlayerNavigator())
         {
 
             Debug.Log("Click on Planet");

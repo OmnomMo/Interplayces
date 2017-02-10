@@ -300,7 +300,7 @@ public class SpaceshipParts : MonoBehaviour {
             //Pythagoras. offset through parent (partsParent) has to be aknowledge
             float dNew = (Mathf.Pow(p.transform.localPosition.x + p.transform.parent.localPosition.x, 2) + Mathf.Pow(p.transform.localPosition.y + p.transform.parent.localPosition.y, 2));
 
-            //Debug.Log(dNew + ": " + (p.transform.localPosition.x + p.transform.parent.localPosition.x) + "/" + (p.transform.localPosition.y + p.transform.parent.localPosition.y));
+            Debug.Log(dNew + ": " + (p.transform.localPosition.x + p.transform.parent.localPosition.x) + "/" + (p.transform.localPosition.y + p.transform.parent.localPosition.y));
 
             if (dNew > d)
             {

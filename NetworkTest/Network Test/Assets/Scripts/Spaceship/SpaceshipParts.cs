@@ -10,6 +10,7 @@ public class SpaceshipParts : MonoBehaviour {
     public GameObject[] allBatteries;
     public GameObject[] allThrusters;
     public GameObject[] allShields;
+    public GameObject[] allScanners;
 
     public GameObject[,] parts;
 
@@ -202,6 +203,38 @@ public class SpaceshipParts : MonoBehaviour {
     }
 
 
+    public GameObject[] GetScanners()
+    {
+        GameObject[] allParts = GetActiveParts();
+
+        //Debug.Log("N Parts: " + allParts.Length);
+
+        int nScanners = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceShip_ScannerPart>() != null)
+            {
+                nScanners++;
+            }
+        }
+
+        GameObject[] scanners = new GameObject[nScanners];
+        int i = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceShip_ScannerPart>() != null)
+            {
+                scanners[i++] = part;
+            }
+        }
+
+        return scanners;
+
+    }
+
+
     public void CenterPivot()
     {
 
@@ -248,6 +281,7 @@ public class SpaceshipParts : MonoBehaviour {
         allBatteries = GetBatteries();
         allThrusters = GetThrusters();
         allShields = GetShields();
+        allScanners = GetScanners();
     }
 
     public float getEnergy()
@@ -297,10 +331,10 @@ public class SpaceshipParts : MonoBehaviour {
         foreach (GameObject p in parts)
         {
 
-            //Pythagoras. offset through parent (partsParent) has to be aknowledge
-            float dNew = (Mathf.Pow(p.transform.localPosition.x + p.transform.parent.localPosition.x, 2) + Mathf.Pow(p.transform.localPosition.y + p.transform.parent.localPosition.y, 2));
+            //Pythagoras. offset through parent (partsParent) has to be aknowledged
+            float dNew = (Mathf.Pow(p.transform.localPosition.x + p.transform.parent.localPosition.x, 2) + Mathf.Pow(p.transform.localPosition.z + p.transform.parent.localPosition.z, 2));
 
-            Debug.Log(dNew + ": " + (p.transform.localPosition.x + p.transform.parent.localPosition.x) + "/" + (p.transform.localPosition.y + p.transform.parent.localPosition.y));
+           // Debug.Log(dNew + ": " + (p.transform.localPosition.x + p.transform.parent.localPosition.x) + "/" + (p.transform.localPosition.z + p.transform.parent.localPosition.z));
 
             if (dNew > d)
             {

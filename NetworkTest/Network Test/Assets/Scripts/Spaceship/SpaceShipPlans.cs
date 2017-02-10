@@ -73,8 +73,16 @@ public class SpaceShipPlans : MonoBehaviour {
 
             SpaceshipParts.Instance.OrganizeParts();
 
-            SpaceshipGameplay.Instance.energyCapacity = SpaceshipParts.Instance.getCapacity();
+            SpaceshipGameplay.Instance.energyCapacity = SpaceshipParts.Instance.getBatteryCapacity();
             SpaceshipGameplay.Instance.energy = SpaceshipGameplay.Instance.energyCapacity;
+
+            SpaceshipGameplay.Instance.shieldCapacity = SpaceshipParts.Instance.getShieldCapacity();
+            SpaceshipGameplay.Instance.shield = SpaceshipGameplay.Instance.shieldCapacity;
+
+            SpaceshipGameplay.Instance.hitPoints = SpaceshipGameplay.Instance.maxHitpoints;
+
+            float shieldScale = SpaceshipParts.Instance.getShipRadius() * 2 + 3;
+            SpaceshipParts.Instance.shieldObject.transform.localScale = new Vector3(shieldScale, shieldScale, shieldScale);
 
 
         }

@@ -6,8 +6,18 @@ public class SpaceshipGameplay : MonoBehaviour {
 
 
     public int hitPoints;
+    public int maxHitpoints;
+    public float shieldCapacity;
+    public float shield;
     public float energy;
     public float energyCapacity;
+
+
+
+    public float shieldRechargeRate;
+    public float shieldEnergyDrain;
+    public Material shieldMaterial;
+    
 
     private static SpaceshipGameplay instance;
     public static SpaceshipGameplay Instance
@@ -23,18 +33,69 @@ public class SpaceshipGameplay : MonoBehaviour {
         instance = this;
 	}
 
-    public void DrainEnergy(float nEnergy)
+    public bool DrainEnergy(float nEnergy)
     {
-        energy -= nEnergy;
-        
-        if (energy < 0)
+        if (nEnergy > energy)
         {
-            energy = 0;
+            return false;
         }
+        else
+        {
 
-        UpdateBatteries();
+            energy -= nEnergy;
+
+            if (energy < 0)
+            {
+                energy = 0;
+            }
+
+            UpdateBatteries();
+            return true;
+        }
     }
 	
+    public void RechargeShield()
+    {
+        if (shield < shieldCapacity)
+        {
+            if (DrainEnergy(shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length))
+            {
+                shield += shieldRechargeRate * SpaceshipParts.Instance.allShields.Length;
+
+                if (shield > shieldCapacity)
+                {
+                    shield = shieldCapacity;
+                }
+            }
+        }
+    }
+
+    public void DealShieldDamage(float d)
+    {
+        shield -= (int)d;
+
+        if (shield <= 0)
+        {
+            DealHullDamage(shield * -1);
+            shield = 0;
+        }
+    }
+
+    public void UpdateShieldOpacity()
+    {
+        shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, (float) (0.5 * (shield / shieldCapacity)));
+    }
+
+    public void DealHullDamage(float d)
+    {
+        hitPoints -= (int)d;
+
+        if (hitPoints <= 0)
+        {
+            hitPoints = 0;
+        }
+    }
+
     public void UpdateBatteries()
     {
         GameObject[] allBatteries = SpaceshipParts.Instance.allBatteries;
@@ -49,6 +110,7 @@ public class SpaceshipGameplay : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-		
+        RechargeShield();
+        UpdateShieldOpacity();
 	}
 }

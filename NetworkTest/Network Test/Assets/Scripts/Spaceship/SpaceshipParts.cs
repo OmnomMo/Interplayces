@@ -9,8 +9,11 @@ public class SpaceshipParts : MonoBehaviour {
     public GameObject partsParent;
     public GameObject[] allBatteries;
     public GameObject[] allThrusters;
+    public GameObject[] allShields;
 
     public GameObject[,] parts;
+
+    public GameObject shieldObject;
 
     private static SpaceshipParts instance;
     public static SpaceshipParts Instance
@@ -166,6 +169,39 @@ public class SpaceshipParts : MonoBehaviour {
 
     }
 
+
+    public GameObject[] GetShields()
+    {
+        GameObject[] allParts = GetActiveParts();
+
+        //Debug.Log("N Parts: " + allParts.Length);
+
+        int nShields = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceShipShieldPart>() != null)
+            {
+                nShields++;
+            }
+        }
+
+        GameObject[] shields = new GameObject[nShields];
+        int i = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceShipShieldPart>() != null)
+            {
+                shields[i++] = part;
+            }
+        }
+
+        return shields;
+
+    }
+
+
     public void CenterPivot()
     {
 
@@ -211,6 +247,7 @@ public class SpaceshipParts : MonoBehaviour {
     {
         allBatteries = GetBatteries();
         allThrusters = GetThrusters();
+        allShields = GetShields();
     }
 
     public float getEnergy()
@@ -225,7 +262,7 @@ public class SpaceshipParts : MonoBehaviour {
         return energy;
     }
 
-    public float getCapacity()
+    public float getBatteryCapacity()
     {
         float capacity = 0;
 
@@ -235,6 +272,43 @@ public class SpaceshipParts : MonoBehaviour {
         }
 
         return capacity;
+    }
+
+    public float getShieldCapacity()
+    {
+        float capacity = 0;
+
+        foreach (GameObject b in allShields)
+        {
+            capacity += b.GetComponent<SpaceShipShieldPart>().shieldCapacity;
+        }
+
+        return capacity;
+    }
+
+    public float getShipRadius()
+    {
+        GameObject[] parts = GetActiveParts();
+
+        float d = 0;
+
+
+        //get part furthest from center
+        foreach (GameObject p in parts)
+        {
+
+            //Pythagoras. offset through parent (partsParent) has to be aknowledge
+            float dNew = (Mathf.Pow(p.transform.localPosition.x + p.transform.parent.localPosition.x, 2) + Mathf.Pow(p.transform.localPosition.y + p.transform.parent.localPosition.y, 2));
+
+            //Debug.Log(dNew + ": " + (p.transform.localPosition.x + p.transform.parent.localPosition.x) + "/" + (p.transform.localPosition.y + p.transform.parent.localPosition.y));
+
+            if (dNew > d)
+            {
+                d = dNew;
+            }
+        }
+
+        return Mathf.Sqrt(d);
     }
 
    

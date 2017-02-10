@@ -10,13 +10,29 @@ public class SpaceshipMovement : NetworkBehaviour {
     public float thrust;
     [Range(0.0f, 10.0f)]
     public float thrustMultiplier;
+
+    public GameObject[] thrusters;
+    public GameObject[] allParts;
+
     bool isAccelerating;
     public GameObject rotationTarget;
+    public GameObject rotationTarget2;
+    public float rotationSpeed;
+    public float drainPerFrame = 1f;
 
-	// Use this for initialization
-	void Start () {
-	
+    public bool rotateVersion02;
+
+    // Use this for initialization
+    void Start () {
+        allParts = new GameObject[0];
+        StartCoroutine(collectThrusters());
 	}
+
+    public IEnumerator collectThrusters()
+    {
+        yield return null;
+        thrusters = GetComponent<SpaceshipParts>().allThrusters;
+    }
 
     // Update is called once per frame
     void Update() {
@@ -26,31 +42,34 @@ public class SpaceshipMovement : NetworkBehaviour {
 
         
 
-
+            //Only captain may control spaceship
             if (GameState.Instance.isPlayerCaptain())
             {
-                Debug.Log("Control enabled");
-                ////Debug.Log("CaptainMyCaptain");
 
-                //var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-                ////isAccelerating = Input.GetAxis("Vertical") > 0;
+               
 
-                //transform.Rotate(0, x, 0);
-                ////transform.Translate(0, 0, z);
+                float deadZone = 0.4f;
 
-                bool noHorizontalInput = Input.GetAxis("HorizontalKeyboard") < 0.1f && Input.GetAxis("HorizontalKeyboard") > -0.1f;
+                bool noHorizontalInput = Input.GetAxis("HorizontalKeyboard") < deadZone && Input.GetAxis("HorizontalKeyboard") > deadZone * -1;
+                bool noVerticalInput = Input.GetAxis("VerticalKeyboard") < deadZone && Input.GetAxis("VerticalKeyboard") > deadZone * -1;
 
-                
 
-                bool noVerticalInput = Input.GetAxis("VerticalKeyboard") < 0.1f && Input.GetAxis("VerticalKeyboard") > -0.1f;
-
-               // Debug.Log("" + noHorizontalInput + noVerticalInput);
-
-                if (!(noHorizontalInput && noVerticalInput))
+                if (!rotateVersion02)
                 {
-                   // Debug.Log("Rotation changing maybe!");
-                    rotationTarget.transform.position = new Vector3(Camera.main.transform.position.x + 5 * Input.GetAxis("HorizontalKeyboard"), transform.position.y, Camera.main.transform.position.z + 5 * Input.GetAxis("VerticalKeyboard"));
-                    transform.LookAt(rotationTarget.transform);
+                    //If there is any keyboard input at all, place rotationtarget in direction of input, look at direction rotation target is transformed to
+                    if (!(noHorizontalInput && noVerticalInput))
+                    {
+                        // Debug.Log("Rotation changing maybe!");
+                        rotationTarget.transform.position = new Vector3(Camera.main.transform.position.x + 5 * Input.GetAxis("HorizontalKeyboard"), transform.position.y, Camera.main.transform.position.z + 5 * Input.GetAxis("VerticalKeyboard"));
+                        transform.LookAt(rotationTarget.transform);
+                    }
+                } else
+                {
+                    
+
+                    rotationTarget2.transform.Rotate(new Vector3(0, rotationSpeed * Input.GetAxis("HorizontalKeyboard"), 0));
+                    transform.LookAt(rotationTarget2.transform.GetChild(0));
+
                 }
 
 
@@ -74,9 +93,58 @@ public class SpaceshipMovement : NetworkBehaviour {
 
     void FixedUpdate()
     {
-        if (isAccelerating)
+
+        rotationTarget2.transform.position = transform.position;
+
+        if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * thrust);
+            GetComponent<Rigidbody>().AddForce(transform.forward * thrust * thrusters.Length);
+
+            SpaceshipGameplay.Instance.DrainEnergy(thrust * thrusters.Length * drainPerFrame);
+
+            foreach (GameObject thruster in thrusters)
+            {
+                thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
+            } 
+        } else
+        {
+            foreach (GameObject thruster in thrusters)
+            {
+                thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
+            }
         }
     }
+
+    //private GameObject[] GetThrusters()
+    //{
+    //    allParts = GetComponent<SpaceshipParts>().GetActiveParts();
+
+    //    Debug.Log("N Parts: " + allParts.Length);
+
+    //    int nThrusters = 0;
+
+    //    foreach (GameObject part in allParts)
+    //    {
+    //        if (part.GetComponent<SpaceShipPart_Thruster>() != null)
+    //        {
+    //            nThrusters++;
+    //        }
+    //    }
+
+    //    GameObject[] thrusters = new GameObject[nThrusters];
+    //    int i = 0;
+
+    //    foreach (GameObject part in allParts)
+    //    {
+    //        if (part.GetComponent<SpaceShipPart_Thruster>() != null)
+    //        {
+    //            thrusters[i++] = part;
+    //        }
+    //    }
+
+    //    return thrusters;
+
+    //}
+
+    
 }

@@ -43,13 +43,13 @@ public class EndBuilding : NetworkBehaviour {
                 }
             }
 
-            Debug.Log(sPart);
+            //Debug.Log(sPart);
 
             SpaceShipPlans.Instance.AddPart(sPart.getID(), sPart.GetPosX(), sPart.GetPosY());
             currentNode = currentNode.Next;
         }
 
-        Debug.Log(SpaceShipPlans.Instance.ToString());
+       // Debug.Log(SpaceShipPlans.Instance.ToString());
 
         GameObject.Find("NetworkManager").GetComponent<NetworkManager>().ServerChangeScene("Main");
         // UnityEngine.SceneManagement.SceneManager.LoadScene(2);

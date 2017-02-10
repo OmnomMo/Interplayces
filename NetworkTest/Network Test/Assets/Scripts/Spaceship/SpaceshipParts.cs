@@ -7,6 +7,8 @@ public class SpaceshipParts : MonoBehaviour {
 
     public GameObject[] partPrefabs;
     public GameObject partsParent;
+    public GameObject[] allBatteries;
+    public GameObject[] allThrusters;
 
     public GameObject[,] parts;
 
@@ -65,6 +67,104 @@ public class SpaceshipParts : MonoBehaviour {
         
     }
 
+    public GameObject[] GetActiveParts()
+    {
+        //Debug.Log("GetActiveSpaceshipparts!");
+
+        int nParts = 0;
+
+        for (int x = 0; x < parts.GetLength(0); x++)
+        {
+            for (int y = 0; y < parts.GetLength(1); y++)
+            {
+                if (parts[x, y] != null)
+                {
+                    nParts++;
+                }
+            }
+        }
+
+        if (nParts > 0)
+        {
+            GameObject[] activeParts = new GameObject[nParts];
+            int i = 0;
+
+            for (int x = 0; x < parts.GetLength(0); x++)
+            {
+                for (int y = 0; y < parts.GetLength(1); y++)
+                {
+                    if (parts[x, y] != null)
+                    {
+                        activeParts[i++] = parts[x, y];
+                    }
+                }
+            }
+            return activeParts;
+        }
+        else { return null; }
+    }
+
+    public GameObject[] GetThrusters()
+    {
+        GameObject[] allParts = GetActiveParts();
+
+        Debug.Log("N Parts: " + allParts.Length);
+
+        int nThrusters = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceShipPart_Thruster>() != null)
+            {
+                nThrusters++;
+            }
+        }
+
+        GameObject[] thrusters = new GameObject[nThrusters];
+        int i = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceShipPart_Thruster>() != null)
+            {
+                thrusters[i++] = part;
+            }
+        }
+
+        return thrusters;
+
+    }
+
+    public GameObject[] GetBatteries()
+    {
+        GameObject[] allParts = GetActiveParts();
+
+        //Debug.Log("N Parts: " + allParts.Length);
+
+        int nBatteries = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceshipBatteryPart>() != null)
+            {
+                nBatteries++;
+            }
+        }
+
+        GameObject[] batteries = new GameObject[nBatteries];
+        int i = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceshipBatteryPart>() != null)
+            {
+                batteries[i++] = part;
+            }
+        }
+
+        return batteries;
+
+    }
 
     public void CenterPivot()
     {
@@ -100,10 +200,51 @@ public class SpaceshipParts : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        parts = new GameObject[5,7];
-        instance = this;
         SpaceShipPlans.Instance.BuildSpaceShip();
-	}
+        Debug.Log("BuildSpaceship!");
+
+        
+      
+    }
+
+    public void OrganizeParts()
+    {
+        allBatteries = GetBatteries();
+        allThrusters = GetThrusters();
+    }
+
+    public float getEnergy()
+    {
+        float energy = 0;
+
+        foreach (GameObject b in allBatteries)
+        {
+            energy += GetComponent<SpaceshipBatteryPart>().energy;
+        }
+
+        return energy;
+    }
+
+    public float getCapacity()
+    {
+        float capacity = 0;
+
+        foreach (GameObject b in allBatteries)
+        {
+            capacity += b.GetComponent<SpaceshipBatteryPart>().capacity;
+        }
+
+        return capacity;
+    }
+
+   
+
+    void Awake()
+    {
+        parts = new GameObject[5, 7];
+        instance = this;
+     
+    }
 	
 	// Update is called once per frame
 	void Update () {

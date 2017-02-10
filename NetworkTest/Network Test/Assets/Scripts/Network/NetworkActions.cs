@@ -41,7 +41,7 @@ public class NetworkActions : NetworkBehaviour {
     [Command]
     public void CmdDragSphere (GameObject sphere)
     {
-        Debug.Log("Drag!");
+        //Debug.Log("Drag!");
         sphere.GetComponent<DragAround>().dragged = true;
         //sphere.GetComponent<DragAround>().RpcStartDrag();
     }

@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceshipBatteryPart : MonoBehaviour, ShipPart {
 
-    public float energy { get; set; }
+    public float energy;
+
+    public float capacity;
+
+    public GameObject display;
 
     public int ID;
     public int posX;
@@ -13,13 +18,15 @@ public class SpaceshipBatteryPart : MonoBehaviour, ShipPart {
     // Use this for initialization
     void Start()
     {
-
+        energy = capacity;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        float percentage = (energy / capacity) * 100;
+        string percString = percentage.ToString("0.0");
+        display.GetComponent<Text>().text = percString + "%";
     }
 
     public void SetID(int newID)

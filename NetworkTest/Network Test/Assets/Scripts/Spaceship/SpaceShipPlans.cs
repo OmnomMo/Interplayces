@@ -70,7 +70,13 @@ public class SpaceShipPlans : MonoBehaviour {
             }
 
             SpaceshipParts.Instance.CenterPivot();
-            
+
+            SpaceshipParts.Instance.OrganizeParts();
+
+            SpaceshipGameplay.Instance.energyCapacity = SpaceshipParts.Instance.getCapacity();
+            SpaceshipGameplay.Instance.energy = SpaceshipGameplay.Instance.energyCapacity;
+
+
         }
     }
 }

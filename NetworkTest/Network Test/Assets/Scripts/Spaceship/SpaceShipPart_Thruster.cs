@@ -7,6 +7,7 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
 
     public float maxPower;
     public bool isFiring;
+    public GameObject fireEffect;
 
     public int ID;
     public int posX;
@@ -14,8 +15,26 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
 
     // Use this for initialization
     void Start () {
-		
+        fireEffect.SetActive(isFiring);
 	}
+
+    public void Fire()
+    {
+        if (!isFiring)
+        {
+            isFiring = true;
+            fireEffect.SetActive(true);
+        }
+    }
+
+    public void StopFire()
+    {
+        if (isFiring)
+        {
+            isFiring = false;
+            fireEffect.SetActive(false);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {

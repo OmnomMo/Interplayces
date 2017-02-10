@@ -6,6 +6,8 @@ public class FollowSpaceship : MonoBehaviour {
     public Transform spaceship;
     Vector3 camPos;
 
+    public bool followRotation;
+
 	// Use this for initialization
 	void Start () {
 
@@ -17,14 +19,24 @@ public class FollowSpaceship : MonoBehaviour {
     void Update()
     {
 
-        camPos.x = spaceship.position.x;
-        if (GameState.Instance.isPlayerCaptain())
+        if (followRotation)
         {
-            camPos.y = 40;
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, spaceship.transform.eulerAngles.y, transform.eulerAngles.z); 
         }
-        if (GameState.Instance.isPlayerNavigator())
+
+        camPos.x = spaceship.position.x;
+
+
+        if (GameState.Instance != null)
         {
-            camPos.y = 100;
+            if (GameState.Instance.isPlayerCaptain())
+            {
+                camPos.y = 40;
+            }
+            if (GameState.Instance.isPlayerNavigator())
+            {
+                camPos.y = 100;
+            }
         }
 
         camPos.z = spaceship.position.z;

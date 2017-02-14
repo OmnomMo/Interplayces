@@ -5,14 +5,19 @@ using UnityEngine.Networking;
 
 public class SpaceshipGameplay : NetworkBehaviour {
 
-
+    //hitpoint and max hitpoints of spaceship
     public int hitPoints;
     public int maxHitpoints;
+
+    //shield capacity (calculated sum of all capacities of all active shield parts)
     public float shieldCapacity;
     public float shield;
+
+    //Max energy (energy of all batteries)
     public float energy;
     public float energyCapacity;
 
+    //Power assigned to all systems by navigator
     public float thrustPower;
     public float shieldPower;
     public float scanPower;
@@ -22,6 +27,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public float shieldRechargeRate;
     public float shieldEnergyDrain;
     public Material shieldMaterial;
+    public GameObject shieldObject;
     
 
     private static SpaceshipGameplay instance;
@@ -115,6 +121,13 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public void UpdateShieldOpacity()
     {
         shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, (float) (0.5 * (shield / shieldCapacity)));
+        if (shield <= 0.01f)
+        {
+            shieldObject.GetComponent<SphereCollider>().enabled = false;
+        } else
+        {
+            shieldObject.GetComponent<SphereCollider>().enabled = true;
+        }
     }
 
     public void DealHullDamage(float d)

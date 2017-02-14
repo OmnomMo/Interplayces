@@ -46,6 +46,7 @@ public class DragAround : NetworkBehaviour {
         if (other.gameObject.tag == "PlayingField")
         {
             partContainer.GetComponent<FollowSphere>().isOnField = false;
+            PlayingGrid.Instance.RemovePiece(partContainer);
         }
     }
 

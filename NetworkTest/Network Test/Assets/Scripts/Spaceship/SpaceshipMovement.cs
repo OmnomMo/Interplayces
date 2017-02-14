@@ -10,6 +10,7 @@ public class SpaceshipMovement : NetworkBehaviour {
     //public float thrust;
     //[Range(0.0f, 10.0f)]
     public float thrustMultiplier;
+    public float DEBUGThrustBonus;
 
     public GameObject[] thrusters;
     public GameObject[] allParts;
@@ -90,9 +91,17 @@ public class SpaceshipMovement : NetworkBehaviour {
 
         rotationTarget2.transform.position = transform.position;
 
+        //Debug Acceleration without Navigator
+
+        if (isAccelerating)
+        {
+            GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier);
+        }
+
+
         if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length);
+            GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length  );
 
             SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
 

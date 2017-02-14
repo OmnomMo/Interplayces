@@ -33,7 +33,7 @@ public class FollowSpaceship : MonoBehaviour {
         {
             if (GameState.Instance.isPlayerCaptain())
             {
-                camPos.y = 40;
+                camPos.y = 50;
             }
             if (GameState.Instance.isPlayerNavigator())
             {

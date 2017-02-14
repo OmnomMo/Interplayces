@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class SpaceshipGameplay : NetworkBehaviour {
 
     //hitpoint and max hitpoints of spaceship
+
+    [SyncVar]
     public int hitPoints;
     public int maxHitpoints;
 
     //shield capacity (calculated sum of all capacities of all active shield parts)
+    [SyncVar]
     public float shieldCapacity;
     public float shield;
 
@@ -28,6 +32,8 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public float shieldEnergyDrain;
     public Material shieldMaterial;
     public GameObject shieldObject;
+
+    public Text hitpointsDisplay;
     
 
     private static SpaceshipGameplay instance;
@@ -44,6 +50,18 @@ public class SpaceshipGameplay : NetworkBehaviour {
         instance = this;
 	}
 
+    // Update is called once per frame
+    void Update()
+    {
+
+        hitpointsDisplay.text = hitPoints.ToString() + " HP";
+
+        RechargeShield();
+        UpdateShieldOpacity();
+
+        ScanPower();
+
+    }
 
     [ClientRpc]
     internal void RpcSetThrust(float energy)
@@ -152,14 +170,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
             }
         }
     }
-	// Update is called once per frame
-	void Update () {
-        RechargeShield();
-        UpdateShieldOpacity();
 
-        ScanPower();
-        
-	}
 
     public void ScanPower()
     {

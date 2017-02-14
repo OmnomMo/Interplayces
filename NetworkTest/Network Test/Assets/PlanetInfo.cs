@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class PlanetInfo : MonoBehaviour {
 
+
+    public string planetName;
     public string planetInfo;
     public Text infoTextObject;
+    public Text nameTextObject;
     public Collider sphereOfInfluence;
     public Canvas planetCanvas;
 
@@ -15,6 +18,7 @@ public class PlanetInfo : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         infoTextObject.text = planetInfo;
+        nameTextObject.text = planetName;
 	}
 
     public void ShowInfo()

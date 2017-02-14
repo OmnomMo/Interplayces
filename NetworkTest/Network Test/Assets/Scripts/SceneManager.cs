@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class SceneManager : MonoBehaviour {
 
@@ -24,6 +25,11 @@ public class SceneManager : MonoBehaviour {
             }
         }
 
+    }
+
+    public void RebuildSpaceShip()
+    {
+        GameObject.Find("MultiplayerSetup").GetComponent<NetworkLobbyManager>().ServerChangeScene("SpaceShipEditor");
     }
 	
 	// Update is called once per frame

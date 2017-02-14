@@ -56,6 +56,7 @@ public class EnterPlanetSOI : MonoBehaviour {
                 planet = other.gameObject.transform.parent.gameObject;
                 planet.GetComponent<PlanetInfo>().ShowInfo();
                 planet.GetComponent<PlanetInfo>().playerStay = true;
+                Score.Instance.AddScanToPoints(planet);
             }
         }
     }

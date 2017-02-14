@@ -6,6 +6,8 @@ public class FollowSpaceship : MonoBehaviour {
     public Transform spaceship;
     Vector3 camPos;
 
+    public float camHeight;
+
     public bool followRotation;
 
 	// Use this for initialization
@@ -35,7 +37,7 @@ public class FollowSpaceship : MonoBehaviour {
             }
             if (GameState.Instance.isPlayerNavigator())
             {
-                camPos.y = 100;
+                camPos.y = camHeight;
             }
         }
 

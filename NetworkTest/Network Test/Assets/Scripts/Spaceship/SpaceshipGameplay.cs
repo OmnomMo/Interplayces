@@ -1,22 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class SpaceshipGameplay : MonoBehaviour {
+public class SpaceshipGameplay : NetworkBehaviour {
 
-
+    //hitpoint and max hitpoints of spaceship
     public int hitPoints;
     public int maxHitpoints;
+
+    //shield capacity (calculated sum of all capacities of all active shield parts)
     public float shieldCapacity;
     public float shield;
+
+    //Max energy (energy of all batteries)
     public float energy;
     public float energyCapacity;
 
+    //Power assigned to all systems by navigator
+    public float thrustPower;
+    public float shieldPower;
+    public float scanPower;
 
+    public float scanEnergyDrain;
 
     public float shieldRechargeRate;
     public float shieldEnergyDrain;
     public Material shieldMaterial;
+    public GameObject shieldObject;
     
 
     private static SpaceshipGameplay instance;
@@ -33,6 +44,39 @@ public class SpaceshipGameplay : MonoBehaviour {
         instance = this;
 	}
 
+
+    [ClientRpc]
+    internal void RpcSetThrust(float energy)
+    {
+        thrustPower = energy;
+    }
+
+    [ClientRpc]
+    internal void RpcSetShield(float energy)
+    {
+        shieldPower = energy;
+    }
+
+    [ClientRpc]
+    internal void RpcSetScan(float energy)
+    {
+        scanPower = energy;
+    }
+
+    [ClientRpc]
+    internal void RpcDrainPower(float amount)
+    {
+        energy -= amount;
+
+        if (energy < 0)
+        {
+            energy = 0;
+        }
+
+        UpdateBatteries();
+    }
+
+
     public bool DrainEnergy(float nEnergy)
     {
         if (nEnergy > energy)
@@ -41,32 +85,25 @@ public class SpaceshipGameplay : MonoBehaviour {
         }
         else
         {
-
-            energy -= nEnergy;
-
-            if (energy < 0)
-            {
-                energy = 0;
-            }
-
-            UpdateBatteries();
+            NetworkActions.Instance.CmdDrainPower(nEnergy);
             return true;
         }
     }
 	
     public void RechargeShield()
     {
-        if (shield < shieldCapacity)
+        if (shield < shieldCapacity * shieldPower)
         {
             if (DrainEnergy(shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length))
             {
                 shield += shieldRechargeRate * SpaceshipParts.Instance.allShields.Length;
 
-                if (shield > shieldCapacity)
-                {
-                    shield = shieldCapacity;
-                }
+             
             }
+        }
+        if (shield > shieldCapacity * shieldPower)
+        {
+            shield = shieldCapacity * shieldPower;
         }
     }
 
@@ -84,6 +121,13 @@ public class SpaceshipGameplay : MonoBehaviour {
     public void UpdateShieldOpacity()
     {
         shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, (float) (0.5 * (shield / shieldCapacity)));
+        if (shield <= 0.01f)
+        {
+            shieldObject.GetComponent<SphereCollider>().enabled = false;
+        } else
+        {
+            shieldObject.GetComponent<SphereCollider>().enabled = true;
+        }
     }
 
     public void DealHullDamage(float d)
@@ -112,5 +156,24 @@ public class SpaceshipGameplay : MonoBehaviour {
 	void Update () {
         RechargeShield();
         UpdateShieldOpacity();
+
+        ScanPower();
+        
 	}
+
+    public void ScanPower()
+    {
+
+        if (GameState.Instance.isPlayerNavigator())
+        {
+            if (DrainEnergy(scanEnergyDrain * scanPower * SpaceshipParts.Instance.allScanners.Length))
+            {
+                Camera.main.GetComponent<FollowSpaceship>().camHeight = 100 + Mathf.Pow((150 * scanPower * SpaceshipParts.Instance.allScanners.Length), 1.25f);
+            }
+            else
+            {
+                Camera.main.GetComponent<FollowSpaceship>().camHeight = 100;
+            }
+        }
+    }
 }

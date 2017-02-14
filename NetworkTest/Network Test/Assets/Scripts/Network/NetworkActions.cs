@@ -61,8 +61,26 @@ public class NetworkActions : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdSetThrust(int energy)
+    public void CmdSetThrust(float energy)
     {
-        Camera.main.GetComponent<References>().spaceship.GetComponent<SpaceshipMovement>().RpcSetThrust(energy);
+        SpaceshipGameplay.Instance.RpcSetThrust(energy);
+    }
+
+    [Command]
+    public void CmdSetShield(float energy)
+    {
+        SpaceshipGameplay.Instance.RpcSetShield(energy);
+    }
+
+    [Command]
+    public void CmdSetScan(float energy)
+    {
+        SpaceshipGameplay.Instance.RpcSetScan(energy);
+    }
+
+    [Command]
+    public void CmdDrainPower(float amount)
+    {
+        SpaceshipGameplay.Instance.RpcDrainPower(amount);
     }
 }

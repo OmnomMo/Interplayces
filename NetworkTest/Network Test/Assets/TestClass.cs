@@ -44,7 +44,8 @@ public class TestClass: MonoBehaviour {
         if (Input.GetButtonDown("DebugButton"))
         {
             Debug.Log("Debug!");
-            EndBuilding.Instance.EndPhase();
+            SpaceshipGameplay.Instance.DealShieldDamage(7);
+            //EndBuilding.Instance.EndPhase();
         }
     }
 }

@@ -7,9 +7,10 @@ using System;
 public class SpaceshipMovement : NetworkBehaviour {
 
     
-    public float thrust;
-    [Range(0.0f, 10.0f)]
+    //public float thrust;
+    //[Range(0.0f, 10.0f)]
     public float thrustMultiplier;
+    public float DEBUGThrustBonus;
 
     public GameObject[] thrusters;
     public GameObject[] allParts;
@@ -85,22 +86,24 @@ public class SpaceshipMovement : NetworkBehaviour {
         }
     }
 
-    [ClientRpc]
-    internal void RpcSetThrust(int energy)
-    {
-        thrust = energy;
-    }
-
     void FixedUpdate()
     {
 
         rotationTarget2.transform.position = transform.position;
 
+        //Debug Acceleration without Navigator
+
+        if (isAccelerating)
+        {
+            GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier);
+        }
+
+
         if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * thrust * thrusters.Length);
+            GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length  );
 
-            SpaceshipGameplay.Instance.DrainEnergy(thrust * thrusters.Length * drainPerFrame);
+            SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
 
             foreach (GameObject thruster in thrusters)
             {

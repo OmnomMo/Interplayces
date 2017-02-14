@@ -129,7 +129,7 @@ public class PlayingGrid : MonoBehaviour {
             }
         }
 
-        return false; ;
+        return false; 
     }
 
 
@@ -151,6 +151,22 @@ public class PlayingGrid : MonoBehaviour {
     public bool IsEmpty(Vector2 pos)
     {
         return IsEmpty((int) pos.x, (int) pos.y);
+    }
+
+    public bool HasPieces()
+    {
+        for (int x = 0; x < gridColumns; x++)
+        {
+            for (int y = 0; y < gridRows; y++)
+            {
+                if (grid[x, y] != null)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false; 
     }
 
     public GameObject GetPiece(int posX, int posY)

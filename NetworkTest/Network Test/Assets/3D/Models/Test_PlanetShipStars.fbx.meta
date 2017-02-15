@@ -1,17 +1,37 @@
 fileFormatVersion: 2
-guid: 5df67717a22645e4ea80358ca30aa14a
-timeCreated: 1464782909
+guid: 7340cdde41d03274cbbee166e8b12248
+timeCreated: 1487094252
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: pCube2
-    400000: //RootNode
-    400002: pCube2
-    2300000: pCube2
-    3300000: pCube2
-    4300000: pCube2
+    100000: Compound_2
+    100002: Rectangle_3
+    100004: Sphere
+    100006: Sphere_1
+    100008: Sphere_2
+    100010: //RootNode
+    400000: Compound_2
+    400002: Rectangle_3
+    400004: Sphere
+    400006: Sphere_1
+    400008: Sphere_2
+    400010: //RootNode
+    2300000: Compound_2
+    2300002: Rectangle_3
+    2300004: Sphere
+    2300006: Sphere_1
+    2300008: Sphere_2
+    3300000: Compound_2
+    3300002: Rectangle_3
+    3300004: Sphere
+    3300006: Sphere_1
+    3300008: Sphere_2
+    4300000: Sphere
+    4300002: Sphere_1
+    4300004: Rectangle_3
+    4300006: Sphere_2
+    4300008: Compound_2
   materials:
     importMaterials: 1
     materialName: 0
@@ -19,7 +39,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -36,7 +56,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.4
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -58,6 +78,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -68,7 +89,10 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
   humanoidOversampling: 1

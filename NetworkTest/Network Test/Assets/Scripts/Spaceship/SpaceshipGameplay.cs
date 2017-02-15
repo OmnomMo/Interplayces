@@ -61,6 +61,8 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         ScanPower();
 
+        DrainEnergy(shieldPower * shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length);
+
     }
 
     [ClientRpc]
@@ -112,7 +114,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
     {
         if (shield < shieldCapacity * shieldPower)
         {
-            if (DrainEnergy(shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length))
+           // if (DrainEnergy(shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length))
             {
                 shield += shieldRechargeRate * SpaceshipParts.Instance.allShields.Length;
 
@@ -124,6 +126,8 @@ public class SpaceshipGameplay : NetworkBehaviour {
             shield = shieldCapacity * shieldPower;
         }
     }
+
+
 
     public void DealShieldDamage(float d)
     {
@@ -179,11 +183,11 @@ public class SpaceshipGameplay : NetworkBehaviour {
         {
             if (DrainEnergy(scanEnergyDrain * scanPower * SpaceshipParts.Instance.allScanners.Length))
             {
-                Camera.main.GetComponent<FollowSpaceship>().camHeight = 100 + Mathf.Pow((150 * scanPower * SpaceshipParts.Instance.allScanners.Length), 1.25f);
+                Camera.main.GetComponent<FollowSpaceship>().camHeight = 200 + Mathf.Pow((80 * scanPower * SpaceshipParts.Instance.allScanners.Length), 1.25f);
             }
             else
             {
-                Camera.main.GetComponent<FollowSpaceship>().camHeight = 100;
+                Camera.main.GetComponent<FollowSpaceship>().camHeight = 200;
             }
         }
     }

@@ -101,7 +101,7 @@ public class SpaceshipMovement : NetworkBehaviour {
 
         if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length  );
+            GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier );
 
             SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
 

@@ -14,7 +14,7 @@ public class SpawnAsteroids : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        if (GameState.Instance.isPlayerCaptain()) { 
+        if (GameState.Instance != null && GameState.Instance.isPlayerCaptain()) { 
          Spawn();
             cloudMesh.gameObject.GetComponent<MeshRenderer>().enabled = false;
             }
@@ -30,7 +30,7 @@ public class SpawnAsteroids : MonoBehaviour {
         {
             Vector3 randomVertex = cloudMesh.mesh.vertices[(int)(Random.Range(0f, (float)cloudMesh.mesh.vertices.Length))];
 
-            Debug.Log(randomVertex);
+//            Debug.Log(randomVertex);
 
             randomPoint = (randomVertex + ( centerPoint.localPosition - randomVertex) * Random.Range(0f, 1f) );
 

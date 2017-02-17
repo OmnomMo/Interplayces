@@ -183,12 +183,15 @@ public class SpaceshipGameplay : NetworkBehaviour {
         {
             if (DrainEnergy(scanEnergyDrain * scanPower * SpaceshipParts.Instance.allScanners.Length))
             {
-                Camera.main.GetComponent<FollowSpaceship>().camHeight = 200 + Mathf.Pow((80 * scanPower * SpaceshipParts.Instance.allScanners.Length), 1.25f);
+                Camera.main.GetComponent<FollowSpaceship>().camHeight = 200 + Mathf.Pow((600 * scanPower * SpaceshipParts.Instance.allScanners.Length), 1.25f);
             }
             else
             {
                 Camera.main.GetComponent<FollowSpaceship>().camHeight = 200;
             }
+        } else
+        {
+            Camera.main.GetComponent<FollowSpaceship>().camHeight = 100;
         }
     }
 }

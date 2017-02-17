@@ -12,6 +12,8 @@ public class SpaceshipMovement : NetworkBehaviour {
     public float thrustMultiplier;
     public float DEBUGThrustBonus;
 
+    public float maxVelocity;
+
     public GameObject[] thrusters;
     public GameObject[] allParts;
 
@@ -95,20 +97,29 @@ public class SpaceshipMovement : NetworkBehaviour {
 
         if (isAccelerating)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier);
+            if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
+            {
+                GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier);
+            }
         }
 
 
         if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier );
 
-            SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
 
-            foreach (GameObject thruster in thrusters)
+            if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
             {
-                thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
-            } 
+
+                GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier);
+
+                SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
+
+                foreach (GameObject thruster in thrusters)
+                {
+                    thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
+                }
+            }
         } else
         {
             foreach (GameObject thruster in thrusters)

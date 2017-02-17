@@ -31,14 +31,14 @@ public class FollowSpaceship : MonoBehaviour {
 
         if (GameState.Instance != null)
         {
-            if (GameState.Instance.isPlayerCaptain())
-            {
-                camPos.y = 100;
-            }
-            if (GameState.Instance.isPlayerNavigator())
-            {
+            //if (GameState.Instance.isPlayerCaptain())
+            //{
+            //    camPos.y = 100;
+            //}
+            //if (GameState.Instance.isPlayerNavigator())
+            //{
                 camPos.y = camHeight;
-            }
+           // }
         }
 
         camPos.z = spaceship.position.z;

@@ -10,11 +10,12 @@ public class SpawnAsteroids : MonoBehaviour {
     public GameObject asteroidPrefab;
 
     public int nAsteroids;
+    public bool testScene;
 
 	// Use this for initialization
 	void Start () {
 
-        if (GameState.Instance != null && GameState.Instance.isPlayerCaptain()) { 
+        if ((GameState.Instance != null && GameState.Instance.isPlayerCaptain()) || testScene) { 
          Spawn();
             cloudMesh.gameObject.GetComponent<MeshRenderer>().enabled = false;
             }
@@ -32,12 +33,20 @@ public class SpawnAsteroids : MonoBehaviour {
 
 //            Debug.Log(randomVertex);
 
-            randomPoint = (randomVertex + ( centerPoint.localPosition - randomVertex) * Random.Range(0f, 1f) );
+            randomPoint = (randomVertex + ( centerPoint.localPosition - randomVertex) * Mathf.Pow(Random.Range(0f, 1f),2) );
 
             GameObject newAsteroid = GameObject.Instantiate(asteroidPrefab);
 
             //newAsteroid.GetComponent<Rigidbody>().isKinematic = true;
 
+            float a_scale = Random.Range(0.1f, 1f);
+
+
+
+            newAsteroid.transform.localScale = new Vector3(a_scale, a_scale, a_scale);
+            newAsteroid.transform.Translate(new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f)));
+
+            newAsteroid.transform.localEulerAngles = new Vector3(Random.Range(0,360), Random.Range(0, 360), Random.Range(0, 360));
             newAsteroid.transform.parent = transform;
             newAsteroid.transform.localPosition = randomPoint;
             

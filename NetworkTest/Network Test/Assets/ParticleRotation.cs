@@ -17,9 +17,9 @@ public class ParticleRotation : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
 
-        if (GameState.Instance.isPlayerCaptain())
+        if (GameState.Instance != null && GameState.Instance.isPlayerCaptain())
         {
-            s_Particles.emissionRate = Vector3.Magnitude(SpaceshipParts.Instance.GetComponent<Rigidbody>().velocity * 1.5f);
+            s_Particles.emissionRate = Vector3.Magnitude(SpaceshipParts.Instance.GetComponent<Rigidbody>().velocity * 1f);
         } else
         {
             s_Particles.emissionRate = 0;
@@ -34,7 +34,7 @@ public class ParticleRotation : MonoBehaviour {
             // allParticles[i].rotation = SpaceshipParts.Instance.gameObject.transform.eulerAngles.y;
             allParticles[i].rotation = Quaternion.LookRotation(SpaceshipParts.Instance.GetComponent<Rigidbody>().velocity, Vector3.up).eulerAngles.y;
 
-            allParticles[i].startSize3D = new Vector3(1, Vector3.Magnitude(SpaceshipParts.Instance.GetComponent<Rigidbody>().velocity) * 0.4f, 1);
+            allParticles[i].startSize3D = new Vector3(1, Vector3.Magnitude(SpaceshipParts.Instance.GetComponent<Rigidbody>().velocity) * 0.08f, 1);
 
 
 

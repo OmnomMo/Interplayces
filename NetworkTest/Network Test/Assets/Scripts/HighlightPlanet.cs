@@ -3,7 +3,7 @@ using System.Collections;
 
 public class HighlightPlanet : MonoBehaviour {
 
-    
+    public GameObject parentPlanet;
 
 	// Use this for initialization
 	void Start () {
@@ -18,11 +18,11 @@ public class HighlightPlanet : MonoBehaviour {
     void OnMouseDown()
     {
 
-        if (GameState.Instance.isPlayerNavigator())
+      //if (GameState.Instance.isPlayerNavigator())
         {
 
             Debug.Log("Click on Planet");
-            transform.parent.gameObject.GetComponent<PlanetNavigation>().RequestHighlight(this.gameObject);
+            PlanetNavigation.Instance.RequestHighlight(parentPlanet);
         }
     }
 

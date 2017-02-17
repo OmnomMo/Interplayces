@@ -6,6 +6,7 @@ public class DamageSpaceship : MonoBehaviour
 {
 
     public float damage;
+    public float maxDamage;
 
     // Use this for initialization
     void Start()
@@ -23,7 +24,13 @@ public class DamageSpaceship : MonoBehaviour
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Shield")) 
         {
-            SpaceshipGameplay.Instance.DealShieldDamage(damage * Vector3.Magnitude(collision.relativeVelocity));
+            float damageDealt = damage * Vector3.Magnitude(collision.relativeVelocity);
+
+            if (damageDealt > maxDamage)
+            {
+                damageDealt = 20;
+            }
+            SpaceshipGameplay.Instance.DealShieldDamage(damageDealt);
         }
 
     }

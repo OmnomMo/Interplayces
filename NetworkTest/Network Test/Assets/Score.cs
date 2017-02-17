@@ -10,6 +10,7 @@ public class Score : MonoBehaviour {
     public int scorePerScan;
 
     public List<GameObject> scannedObjects;
+    public List<string> scannedObjectStrings;
 
     private static Score instance;
     public static Score Instance
@@ -28,6 +29,28 @@ public class Score : MonoBehaviour {
         {
             currentScore += scorePerScan;
             scannedObjects.Add(newScan);
+
+
+            string newScanName;
+
+            if (newScan.GetComponent<PlanetInfo>() != null)
+            {
+                newScanName = newScan.GetComponent<PlanetInfo>().planetName;
+            }
+            else
+            {
+                if (newScan.GetComponentInChildren<PlanetInfo>() != null)
+                {
+                    newScanName = newScan.GetComponentInChildren<PlanetInfo>().planetName;
+                }
+                else
+                {
+                    newScanName = "placeholderPlanetName";
+                }
+            }
+
+            scannedObjectStrings.Add(newScanName);
+
             return currentScore;
         }
 
@@ -40,6 +63,7 @@ public class Score : MonoBehaviour {
     void Start () {
         instance = this;
         scannedObjects = new List<GameObject>();
+        scannedObjectStrings = new List<string>();
 	}
 
 
@@ -57,6 +81,10 @@ public class Score : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        scoreDisplay.text =  currentScore.ToString();
+
+        if (!ToEndScreen.Instance.hasEnded)
+        {
+            scoreDisplay.text = currentScore.ToString();
+        }
 	}
 }

@@ -18,6 +18,11 @@ public class SpaceshipMovement : NetworkBehaviour {
     public GameObject[] allParts;
 
     bool isAccelerating;
+    bool isBraking;
+
+    public float dragNormal;
+    public float dragBraking;
+
     public GameObject rotationTarget;
     public GameObject rotationTarget2;
     public float rotationSpeed;
@@ -84,6 +89,15 @@ public class SpaceshipMovement : NetworkBehaviour {
                 {
                     isAccelerating = false;
                 }
+
+                if (Input.GetButton("Brake"))
+                {
+                    isBraking = true;
+                }
+                else
+                {
+                    isBraking = false;
+                }
             }
         }
     }
@@ -126,6 +140,14 @@ public class SpaceshipMovement : NetworkBehaviour {
             {
                 thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
             }
+        }
+
+        if (isBraking)
+        {
+            GetComponent<Rigidbody>().drag = dragBraking;
+        } else
+        {
+            GetComponent<Rigidbody>().drag = dragNormal;
         }
     }
 

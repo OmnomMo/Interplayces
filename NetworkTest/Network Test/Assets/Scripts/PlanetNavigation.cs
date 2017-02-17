@@ -8,6 +8,7 @@ public class PlanetNavigation : NetworkBehaviour {
     // [SyncVar]
     [SyncVar] //(hook = "OnChangeActivePlanet")]
     public int activePlanet;
+    
 
     [SyncVar]
     public bool isActive;

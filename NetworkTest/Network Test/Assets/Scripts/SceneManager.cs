@@ -14,6 +14,8 @@ public class SceneManager : MonoBehaviour {
         }
         else
         {
+
+            DontDestroyOnLoad(gameObject);
             if (GameState.Instance.isPlayerNavigator())
             {
 
@@ -29,7 +31,7 @@ public class SceneManager : MonoBehaviour {
 
     public void RebuildSpaceShip()
     {
-        GameObject.Find("MultiplayerSetup").GetComponent<NetworkLobbyManager>().ServerChangeScene("SpaceShipEditor");
+        MultiplayerSetup.Instance.ServerChangeScene("SpaceShipEditor");
     }
 	
 	// Update is called once per frame

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PointToTarget : MonoBehaviour {
 
-    Transform targetPlanet;
+    public Transform targetPlanet;
     bool pointerActive;
 
 	// Use this for initialization
@@ -25,7 +25,7 @@ public class PointToTarget : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-        if (targetPlanet == null)
+        if (targetPlanet == null || Vector3.Magnitude(new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(targetPlanet.transform.position.x, 0 , targetPlanet.transform.position.z)) < 50)
         {
 
             if (pointerActive)
@@ -48,6 +48,7 @@ public class PointToTarget : MonoBehaviour {
             }
 
             transform.LookAt(targetPlanet);
+           // transform.localEulerAngles = new Vector3(0, transform.localRotation.y, 0);
 
         }
 

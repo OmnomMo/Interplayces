@@ -34,7 +34,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public GameObject shieldObject;
 
     public Text hitpointsDisplay;
-    
+    public Image energyDisplay;
 
     private static SpaceshipGameplay instance;
     public static SpaceshipGameplay Instance
@@ -54,7 +54,17 @@ public class SpaceshipGameplay : NetworkBehaviour {
     void Update()
     {
 
+        if (energy <= 0)
+        {
+            ToEndScreen.Instance.EndZeroEnergy();
+        }
+
         hitpointsDisplay.text = hitPoints.ToString() + " HP";
+
+        if (energyCapacity > 0)
+        {
+            energyDisplay.GetComponent<RectTransform>().localScale = new Vector3(1, energy / energyCapacity, 1);
+        }
 
         RechargeShield();
         UpdateShieldOpacity();
@@ -108,6 +118,8 @@ public class SpaceshipGameplay : NetworkBehaviour {
             NetworkActions.Instance.CmdDrainPower(nEnergy);
             return true;
         }
+
+ 
     }
 	
     public void RechargeShield()
@@ -159,6 +171,8 @@ public class SpaceshipGameplay : NetworkBehaviour {
         if (hitPoints <= 0)
         {
             hitPoints = 0;
+
+            ToEndScreen.Instance.EndZeroHP();
         }
     }
 
@@ -191,7 +205,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
             }
         } else
         {
-            Camera.main.GetComponent<FollowSpaceship>().camHeight = 100;
+            Camera.main.GetComponent<FollowSpaceship>().camHeight = 120;
         }
     }
 }

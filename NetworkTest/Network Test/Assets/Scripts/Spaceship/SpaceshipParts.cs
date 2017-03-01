@@ -37,6 +37,12 @@ public class SpaceshipParts : MonoBehaviour {
     public GameObject AddPart (int id, int x, int y)
     {
 
+        //If part is a nonPart:
+        if (id == 4)
+        {
+            return null;
+        }
+
         if (id - 1 > partPrefabs.Length || id < 0)
         {
             Debug.Log("No Part with that ID found.");

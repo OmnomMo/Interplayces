@@ -50,7 +50,7 @@ public class PlayingGrid : MonoBehaviour {
     // Use this for initialization
     void Start () {
         grid = new GameObject[gridColumns, gridRows];
-        CreateDebugGrid();
+        //CreateDebugGrid();
     }
 
     public void CreateDebugGrid()

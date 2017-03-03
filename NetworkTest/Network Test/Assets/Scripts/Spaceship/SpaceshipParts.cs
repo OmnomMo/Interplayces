@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+//Ersetzt Switchshipparts!
 public class SpaceshipParts : MonoBehaviour {
 
 

@@ -20,12 +20,13 @@ public class WebcamManager : MonoBehaviour {
     {
         instance = this;
         Object.DontDestroyOnLoad(gameObject);
-    }
-    // Use this for initialization
-    void Start () {
+
         tex = new WebCamTexture(WebCamTexture.devices[0].name);
 
         tex.Play();
+    }
+    // Use this for initialization
+    void Start () {
         
     }
 	

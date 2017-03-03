@@ -11,10 +11,15 @@ public class NetworkActions : NetworkBehaviour {
 
     public static NetworkActions Instance { get { return instance; } }
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Use this for initialization
     void Start () {
 
-        instance = this;
+        
 
 	}
 	
@@ -82,5 +87,27 @@ public class NetworkActions : NetworkBehaviour {
     public void CmdDrainPower(float amount)
     {
         SpaceshipGameplay.Instance.RpcDrainPower(amount);
+    }
+
+    //[Command]
+    //public void CmdCreateContainers()
+    //{
+
+    //    if (SwitchShipParts.Instance != null)
+    //    {
+    //        SwitchShipParts.Instance.RpcDebug();
+    //    }
+    //}
+
+    [Command]
+    public void CmdSetPartTypes(int x, int y, int newID)
+    {
+        SwitchShipParts.Instance.RpcSetPT(x, y, newID);
+    }
+
+    [Command]
+    public void CmdPreSetPartTypes(int x, int y, int newID)
+    {
+        CreatePredefinedShip.Instance.RpcSetPT(x, y, newID);
     }
 }

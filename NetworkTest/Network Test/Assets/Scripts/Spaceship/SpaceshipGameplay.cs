@@ -56,7 +56,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         if (energy <= 0)
         {
-            ToEndScreen.Instance.EndZeroEnergy();
+          //  ToEndScreen.Instance.EndZeroEnergy();
         }
 
         hitpointsDisplay.text = hitPoints.ToString() + " HP";

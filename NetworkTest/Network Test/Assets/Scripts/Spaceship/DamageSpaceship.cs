@@ -28,7 +28,7 @@ public class DamageSpaceship : MonoBehaviour
 
             if (damageDealt > maxDamage)
             {
-                damageDealt = 20;
+                damageDealt = maxDamage;
             }
             SpaceshipGameplay.Instance.DealShieldDamage(damageDealt);
         }

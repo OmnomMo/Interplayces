@@ -21,6 +21,8 @@ public class WebcamManager : MonoBehaviour {
         instance = this;
         Object.DontDestroyOnLoad(gameObject);
 
+        
+
         tex = new WebCamTexture(WebCamTexture.devices[0].name);
 
         tex.Play();

@@ -33,7 +33,7 @@ public class CreatePredefinedShip : NetworkActions {
 
         CreateContainers();
 
-        if (GameState.Instance.isPlayerCaptain())
+       // if (GameState.Instance.isPlayerCaptain())
         {
             //Debug.Break();
             StartCoroutine(PresetStarship());

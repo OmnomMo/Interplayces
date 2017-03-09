@@ -6,6 +6,7 @@ public class WebcamManager : MonoBehaviour {
 
     public    WebCamTexture tex;
 
+    public bool hasWebcam;
 
 
     private static WebcamManager instance;
@@ -21,11 +22,21 @@ public class WebcamManager : MonoBehaviour {
         instance = this;
         Object.DontDestroyOnLoad(gameObject);
 
-        
+        try
+        {
 
-        tex = new WebCamTexture(WebCamTexture.devices[0].name);
+            tex = new WebCamTexture(WebCamTexture.devices[0].name);
 
-        tex.Play();
+            hasWebcam = true;
+
+            tex.Play();
+
+        } catch (System.NullReferenceException e)
+        {
+            Debug.Log("No Webcam found");
+            hasWebcam = false;
+        }
+    
     }
     // Use this for initialization
     void Start () {

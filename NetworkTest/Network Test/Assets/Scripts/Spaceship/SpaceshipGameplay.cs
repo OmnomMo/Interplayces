@@ -56,7 +56,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         if (energy <= 0)
         {
-          //  ToEndScreen.Instance.EndZeroEnergy();
+            ToEndScreen.Instance.EndZeroEnergy();
         }
 
         hitpointsDisplay.text = hitPoints.ToString() + " HP";
@@ -143,13 +143,41 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
     public void DealShieldDamage(float d)
     {
-        shield -= (int)d;
+        NetworkActions.Instance.CmdDealShieldDamage(d);
+    }
+
+    [ClientRpc]
+    public void RpcDealShieldDamage(float damage)
+    {
+        Debug.Log("Deal " + (int)damage + "shield damage!");
+
+        shield -= (int)damage;
 
         if (shield <= 0)
         {
             DealHullDamage(shield * -1);
             shield = 0;
         }
+    }
+
+    public void RechargeEnergy(float amount)
+    {
+        NetworkActions.Instance.CmdRechargeEnergy(amount);
+    }
+
+    [ClientRpc]
+    public void RpcRechargeEnergy(float amount)
+    {
+
+        energy += amount;
+
+        if (energy > energyCapacity)
+        {
+            energy = energyCapacity;
+            Debug.Log("Fully recharged!");
+        }
+
+        Debug.Log("Recharge " + (int)amount + " energy!");
     }
 
     public void UpdateShieldOpacity()

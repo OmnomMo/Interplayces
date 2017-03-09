@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ToEndScreen : MonoBehaviour {
+public class ToEndScreen : NetworkBehaviour {
 
     private static ToEndScreen instance;
     public static ToEndScreen Instance
@@ -52,13 +53,23 @@ public class ToEndScreen : MonoBehaviour {
 
     private void EnterEndScreen()
     {
+        if (GameState.Instance.isPlayerCaptain())
+        {
+            Debug.Log("Initializing EnterEndScreen");
+            NetworkActions.Instance.CmdEnterEndScreen();
+        }
+      
+    }
+
+    [ClientRpc] 
+    public void RpcEnterEndScreen() {
         if (!hasEnded)
         {
             hasEnded = true;
             MultiplayerSetup.Instance.ServerChangeScene("EndScene");
         }
-      
     }
+
 	// Update is called once per frame
 	void Update () {
 		

@@ -21,57 +21,68 @@ public class ColorPickerNew : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        if (WebcamManager.Instance.hasWebcam)
+        {
 
-        tex = WebcamManager.Instance.tex;
-    
-       
-        overlayTexture = new Texture2D(tex.width, tex.height);
-        overlayImage.GetComponent<RawImage>().texture = overlayTexture;
-
-		fields = new Rect[nCols, nRows];
-
-		pickedColors = new Color[nRows + nCols][];
-		averageColors = new Color[nCols, nRows];
-       // cubes = new GameObject[nFields];
+            tex = WebcamManager.Instance.tex;
 
 
-		for (int i = 0; i < nCols; i++) {
-			for (int j = 0; j < nRows; j++) {
-				fields[i,j] = new Rect(j*tex.width/7+10, i*tex.height / 5+20, tex.width / 12, tex.height / 8);
-			}
-		}
+            overlayTexture = new Texture2D(tex.width, tex.height);
+            overlayImage.GetComponent<RawImage>().texture = overlayTexture;
 
-        float imageProportion = (float)tex.height / (float)tex.width;
+            fields = new Rect[nCols, nRows];
+
+            pickedColors = new Color[nRows + nCols][];
+            averageColors = new Color[nCols, nRows];
+            // cubes = new GameObject[nFields];
 
 
-        //Scale Image plane
-        GetComponent<RectTransform>().localScale = new Vector3(GetComponent<RectTransform>().localScale.x, GetComponent<RectTransform>().localScale.y * imageProportion, GetComponent<RectTransform>().localScale.z);
-        overlayImage.GetComponent<RectTransform>().localScale = new Vector3(overlayImage.GetComponent<RectTransform>().localScale.x, overlayImage.GetComponent<RectTransform>().localScale.y * imageProportion, overlayImage.GetComponent<RectTransform>().localScale.z);
+            for (int i = 0; i < nCols; i++)
+            {
+                for (int j = 0; j < nRows; j++)
+                {
+                    fields[i, j] = new Rect(j * tex.width / 7 + 10, i * tex.height / 5 + 20, tex.width / 12, tex.height / 8);
+                }
+            }
 
-        GetComponent<RawImage>().texture = tex;
+            float imageProportion = (float)tex.height / (float)tex.width;
+
+
+            //Scale Image plane
+            GetComponent<RectTransform>().localScale = new Vector3(GetComponent<RectTransform>().localScale.x, GetComponent<RectTransform>().localScale.y * imageProportion, GetComponent<RectTransform>().localScale.z);
+            overlayImage.GetComponent<RectTransform>().localScale = new Vector3(overlayImage.GetComponent<RectTransform>().localScale.x, overlayImage.GetComponent<RectTransform>().localScale.y * imageProportion, overlayImage.GetComponent<RectTransform>().localScale.z);
+
+            GetComponent<RawImage>().texture = tex;
+
+        }
 
     }
 
 
 	void Update () {
-        
-        if (!tex.isPlaying)
+        if (WebcamManager.Instance.hasWebcam)
         {
-            tex.Play();
+
+            if (!tex.isPlaying)
+            {
+                tex.Play();
+            }
+
+            for (int i = 0; i < nCols; i++)
+            {
+                for (int j = 0; j < nRows; j++)
+                {
+
+
+
+                    //Debug.Log ("AVG Color for field " + i + "/" + j  + ": " +  getCubeColor (averageColors [i, j]));
+                    pickedColors[i + j] = tex.GetPixels((int)fields[i, j].x, (int)fields[i, j].y, (int)fields[i, j].width, (int)fields[i, j].height);
+                    averageColors[i, j] = getAverage(pickedColors[i + j]);
+                }
+            }
+
+            //printDetectedColorConfiguration ();
         }
-
-		for (int i = 0; i < nCols; i++) {
-			for (int j = 0; j < nRows; j++) {
-
-                
-
-				//Debug.Log ("AVG Color for field " + i + "/" + j  + ": " +  getCubeColor (averageColors [i, j]));
-				pickedColors[i+j] = tex.GetPixels((int)fields[i,j].x, (int)fields[i,j].y, (int)fields[i,j].width, (int)fields[i,j].height);
-				averageColors[i,j] = getAverage(pickedColors[i+j]);
-			}
-        }  
-
-		//printDetectedColorConfiguration ();
       
     }
 

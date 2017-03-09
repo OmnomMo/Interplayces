@@ -22,15 +22,19 @@ public class DamageSpaceship : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Shield")) 
+        if (GameState.Instance.isPlayerCaptain())
         {
-            float damageDealt = damage * Vector3.Magnitude(collision.relativeVelocity);
 
-            if (damageDealt > maxDamage)
+            if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Player") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Shield"))
             {
-                damageDealt = maxDamage;
+                float damageDealt = damage * Vector3.Magnitude(collision.relativeVelocity);
+
+                if (damageDealt > maxDamage)
+                {
+                    damageDealt = maxDamage;
+                }
+                SpaceshipGameplay.Instance.DealShieldDamage(damageDealt);
             }
-            SpaceshipGameplay.Instance.DealShieldDamage(damageDealt);
         }
 
     }

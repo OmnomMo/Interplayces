@@ -34,7 +34,14 @@ public class NetworkActions : NetworkBehaviour {
     { 
         EndBuilding.Instance.RpcEndPhase();
     }
-    
+
+
+
+    [Command]
+    public void CmdEnterEndScreen()
+    {
+        ToEndScreen.Instance.RpcEnterEndScreen();
+    }
 
     [Command]
     public void CmdHighlightPlanet (int nPlanet)
@@ -75,6 +82,18 @@ public class NetworkActions : NetworkBehaviour {
     public void CmdSetShield(float energy)
     {
         SpaceshipGameplay.Instance.RpcSetShield(energy);
+    }
+
+    [Command]
+    public void CmdDealShieldDamage(float damage)
+    {
+        SpaceshipGameplay.Instance.RpcDealShieldDamage(damage);
+    }
+
+    [Command]
+    public void CmdRechargeEnergy(float amount)
+    {
+        SpaceshipGameplay.Instance.RpcRechargeEnergy(amount);
     }
 
     [Command]

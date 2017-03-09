@@ -61,12 +61,6 @@ public class Score : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-        if (Score.Instance!= null)
-        {
-            GameObject.Destroy(Score.Instance);
-        }
-
         instance = this;
         scannedObjects = new List<GameObject>();
         scannedObjectStrings = new List<string>();
@@ -90,7 +84,7 @@ public class Score : MonoBehaviour {
 
         if (!ToEndScreen.Instance.hasEnded)
         {
-
+            scoreDisplay.text = currentScore.ToString();
         }
 	}
 }

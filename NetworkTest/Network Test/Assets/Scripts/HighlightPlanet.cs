@@ -30,11 +30,14 @@ public class HighlightPlanet : MonoBehaviour {
 
     public void SetHighlight()
     {
-        GetComponent<Renderer>().material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+        GameObject.Find("HighlightSphere").transform.position = transform.position;
+        GameObject.Find("HighlightSphere").SetActive(true);
+        //GetComponent<Renderer>().material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
     }
 
     public void UnsetHighlight()
     {
-        GetComponent<Renderer>().material.shader = Shader.Find("Earth");
+        GameObject.Find("HighlightSphere").SetActive(false);
+        //GetComponent<Renderer>().material.shader = Shader.Find("Earth");
     }
 }

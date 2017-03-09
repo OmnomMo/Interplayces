@@ -72,7 +72,9 @@ public class PlanetNavigation : NetworkBehaviour {
 
         if (GameState.Instance.isPlayerNavigator())
         {
-            planets[activePlanet].GetComponent<HighlightPlanet>().SetHighlight();
+
+
+            planets[activePlanet].GetComponentInChildren<HighlightPlanet>().SetHighlight();
         }
 
         if (GameState.Instance.isPlayerCaptain())
@@ -87,7 +89,7 @@ public class PlanetNavigation : NetworkBehaviour {
         isActive = false;
         if (GameState.Instance.isPlayerNavigator())
         {
-            planets[activePlanet].GetComponent<HighlightPlanet>().UnsetHighlight();
+            planets[activePlanet].GetComponentInChildren<HighlightPlanet>().UnsetHighlight();
         }
         if (GameState.Instance.isPlayerCaptain())
         {

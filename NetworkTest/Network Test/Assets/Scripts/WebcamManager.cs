@@ -31,7 +31,7 @@ public class WebcamManager : MonoBehaviour {
 
             tex.Play();
 
-        } catch (System.NullReferenceException e)
+        } catch (System.Exception e)
         {
             Debug.Log("No Webcam found");
             hasWebcam = false;

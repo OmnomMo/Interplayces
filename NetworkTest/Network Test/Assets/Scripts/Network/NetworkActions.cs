@@ -108,6 +108,15 @@ public class NetworkActions : NetworkBehaviour {
         SpaceshipGameplay.Instance.RpcDrainPower(amount);
     }
 
+    [Command]
+    public void CmdRestartGame()
+    {
+
+        GameObject.Destroy(Score.Instance.gameObject);
+
+        MultiplayerSetup.Instance.ServerChangeScene("SpaceShipEditor_Tracking");
+    }
+
     //[Command]
     //public void CmdCreateContainers()
     //{

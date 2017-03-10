@@ -43,14 +43,14 @@ public class TestClass: MonoBehaviour {
         //Debug.Log("captain: " + GameState.Instance.isPlayerCaptain() + "\nnavigator: " + GameState.Instance.isPlayerNavigator());
         if (Input.GetButtonDown("DebugButton"))
         {
-            Debug.Log("Debug!");
+         //   Debug.Log("Debug!");
             SpaceshipGameplay.Instance.DealShieldDamage(20);
             //EndBuilding.Instance.EndPhase();
         }
 
         if (Input.GetButtonDown("DebugButton2"))
         {
-            Debug.Log("Debug!");
+           // Debug.Log("Debug!");
             SpaceshipGameplay.Instance.DrainEnergy(100);
             //EndBuilding.Instance.EndPhase();
         }

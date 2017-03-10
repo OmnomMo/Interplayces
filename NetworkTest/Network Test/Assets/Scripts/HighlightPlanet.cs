@@ -18,7 +18,7 @@ public class HighlightPlanet : MonoBehaviour {
     void OnMouseDown()
     {
 
-      //if (GameState.Instance.isPlayerNavigator())
+      if (GameState.Instance.isPlayerNavigator())
         {
 
             Debug.Log("Click on Planet");
@@ -31,13 +31,13 @@ public class HighlightPlanet : MonoBehaviour {
     public void SetHighlight()
     {
         GameObject.Find("HighlightSphere").transform.position = transform.position;
-        GameObject.Find("HighlightSphere").SetActive(true);
+        GameObject.Find("HighlightSphere").GetComponent<MeshRenderer>().enabled = true;
         //GetComponent<Renderer>().material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
     }
 
     public void UnsetHighlight()
     {
-        GameObject.Find("HighlightSphere").SetActive(false);
+        GameObject.Find("HighlightSphere").GetComponent<MeshRenderer>().enabled = false;
         //GetComponent<Renderer>().material.shader = Shader.Find("Earth");
     }
 }

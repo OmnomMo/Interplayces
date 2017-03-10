@@ -33,6 +33,10 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public Material shieldMaterial;
     public GameObject shieldObject;
 
+    public float shieldCooldown;
+    public bool shieldOnCooldown;
+    public float shieldCooldownStartTime;
+
     public Text hitpointsDisplay;
     public Image energyDisplay;
 
@@ -53,6 +57,14 @@ public class SpaceshipGameplay : NetworkBehaviour {
     // Update is called once per frame
     void Update()
     {
+
+        if (shieldOnCooldown)
+        {
+            if (Time.time - shieldCooldownStartTime > shieldCooldown)
+            {
+                shieldOnCooldown = false;
+            }
+        }
 
         if (energy <= 0)
         {
@@ -124,18 +136,21 @@ public class SpaceshipGameplay : NetworkBehaviour {
 	
     public void RechargeShield()
     {
-        if (shield < shieldCapacity * shieldPower)
+        if (!shieldOnCooldown)
         {
-           // if (DrainEnergy(shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length))
+            if (shield < shieldCapacity * shieldPower)
             {
-                shield += shieldRechargeRate * SpaceshipParts.Instance.allShields.Length;
+                // if (DrainEnergy(shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length))
+                {
+                    shield += shieldRechargeRate * SpaceshipParts.Instance.allShields.Length;
 
-             
+
+                }
             }
-        }
-        if (shield > shieldCapacity * shieldPower)
-        {
-            shield = shieldCapacity * shieldPower;
+            if (shield > shieldCapacity * shieldPower)
+            {
+                shield = shieldCapacity * shieldPower;
+            }
         }
     }
 
@@ -149,14 +164,24 @@ public class SpaceshipGameplay : NetworkBehaviour {
     [ClientRpc]
     public void RpcDealShieldDamage(float damage)
     {
-        Debug.Log("Deal " + (int)damage + "shield damage!");
 
-        shield -= (int)damage;
-
-        if (shield <= 0)
+        if (!shieldOnCooldown)
         {
-            DealHullDamage(shield * -1);
-            shield = 0;
+           // Debug.Log("Deal " + (int)damage + "shield damage!");
+
+            shield -= (int)damage;
+
+            if (shield <= 0)
+            {
+                Debug.Log("SetShieldCooldown");
+                shieldOnCooldown = true;
+                shieldCooldownStartTime = Time.time;
+                DealHullDamage(shield * -1);
+                shield = 0;
+            }
+        } else
+        {
+            DealHullDamage(damage);
         }
     }
 
@@ -174,10 +199,10 @@ public class SpaceshipGameplay : NetworkBehaviour {
         if (energy > energyCapacity)
         {
             energy = energyCapacity;
-            Debug.Log("Fully recharged!");
+            //Debug.Log("Fully recharged!");
         }
 
-        Debug.Log("Recharge " + (int)amount + " energy!");
+        //Debug.Log("Recharge " + (int)amount + " energy!");
     }
 
     public void UpdateShieldOpacity()
@@ -185,10 +210,10 @@ public class SpaceshipGameplay : NetworkBehaviour {
         shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, (float) (0.5 * (shield / shieldCapacity)));
         if (shield <= 0.01f)
         {
-            shieldObject.GetComponent<SphereCollider>().enabled = false;
+            shieldObject.GetComponent<CapsuleCollider>().enabled = false;
         } else
         {
-            shieldObject.GetComponent<SphereCollider>().enabled = true;
+            shieldObject.GetComponent<CapsuleCollider>().enabled = true;
         }
     }
 

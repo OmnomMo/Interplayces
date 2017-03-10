@@ -75,7 +75,7 @@ public class SpaceshipMovement : NetworkBehaviour {
                 {
                     
 
-                    rotationTarget2.transform.Rotate(new Vector3(0, rotationSpeed * Input.GetAxis("HorizontalKeyboard"), 0));
+                    rotationTarget2.transform.Rotate(new Vector3(0, rotationSpeed * Input.GetAxis("HorizontalKeyboard") * Time.deltaTime, 0));
                     transform.LookAt(rotationTarget2.transform.GetChild(0));
 
                 }

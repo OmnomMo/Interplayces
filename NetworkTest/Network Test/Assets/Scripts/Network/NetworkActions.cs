@@ -138,4 +138,10 @@ public class NetworkActions : NetworkBehaviour {
     {
         CreatePredefinedShip.Instance.RpcSetPT(x, y, newID);
     }
+
+    [Command]
+    public void CmdPickupEnergy (int n)
+    {
+        PickupManager.Instance.RpcDestroyPickup(n);
+    }
 }

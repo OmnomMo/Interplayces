@@ -25,10 +25,28 @@ public class JoinGameButtons : MonoBehaviour {
 
     public void StartGameButtonPressed()
     {
-        foreach (NetworkLobbyPlayer p in MultiplayerSetup.Instance.lobbySlots)
+
+        //string log = "";
+
+        foreach (NetworkLobbyPlayer nlp in MultiplayerSetup.Instance.lobbySlots)
         {
-            p.SendReadyToBeginMessage();
+            nlp.readyToBegin = true;
         }
+
+        
+        //foreach (PlayerController pc in ClientScene.localPlayers)
+        //{
+        //   // log += 
+        //    log += pc.ToString();
+
+        //    pc.gameObject.GetComponent<NetworkLobbyPlayer>().readyToBegin = true;
+        //}
+
+        //Debug.Log(log);
+        //foreach (NetworkLobbyPlayer p in MultiplayerSetup.Instance.lobbySlots)
+        //{
+        //    p.SendReadyToBeginMessage();
+        //}
     }
 
     // Use this for initialization
@@ -69,6 +87,7 @@ public class JoinGameButtons : MonoBehaviour {
         navButton.interactable = false;
 
         ColorCaptainGreen();
+
     }
 
     public void ColorNavigatorGreen()

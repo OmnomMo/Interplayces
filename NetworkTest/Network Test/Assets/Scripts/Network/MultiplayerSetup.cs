@@ -88,4 +88,9 @@ public class MultiplayerSetup : NetworkLobbyManager{
     void Update () {
 		
 	}
+
+    public void StartGame()
+    {
+       // ServerChangeScene(playScene);
+    }
 }

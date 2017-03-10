@@ -98,7 +98,7 @@ public class CreatePredefinedShip : NetworkActions {
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;
 
-        Debug.Log(x + "/" + y + ": Teil + " + newPart.GetComponent<ShipPart>().getID() + " ersetzt Teil " + oldPart.GetComponent<ShipPart>().getID() +" at " + oldPart.GetComponent<ShipPart>().GetPosX()+ "/" + oldPart.GetComponent<ShipPart>().GetPosY());
+        //Debug.Log(x + "/" + y + ": Teil + " + newPart.GetComponent<ShipPart>().getID() + " ersetzt Teil " + oldPart.GetComponent<ShipPart>().getID() +" at " + oldPart.GetComponent<ShipPart>().GetPosX()+ "/" + oldPart.GetComponent<ShipPart>().GetPosY());
 
         //if part changed from last frame, create new Part
         //if (newPart.GetComponent<ShipPart>().getID() != oldPart.GetComponent<ShipPart>().getID())

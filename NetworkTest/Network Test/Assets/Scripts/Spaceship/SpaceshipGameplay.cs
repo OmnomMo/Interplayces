@@ -37,7 +37,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public bool shieldOnCooldown;
     public float shieldCooldownStartTime;
 
-    public Text hitpointsDisplay;
+    public Image hitpointsDisplay;
     public Image energyDisplay;
 
     private static SpaceshipGameplay instance;
@@ -71,11 +71,12 @@ public class SpaceshipGameplay : NetworkBehaviour {
             ToEndScreen.Instance.EndZeroEnergy();
         }
 
-        hitpointsDisplay.text = hitPoints.ToString() + " HP";
+        //hitpointsDisplay.text = hitPoints.ToString() + " HP";
+        hitpointsDisplay.GetComponent<RectTransform>().localScale = new Vector3((float)hitPoints/maxHitpoints, 1, 1);
 
         if (energyCapacity > 0)
         {
-            energyDisplay.GetComponent<RectTransform>().localScale = new Vector3(1, energy / energyCapacity, 1);
+            energyDisplay.GetComponent<RectTransform>().localScale = new Vector3(1, (float)energy / energyCapacity, 1);
         }
 
         RechargeShield();

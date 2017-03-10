@@ -84,7 +84,7 @@ public class Score : MonoBehaviour {
 
         if (!ToEndScreen.Instance.hasEnded)
         {
-            scoreDisplay.text = currentScore.ToString();
+         //   scoreDisplay.text = currentScore.ToString();
         }
 	}
 }

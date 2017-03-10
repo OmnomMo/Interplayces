@@ -23,7 +23,7 @@ public class SceneManager : MonoBehaviour {
                 //Camera.main.gameObject.GetComponent<CameraBehaviour>().ChangeCameraToNavigator();
 
                 Camera.main.GetComponent<References>().navigatorInterface.SetActive(true);
-                Camera.main.GetComponent<References>().energyBar.GetComponent<EnergyBar>().Initialize();
+                //Camera.main.GetComponent<References>().energyBar.GetComponent<EnergyBar>().Initialize();
             }
         }
 

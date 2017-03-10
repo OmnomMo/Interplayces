@@ -1,0 +1,412 @@
+fileFormatVersion: 2
+guid: d859a52c0a076a74c85cfd9b3116085e
+timeCreated: 1489155422
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Interface 1_v02_0
+    21300002: Interface 1_v02_1
+    21300004: Interface 1_v02_2
+    21300006: Interface 1_v02_3
+    21300008: Interface 1_v02_4
+    21300010: Interface 1_v02_5
+    21300012: Interface 1_v02_6
+    21300014: Interface 1_v02_7
+    21300016: Interface 1_v02_8
+    21300018: Interface 1_v02_9
+    21300020: Interface 1_v02_10
+    21300022: Interface 1_v02_11
+    21300024: Interface 1_v02_12
+    21300026: Interface 1_v02_13
+    21300028: Interface 1_v02_14
+    21300030: Interface 1_v02_15
+    21300032: Interface 1_v02_16
+    21300034: Interface 1_v02_17
+    21300036: Interface 1_v02_18
+    21300038: Interface 1_v02_19
+    21300040: Interface 1_v02_20
+    21300042: Interface 1_v02_21
+    21300044: Interface 1_v02_22
+    21300046: Interface 1_v02_23
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 2
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Interface 1_v02_0
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 945
+        width: 77
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_1
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 945
+        width: 77
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_2
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 945
+        width: 77
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_3
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 946
+        width: 77
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_4
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 946
+        width: 77
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_5
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 831
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_6
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 831
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_7
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 831
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_8
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 831
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_9
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 831
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_10
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 718
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_11
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 718
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_12
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 718
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_13
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 718
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_14
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 661
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_15
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 661
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_16
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 661
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_17
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 661
+        width: 59
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_18
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 498
+        width: 449
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_19
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 21
+        width: 20
+        height: 620
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_20
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 21
+        width: 20
+        height: 620
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_21
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 403
+        width: 77
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_22
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 442
+        width: 100
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Interface 1_v02_23
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 412
+        width: 100
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,8 +7,13 @@ public class EnergyDistributionVariant1 : MonoBehaviour {
 
     public Image[] thrustDisplay;
     public Image[] ShieldDisplay;
+
+    public Image shieldIconGrey;
+    public Image shieldWarningIcon;
+
     public Image[] ShieldDisplayGrey;
     public Image[] ScannerDisplay;
+
 
 
 	// Use this for initialization
@@ -18,21 +23,79 @@ public class EnergyDistributionVariant1 : MonoBehaviour {
 
     public void IncreaseThrusterEnergy()
     {
-        SpaceshipGameplay.Instance.thrustPower += 0.2f;
+        float newThrustPower = 0;
 
-        if (SpaceshipGameplay.Instance.thrustPower > 1f)
+        newThrustPower = SpaceshipGameplay.Instance.thrustPower + 0.2f;
+
+        if (newThrustPower > 1f)
         {
-            SpaceshipGameplay.Instance.thrustPower = 1f;
+            newThrustPower = 1f;
         }
+
+        NetworkActions.Instance.CmdSetThrust(newThrustPower);
     }
 
     public void DecreaseThrusterEnergy()
     {
-        SpaceshipGameplay.Instance.thrustPower -= 0.2f;
+        float newThrustPower = 0;
 
-        if (SpaceshipGameplay.Instance.thrustPower < 0f)
+        newThrustPower = SpaceshipGameplay.Instance.thrustPower - 0.2f;
+
+        if (newThrustPower < 0f)
         {
-            SpaceshipGameplay.Instance.thrustPower = 0f;
+            newThrustPower = 0f;
+        }
+
+        NetworkActions.Instance.CmdSetThrust(newThrustPower);
+    }
+
+
+
+        public void IncreaseShieldEnergy()
+    {
+        float newShieldPower = 0;
+
+        newShieldPower = SpaceshipGameplay.Instance.shieldPower + 0.2f;
+
+        if (newShieldPower > 1f)
+        {
+            newShieldPower = 1f;
+        }
+
+        NetworkActions.Instance.CmdSetShield(newShieldPower);
+    }
+
+    public void DecreaseShieldEnergy()
+    {
+        float newShieldPower = 0;
+
+        newShieldPower = SpaceshipGameplay.Instance.shieldPower - 0.2f;
+
+        if (newShieldPower < 0f)
+        {
+            newShieldPower = 0f;
+        }
+
+        NetworkActions.Instance.CmdSetShield(newShieldPower);
+    }
+
+    public void IncreaseScannerEnergy()
+    {
+        SpaceshipGameplay.Instance.scanPower += 0.2f;
+
+        if (SpaceshipGameplay.Instance.scanPower > 1f)
+        {
+            SpaceshipGameplay.Instance.scanPower = 1f;
+        }
+    }
+
+    public void DecreaseScannerEnergy()
+    {
+        SpaceshipGameplay.Instance.scanPower -= 0.2f;
+
+        if (SpaceshipGameplay.Instance.scanPower < 0f)
+        {
+            SpaceshipGameplay.Instance.scanPower = 0f;
         }
     }
 
@@ -41,6 +104,55 @@ public class EnergyDistributionVariant1 : MonoBehaviour {
         UpdateEnergyBars();
 	}
 
+    void UpdateEnergyBar(Image[] displayPanels, int nBars, Color cVisible, Color cInvisible)
+    {
+        switch (nBars)
+        {
+            case 5:
+                displayPanels[4].color = cVisible;
+                displayPanels[3].color = cVisible;
+                displayPanels[2].color = cVisible;
+                displayPanels[1].color = cVisible;
+                displayPanels[0].color = cVisible;
+                break;
+            case 4:
+                displayPanels[4].color = cInvisible;
+                displayPanels[3].color = cVisible;
+                displayPanels[2].color = cVisible;
+                displayPanels[1].color = cVisible;
+                displayPanels[0].color = cVisible;
+                break;
+            case 3:
+                displayPanels[4].color = cInvisible;
+                displayPanels[3].color = cInvisible;
+                displayPanels[2].color = cVisible;
+                displayPanels[1].color = cVisible;
+                displayPanels[0].color = cVisible;
+                break;
+            case 2:
+                displayPanels[4].color = cInvisible;
+                displayPanels[3].color = cInvisible;
+                displayPanels[2].color = cInvisible;
+                displayPanels[1].color = cVisible;
+                displayPanels[0].color = cVisible;
+                break;
+            case 1:
+                displayPanels[4].color = cInvisible;
+                displayPanels[3].color = cInvisible;
+                displayPanels[2].color = cInvisible;
+                displayPanels[1].color = cInvisible;
+                displayPanels[0].color = cVisible;
+                break;
+            case 0:
+                displayPanels[4].color = cInvisible;
+                displayPanels[3].color = cInvisible;
+                displayPanels[2].color = cInvisible;
+                displayPanels[1].color = cInvisible;
+                displayPanels[0].color = cInvisible;
+                break;
+        }
+    }
+
     void UpdateEnergyBars()
     {
 
@@ -48,43 +160,29 @@ public class EnergyDistributionVariant1 : MonoBehaviour {
         Color invisible = new Color(1, 1, 1, 0);
 
         int nThrusterBars = (int)(SpaceshipGameplay.Instance.thrustPower * 5);
-        Debug.Log(nThrusterBars);
+        //Debug.Log(nThrusterBars);
 
-        thrustDisplay[4].GetComponent<Image>().color = invisible;
-        thrustDisplay[3].GetComponent<Image>().color = invisible;
-        thrustDisplay[2].GetComponent<Image>().color = invisible;
-        thrustDisplay[1].GetComponent<Image>().color = invisible;
-        thrustDisplay[0].GetComponent<Image>().color = invisible;
+        int nShieldBars = (int)(SpaceshipGameplay.Instance.shieldPower * 5);
 
-        switch (nThrusterBars)
+        int nScannerBars = (int)(SpaceshipGameplay.Instance.scanPower * 5);
+
+        UpdateEnergyBar(thrustDisplay, nThrusterBars, visible, invisible);
+        UpdateEnergyBar(ShieldDisplay, nShieldBars, visible, invisible);
+        UpdateEnergyBar(ScannerDisplay, nScannerBars, visible, invisible);
+
+
+
+        shieldIconGrey.GetComponent<Image>().color = invisible;
+
+        if (SpaceshipGameplay.Instance.shieldOnCooldown)
         {
-            case 5:
-                thrustDisplay[4].GetComponent<Image>().color = visible;
-                thrustDisplay[3].GetComponent<Image>().color = visible;
-                thrustDisplay[2].GetComponent<Image>().color = visible;
-                thrustDisplay[1].GetComponent<Image>().color = visible;
-                thrustDisplay[0].GetComponent<Image>().color = visible;
-                break;
-            case 4:
-                thrustDisplay[3].GetComponent<Image>().color = visible;
-                thrustDisplay[2].GetComponent<Image>().color = visible;
-                thrustDisplay[1].GetComponent<Image>().color = visible;
-                thrustDisplay[0].GetComponent<Image>().color = visible;
-                break;
-            case 3:
-                thrustDisplay[2].GetComponent<Image>().color = visible;
-                thrustDisplay[1].GetComponent<Image>().color = visible;
-                thrustDisplay[0].GetComponent<Image>().color = visible;
-                break;
-            case 2:
-                thrustDisplay[1].GetComponent<Image>().color = visible;
-                thrustDisplay[0].GetComponent<Image>().color = visible;
-                break;
-            case 1:
-                thrustDisplay[0].GetComponent<Image>().color = visible;
-                break;
-            case 0:
-                break;
+            shieldWarningIcon.GetComponent<Image>().color = visible;
+            shieldIconGrey.GetComponent<Image>().color = visible;
+            UpdateEnergyBar(ShieldDisplayGrey, nShieldBars, visible, invisible);
+        } else
+        {
+            UpdateEnergyBar(ShieldDisplayGrey, 0, visible, invisible);
+            shieldWarningIcon.GetComponent<Image>().color = invisible;
         }
     }
 }

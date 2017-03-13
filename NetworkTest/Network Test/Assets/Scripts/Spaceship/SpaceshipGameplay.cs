@@ -33,8 +33,11 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public Material shieldMaterial;
     public GameObject shieldObject;
 
+    [SyncVar]
     public float shieldCooldown;
+    [SyncVar]
     public bool shieldOnCooldown;
+    [SyncVar]
     public float shieldCooldownStartTime;
 
     public Image hitpointsDisplay;
@@ -72,11 +75,13 @@ public class SpaceshipGameplay : NetworkBehaviour {
         }
 
         //hitpointsDisplay.text = hitPoints.ToString() + " HP";
-        hitpointsDisplay.GetComponent<RectTransform>().localScale = new Vector3((float)hitPoints/maxHitpoints, 1, 1);
+        // hitpointsDisplay.GetComponent<RectTransform>().localScale = new Vector3((float)hitPoints/maxHitpoints, 1, 1);
+        hitpointsDisplay.GetComponent<Image>().fillAmount = (float)hitPoints / maxHitpoints;
 
         if (energyCapacity > 0)
         {
-            energyDisplay.GetComponent<RectTransform>().localScale = new Vector3(1, (float)energy / energyCapacity, 1);
+            //energyDisplay.GetComponent<RectTransform>().localScale = new Vector3(1, (float)energy / energyCapacity, 1);
+            energyDisplay.GetComponent<Image>().fillAmount = (float)energy / energyCapacity;
         }
 
         RechargeShield();
@@ -84,7 +89,10 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         ScanPower();
 
-        DrainEnergy(shieldPower * shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length);
+        if (GameState.Instance.isPlayerCaptain())
+        {
+            DrainEnergy(shieldPower * shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length * Time.deltaTime);
+        }
 
     }
 

@@ -9,6 +9,13 @@ public class PointToTarget : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         pointerActive = true;
+        if (GameState.Instance.isPlayerNavigator())
+        {
+            foreach ( MeshRenderer r in gameObject.GetComponentsInChildren<MeshRenderer>())
+            {
+                r.enabled = false;
+            }
+        }
 	}
 	
     public void setTargetPlanet(Transform target)
@@ -24,32 +31,77 @@ public class PointToTarget : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-	
-        if (targetPlanet == null || Vector3.Magnitude(new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(targetPlanet.transform.position.x, 0 , targetPlanet.transform.position.z)) < 50)
+
+        if (FreeNavigation.Instance.navigationActive)
         {
 
-            if (pointerActive)
+
+            
+         
+
+            //If target is active, point arrow towards target
+            if (GameState.Instance.isPlayerCaptain())
             {
-                foreach (MeshRenderer r in transform.GetComponentsInChildren<MeshRenderer>())
+                if (FreeNavigation.Instance.targetPointActive)
                 {
-                    r.enabled = false;
+
+                    //If ship is close enough to target
+                    if (Vector3.Magnitude(new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(FreeNavigation.Instance.targetPoint.x, 0, FreeNavigation.Instance.targetPoint.z)) < 30)
+                    {
+                        foreach (MeshRenderer r in transform.GetComponentsInChildren<MeshRenderer>())
+                        {
+                            r.enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        foreach (MeshRenderer r in transform.GetComponentsInChildren<MeshRenderer>())
+                        {
+                            r.enabled = true;
+                        }
+
+                        transform.LookAt(FreeNavigation.Instance.targetPoint);
+                    }
                 }
-                pointerActive = false;
+                else
+                {
+                    foreach (MeshRenderer r in transform.GetComponentsInChildren<MeshRenderer>())
+                    {
+                        r.enabled = false;
+                    }
+                }
             }
-        } else
+        }
+
+        if (PlanetNavigation.Instance.navigationActive)
         {
-            if (!pointerActive)
+            if (targetPlanet == null || Vector3.Magnitude(new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(targetPlanet.transform.position.x, 0, targetPlanet.transform.position.z)) < 50)
             {
-                foreach (MeshRenderer r in transform.GetComponentsInChildren<MeshRenderer>())
+
+                if (pointerActive)
                 {
-                    r.enabled = true;
+                    foreach (MeshRenderer r in transform.GetComponentsInChildren<MeshRenderer>())
+                    {
+                        r.enabled = false;
+                    }
+                    pointerActive = false;
                 }
-                pointerActive = true;
             }
+            else
+            {
+                if (!pointerActive)
+                {
+                    foreach (MeshRenderer r in transform.GetComponentsInChildren<MeshRenderer>())
+                    {
+                        r.enabled = true;
+                    }
+                    pointerActive = true;
+                }
 
-            transform.LookAt(targetPlanet);
-           // transform.localEulerAngles = new Vector3(0, transform.localRotation.y, 0);
+                transform.LookAt(targetPlanet);
+                // transform.localEulerAngles = new Vector3(0, transform.localRotation.y, 0);
 
+            }
         }
 
 	}

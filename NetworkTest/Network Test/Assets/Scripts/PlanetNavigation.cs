@@ -4,6 +4,9 @@ using UnityEngine.Networking;
 
 public class PlanetNavigation : NetworkBehaviour {
 
+
+    public bool navigationActive;
+
     public GameObject[] planets;
     // [SyncVar]
     [SyncVar] //(hook = "OnChangeActivePlanet")]
@@ -34,32 +37,38 @@ public class PlanetNavigation : NetworkBehaviour {
     public void RequestHighlight(GameObject planet)
     {
 
-        int selectedPlanet = System.Array.IndexOf(planets, planet);
-
-       // NetworkActions.Instance.CmdHighlightPlanet();
-        if (planet != planets[activePlanet])
+        if (navigationActive)
         {
-            //If another planet has been previously active
-            if (isActive)
+
+            int selectedPlanet = System.Array.IndexOf(planets, planet);
+
+            // NetworkActions.Instance.CmdHighlightPlanet();
+            if (planet != planets[activePlanet])
             {
-                //remove highlight from previously active planet
-                NetworkActions.Instance.CmdStopPlanetHighlight(activePlanet);
-            }
+                //If another planet has been previously active
+                if (isActive)
+                {
+                    //remove highlight from previously active planet
+                    NetworkActions.Instance.CmdStopPlanetHighlight(activePlanet);
+                }
 
 
-            //Call network action to set all planets active
-            NetworkActions.Instance.CmdHighlightPlanet(selectedPlanet);
-        } else
-        {
-            //if selected planet is not active
-            if (!isActive)
-            {
+                //Call network action to set all planets active
                 NetworkActions.Instance.CmdHighlightPlanet(selectedPlanet);
-            } else //if selected planet has been active
-            {
-                NetworkActions.Instance.CmdStopPlanetHighlight(selectedPlanet);
             }
-            
+            else
+            {
+                //if selected planet is not active
+                if (!isActive)
+                {
+                    NetworkActions.Instance.CmdHighlightPlanet(selectedPlanet);
+                }
+                else //if selected planet has been active
+                {
+                    NetworkActions.Instance.CmdStopPlanetHighlight(selectedPlanet);
+                }
+
+            }
         }
     }
     

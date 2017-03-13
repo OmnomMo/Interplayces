@@ -51,6 +51,15 @@ public class NetworkActions : NetworkBehaviour {
     }
 
     [Command]
+    public void CmdHighlightMousePosition(float posX, float posY, float posZ)
+    {
+        FreeNavigation.Instance.RpcSetTargetPoint(posX, posY, posZ);
+
+    }
+
+
+
+    [Command]
     public void CmdDragSphere (GameObject sphere)
     {
         //Debug.Log("Drag!");

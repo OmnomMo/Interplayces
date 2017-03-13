@@ -14,6 +14,8 @@ public class EnergyDistributionVariant1 : MonoBehaviour {
     public Image[] ShieldDisplayGrey;
     public Image[] ScannerDisplay;
 
+    public Image healthBar;
+    public Image energyBar;
 
 
 	// Use this for initialization
@@ -101,6 +103,21 @@ public class EnergyDistributionVariant1 : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+
+        //hitpointsDisplay.text = hitPoints.ToString() + " HP";
+        // hitpointsDisplay.GetComponent<RectTransform>().localScale = new Vector3((float)hitPoints/maxHitpoints, 1, 1);
+        healthBar.GetComponent<Image>().fillAmount = (float)SpaceshipGameplay.Instance.hitPoints / SpaceshipGameplay.Instance.maxHitpoints;
+
+      // Debug.Log(   (float)SpaceshipGameplay.Instance.hitPoints / SpaceshipGameplay.Instance.maxHitpoints);
+
+
+        if (SpaceshipGameplay.Instance.energyCapacity > 0)
+        {
+            //energyDisplay.GetComponent<RectTransform>().localScale = new Vector3(1, (float)energy / energyCapacity, 1);
+            energyBar.GetComponent<Image>().fillAmount = (float)SpaceshipGameplay.Instance.energy / SpaceshipGameplay.Instance.energyCapacity;
+        }
+
         UpdateEnergyBars();
 	}
 

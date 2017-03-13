@@ -5,8 +5,26 @@ using UnityEngine.Networking;
 
 public class SceneManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public GameObject navInterfaceV01;
+    public GameObject navInterfaceV02;
+
+    public int activeInterface;
+
+
+    private static SceneManager instance;
+    public static SceneManager Instance
+    {
+        get { return instance; }
+    }
+
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+    // Use this for initialization
+    void Start () {
 
         if (GameState.Instance == null)
         {
@@ -15,14 +33,31 @@ public class SceneManager : MonoBehaviour {
         else
         {
 
-          //  DontDestroyOnLoad(gameObject);
+
+            navInterfaceV01.SetActive(false);
+            navInterfaceV02.SetActive(false);
+
+
+            //  DontDestroyOnLoad(gameObject);
             if (GameState.Instance.isPlayerNavigator())
             {
+
+                switch (activeInterface)
+                {
+                    case 1: navInterfaceV01.SetActive(true);
+                        break;
+                    case 2: navInterfaceV02.SetActive(true);
+                        break;
+                    default:
+                        Debug.Log("ERROR: No interface set to active");
+                        break;
+                }
+
 
               //  Debug.Log("I'm da Navigataa");
                 //Camera.main.gameObject.GetComponent<CameraBehaviour>().ChangeCameraToNavigator();
 
-                Camera.main.GetComponent<References>().navigatorInterface.SetActive(true);
+               // Camera.main.GetComponent<References>().navigatorInterface.SetActive(true);
                 //Camera.main.GetComponent<References>().energyBar.GetComponent<EnergyBar>().Initialize();
             }
         }

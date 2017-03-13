@@ -74,15 +74,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
             ToEndScreen.Instance.EndZeroEnergy();
         }
 
-        //hitpointsDisplay.text = hitPoints.ToString() + " HP";
-        // hitpointsDisplay.GetComponent<RectTransform>().localScale = new Vector3((float)hitPoints/maxHitpoints, 1, 1);
-        hitpointsDisplay.GetComponent<Image>().fillAmount = (float)hitPoints / maxHitpoints;
 
-        if (energyCapacity > 0)
-        {
-            //energyDisplay.GetComponent<RectTransform>().localScale = new Vector3(1, (float)energy / energyCapacity, 1);
-            energyDisplay.GetComponent<Image>().fillAmount = (float)energy / energyCapacity;
-        }
 
         RechargeShield();
         UpdateShieldOpacity();

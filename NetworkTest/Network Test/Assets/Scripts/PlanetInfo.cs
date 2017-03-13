@@ -23,7 +23,10 @@ public class PlanetInfo : MonoBehaviour {
 
     public void ShowInfo()
     {
-        planetCanvas.gameObject.SetActive(true);
+        if (GameState.Instance.isPlayerCaptain())
+        {
+            planetCanvas.gameObject.SetActive(true);
+        }
     }
 
     public void HideInfo()

@@ -8,6 +8,8 @@ public class SceneManager : MonoBehaviour {
     public GameObject navInterfaceV01;
     public GameObject navInterfaceV02;
 
+    public GameObject navInterfaceV03;
+
     public int activeInterface;
 
 
@@ -36,6 +38,7 @@ public class SceneManager : MonoBehaviour {
 
             navInterfaceV01.SetActive(false);
             navInterfaceV02.SetActive(false);
+            navInterfaceV03.SetActive(false);
 
 
             //  DontDestroyOnLoad(gameObject);
@@ -47,6 +50,9 @@ public class SceneManager : MonoBehaviour {
                     case 1: navInterfaceV01.SetActive(true);
                         break;
                     case 2: navInterfaceV02.SetActive(true);
+                        break;
+                    case 3:
+                        navInterfaceV03.SetActive(true);
                         break;
                     default:
                         Debug.Log("ERROR: No interface set to active");

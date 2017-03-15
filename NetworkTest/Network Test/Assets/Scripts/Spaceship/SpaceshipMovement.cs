@@ -117,7 +117,7 @@ public class SpaceshipMovement : NetworkBehaviour {
             }
         }
 
-
+        if (SpaceshipGameplay.Instance.energy > 0)
         if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
         {
 

@@ -41,19 +41,51 @@ public class FreeNavigation : NetworkBehaviour {
 
        if (GameState.Instance.isPlayerNavigator())
         {
+
+            //bool touch = false;
+            //// Check if there is a touch
+            //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            //{
+                
+            //    // Check if finger is over a UI element
+            //    if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            //    {
+            //        Debug.Log("Touch!");
+            //        Vector2 fingerPos = Input.GetTouch(0).position;
+            //        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(fingerPos.x, fingerPos.y, Camera.main.transform.position.y - 10));
+            //        NetworkActions.Instance.CmdHighlightMousePosition(pos.x, pos.y, pos.z);
+            //        touch = true;
+            //    }
+            //}
+
+
             if (Input.GetMouseButtonDown(0))
             {
 
                 if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
 
-
-                    Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y - 10));
-                    NetworkActions.Instance.CmdHighlightMousePosition(pos.x, pos.y, pos.z);
+                    StartCoroutine(GetDelayedMousePos(Input.mousePosition));
+                    //Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y - 10));
+                    //NetworkActions.Instance.CmdHighlightMousePosition(pos.x, pos.y, pos.z);
                 }
 
             }
         }
+    }
+
+    public IEnumerator GetDelayedMousePos(Vector2 posMouse) 
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+
+
+            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y - 10));
+            NetworkActions.Instance.CmdHighlightMousePosition(pos.x, pos.y, pos.z);
+        }
+
     }
 
     [ClientRpc]

@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class HideForNavigator : MonoBehaviour {
 
+
+    public bool hideForCaptain;
+
 	// Use this for initialization
 	void Start () {
-		if (GameState.Instance != null && GameState.Instance.isPlayerNavigator())
+
+        if (!hideForCaptain)
         {
-            GetComponent<MeshRenderer>().enabled = false;
+            if (GameState.Instance != null && GameState.Instance.isPlayerNavigator())
+            {
+                GetComponent<MeshRenderer>().enabled = false;
+            }
+        }else
+        {
+            if (GameState.Instance != null && GameState.Instance.isPlayerCaptain())
+            {
+                GetComponent<MeshRenderer>().enabled = false;
+            }
         }
 	}
 	

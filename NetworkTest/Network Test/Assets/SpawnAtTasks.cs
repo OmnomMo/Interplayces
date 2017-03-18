@@ -20,17 +20,23 @@ public class SpawnAtTasks : MonoBehaviour {
         if (GameState.Instance.isPlayerCaptain())
         {
 
-            if (Input.GetKeyDown(KeyCode.Keypad1))
+            //Spawn in asteroid Field, task 2)
+            if (Input.GetKeyDown(KeyCode.Keypad2))
             {
                 transform.position = SpawnTask1.position;
             }
 
-            if (Input.GetKeyDown(KeyCode.Keypad2))
+
+            //Spawn at mercury (Task 3)
+            if (Input.GetKeyDown(KeyCode.Keypad3))
             {
                 transform.position = SpawnTask2.position;
+                NetworkActions.Instance.CmdSetEnergy(540);
             }
 
-            if (Input.GetKeyDown(KeyCode.Keypad3))
+
+            //Spawn at Saturn (Task 1)
+            if (Input.GetKeyDown(KeyCode.Keypad1))
             {
                 transform.position = SpawnTask3.position;
             }

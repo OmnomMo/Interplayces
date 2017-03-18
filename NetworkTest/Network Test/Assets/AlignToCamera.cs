@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class AlignToCamera : MonoBehaviour {
 
+
     public float scaleFactor;
     float parentScale;
 	// Use this for initialization

@@ -119,6 +119,11 @@ public class SpaceshipGameplay : NetworkBehaviour {
         UpdateBatteries();
     }
 
+    [ClientRpc] 
+    internal void RpcSetEnergy(int n)
+    {
+        energy = n;
+    }
 
     public bool DrainEnergy(float nEnergy)
     {

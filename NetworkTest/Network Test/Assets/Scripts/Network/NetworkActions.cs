@@ -153,4 +153,10 @@ public class NetworkActions : NetworkBehaviour {
     {
         PickupManager.Instance.RpcDestroyPickup(n);
     }
+
+    [Command]
+    public void CmdSetEnergy(int n)
+    {
+        SpaceshipGameplay.Instance.RpcSetEnergy(n);
+    }
 }

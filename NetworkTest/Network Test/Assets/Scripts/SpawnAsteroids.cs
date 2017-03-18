@@ -39,7 +39,7 @@ public class SpawnAsteroids : MonoBehaviour {
 
             //newAsteroid.GetComponent<Rigidbody>().isKinematic = true;
 
-            float a_scale = Random.Range(0.1f, 1f);
+            float a_scale = Random.Range(0.5f, 2f);
 
 
 

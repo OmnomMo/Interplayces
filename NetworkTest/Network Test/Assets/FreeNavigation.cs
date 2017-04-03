@@ -59,7 +59,7 @@ public class FreeNavigation : NetworkBehaviour {
             //}
 
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
 
                 if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())

@@ -14,13 +14,19 @@ public class HideForNavigator : MonoBehaviour {
         {
             if (GameState.Instance != null && GameState.Instance.isPlayerNavigator())
             {
-                GetComponent<MeshRenderer>().enabled = false;
+                if (GetComponent<MeshRenderer>() != null)
+                {
+                    GetComponent<MeshRenderer>().enabled = false;
+                }
             }
         }else
         {
             if (GameState.Instance != null && GameState.Instance.isPlayerCaptain())
             {
-                GetComponent<MeshRenderer>().enabled = false;
+                if (GetComponent<MeshRenderer>() != null)
+                {
+                    GetComponent<MeshRenderer>().enabled = false;
+                }
             }
         }
 	}

@@ -51,7 +51,7 @@ public class EndBuilding : NetworkBehaviour {
 
        // Debug.Log(SpaceShipPlans.Instance.ToString());
 
-        GameObject.Find("MultiplayerSetup").GetComponent<NetworkLobbyManager>().ServerChangeScene("Main");
+        GameObject.Find("MultiplayerSetup").GetComponent<NetworkLobbyManager>().ServerChangeScene("03_Main");
         // UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
 

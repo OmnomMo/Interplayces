@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Resets game to start level if GameState has not been instantiated yet
+
 public class LoadStartLevel : MonoBehaviour {
 
 	// Use this for initialization

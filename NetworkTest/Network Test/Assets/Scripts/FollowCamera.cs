@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Object position is set every frame to follow Camera.
+//factor variables enable parallax effect
+
 public class FollowCamera : MonoBehaviour {
 
     public float xOffset, yOffset, zOffset;

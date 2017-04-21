@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Declares Interfaces implemented by various classes.
+
 public interface ShipPart
 {
     void SetID(int newID);

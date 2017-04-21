@@ -123,7 +123,7 @@ public class NetworkActions : NetworkBehaviour {
 
         GameObject.Destroy(Score.Instance.gameObject);
 
-        MultiplayerSetup.Instance.ServerChangeScene("SpaceShipEditor_Tracking");
+        MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
     }
 
     //[Command]

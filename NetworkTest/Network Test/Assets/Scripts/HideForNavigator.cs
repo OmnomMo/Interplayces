@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Hides Object only for Navigator (or for capatin if bool is actice)
+
 public class HideForNavigator : MonoBehaviour {
 
 

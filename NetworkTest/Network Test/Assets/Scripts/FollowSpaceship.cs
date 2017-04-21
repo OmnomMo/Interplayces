@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//Camera Script
+//Follows spaceship position every frame
+
 public class FollowSpaceship : MonoBehaviour {
 
     public Transform spaceship;

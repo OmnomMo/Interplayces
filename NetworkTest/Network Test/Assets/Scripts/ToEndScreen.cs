@@ -66,7 +66,7 @@ public class ToEndScreen : NetworkBehaviour {
         if (!hasEnded)
         {
             hasEnded = true;
-            MultiplayerSetup.Instance.ServerChangeScene("EndScene");
+            MultiplayerSetup.Instance.ServerChangeScene("04_EndScene");
         }
     }
 

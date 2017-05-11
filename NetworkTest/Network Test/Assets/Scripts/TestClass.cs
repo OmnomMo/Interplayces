@@ -19,6 +19,12 @@ public class TestClass: MonoBehaviour {
 
     }
 
+    public static IEnumerator DelayedBreak()
+    {
+        yield return null;
+        Debug.Break();
+    }
+
     
 
     public void SpawnParts()

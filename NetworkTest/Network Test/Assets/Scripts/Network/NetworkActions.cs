@@ -28,13 +28,26 @@ public class NetworkActions : NetworkBehaviour {
 	
 	}
 
+    //Network-commands 
 
-   [Command]
+
+    //Scene Management
+    //---------------------------------------------------------------
+
+    [Command]
+    public void CmdRestartGame()
+    {
+
+    //    GameState.Instance.RpcRestartGame();
+
+  
+    }
+
+    [Command]
    public void CmdEndPhase()
     { 
         EndBuilding.Instance.RpcEndPhase();
     }
-
 
 
     [Command]
@@ -42,25 +55,87 @@ public class NetworkActions : NetworkBehaviour {
     {
         ToEndScreen.Instance.RpcEnterEndScreen();
     }
+    //---------------------------------------------------------------
 
+    //Ship Controls
+    //---------------------------------------------------------------
     [Command]
-    public void CmdHighlightPlanet (int nPlanet)
+    public void CmdSetThrust(float energy)
     {
-        PlanetNavigation.Instance.RpcSetActivePlanet(nPlanet);
-
+        if (SpaceshipGameplay.Instance != null)
+        {
+            SpaceshipGameplay.Instance.RpcSetThrust(energy);
+        }
     }
 
     [Command]
-    public void CmdHighlightMousePosition(float posX, float posY, float posZ)
+    public void CmdSetShield(float energy)
     {
-        FreeNavigation.Instance.RpcSetTargetPoint(posX, posY, posZ);
-
+        if (SpaceshipGameplay.Instance != null)
+        {
+            SpaceshipGameplay.Instance.RpcSetShield(energy);
+        }
     }
 
-
+    [Command]
+    public void CmdDealShieldDamage(float damage)
+    {
+        if (SpaceshipGameplay.Instance != null)
+        {
+            SpaceshipGameplay.Instance.RpcDealShieldDamage(damage);
+        }
+    }
 
     [Command]
-    public void CmdDragSphere (GameObject sphere)
+    public void CmdRechargeEnergy(float amount)
+    {
+        if (SpaceshipGameplay.Instance != null)
+        {
+            SpaceshipGameplay.Instance.RpcRechargeEnergy(amount);
+        }
+    }
+
+    [Command]
+    public void CmdSetScan(float energy)
+    {
+        if (SpaceshipGameplay.Instance != null)
+        {
+            SpaceshipGameplay.Instance.RpcSetScan(energy);
+        }
+    }
+
+    [Command]
+    public void CmdDrainPower(float amount)
+    {
+        if (SpaceshipGameplay.Instance != null)
+        {
+            SpaceshipGameplay.Instance.RpcDrainPower(amount);
+        }
+    }
+
+    
+
+    [Command]
+    public void CmdPickupEnergy(int n)
+    {
+        PickupManager.Instance.RpcDestroyPickup(n);
+    }
+
+    [Command]
+    public void CmdSetEnergy(int n)
+    {
+        if (SpaceshipGameplay.Instance != null)
+        {
+            SpaceshipGameplay.Instance.RpcSetEnergy(n);
+        }
+    }
+    //---------------------------------------------------------------
+
+    //Ship Building
+    //---------------------------------------------------------------
+
+    [Command]
+    public void CmdDragSphere(GameObject sphere)
     {
         //Debug.Log("Drag!");
         sphere.GetComponent<DragAround>().dragged = true;
@@ -71,70 +146,8 @@ public class NetworkActions : NetworkBehaviour {
     public void CmdStopDragSphere(GameObject sphere)
     {
         sphere.GetComponent<DragAround>().dragged = false;
-       // sphere.GetComponent<DragAround>().RpcStopDrag();
+        // sphere.GetComponent<DragAround>().RpcStopDrag();
     }
-
-    [Command]
-    public void CmdStopPlanetHighlight(int nPlanet)
-    {
-        
-        PlanetNavigation.Instance.RpcUnsetActivePlanet(nPlanet);
-    }
-
-    [Command]
-    public void CmdSetThrust(float energy)
-    {
-        SpaceshipGameplay.Instance.RpcSetThrust(energy);
-    }
-
-    [Command]
-    public void CmdSetShield(float energy)
-    {
-        SpaceshipGameplay.Instance.RpcSetShield(energy);
-    }
-
-    [Command]
-    public void CmdDealShieldDamage(float damage)
-    {
-        SpaceshipGameplay.Instance.RpcDealShieldDamage(damage);
-    }
-
-    [Command]
-    public void CmdRechargeEnergy(float amount)
-    {
-        SpaceshipGameplay.Instance.RpcRechargeEnergy(amount);
-    }
-
-    [Command]
-    public void CmdSetScan(float energy)
-    {
-        SpaceshipGameplay.Instance.RpcSetScan(energy);
-    }
-
-    [Command]
-    public void CmdDrainPower(float amount)
-    {
-        SpaceshipGameplay.Instance.RpcDrainPower(amount);
-    }
-
-    [Command]
-    public void CmdRestartGame()
-    {
-
-        GameObject.Destroy(Score.Instance.gameObject);
-
-        MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
-    }
-
-    //[Command]
-    //public void CmdCreateContainers()
-    //{
-
-    //    if (SwitchShipParts.Instance != null)
-    //    {
-    //        SwitchShipParts.Instance.RpcDebug();
-    //    }
-    //}
 
     [Command]
     public void CmdSetPartTypes(int x, int y, int newID)
@@ -148,15 +161,33 @@ public class NetworkActions : NetworkBehaviour {
         CreatePredefinedShip.Instance.RpcSetPT(x, y, newID);
     }
 
+    //---------------------------------------------------------------
+
+    //Navigation
+    //---------------------------------------------------------------
+
     [Command]
-    public void CmdPickupEnergy (int n)
+    public void CmdHighlightPlanet (int nPlanet)
     {
-        PickupManager.Instance.RpcDestroyPickup(n);
+        PlanetNavigation.Instance.RpcSetActivePlanet(nPlanet);
+
     }
 
     [Command]
-    public void CmdSetEnergy(int n)
+    public void CmdStopPlanetHighlight(int nPlanet)
     {
-        SpaceshipGameplay.Instance.RpcSetEnergy(n);
+
+        PlanetNavigation.Instance.RpcUnsetActivePlanet(nPlanet);
     }
+
+    [Command]
+    public void CmdHighlightMousePosition(float posX, float posY, float posZ)
+    {
+        FreeNavigation.Instance.RpcSetTargetPoint(posX, posY, posZ);
+
+    }
+
+
+
+  
 }

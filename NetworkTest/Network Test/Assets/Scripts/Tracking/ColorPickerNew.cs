@@ -11,7 +11,7 @@ public class ColorPickerNew : MonoBehaviour {
 
     Rect[,] fields;
 
-    Color[][] pickedColors;
+    Color[,][] pickedColors;
     public Color[,] averageColors;
 
     public int nRows;
@@ -26,26 +26,29 @@ public class ColorPickerNew : MonoBehaviour {
 
             tex = WebcamManager.Instance.tex;
 
-
+            Debug.Log("Texture: " + tex.width + "/" + tex.height);
             overlayTexture = new Texture2D(tex.width, tex.height);
             overlayImage.GetComponent<RawImage>().texture = overlayTexture;
 
             fields = new Rect[nCols, nRows];
 
-            pickedColors = new Color[nRows + nCols][];
+            pickedColors = new Color[nCols, nRows][];
             averageColors = new Color[nCols, nRows];
             // cubes = new GameObject[nFields];
 
+            float imageProportion = (float)tex.height / (float)tex.width;
 
             for (int i = 0; i < nCols; i++)
             {
                 for (int j = 0; j < nRows; j++)
                 {
-                    fields[i, j] = new Rect(j * tex.width / 7 + 10, i * tex.height / 5 + 20, tex.width / 12, tex.height / 8);
+                    fields[i, j] = new Rect(i * tex.width / nCols + 10, j * tex.height / nRows + 20, tex.width / 12, tex.height / 8);
+
+                    Debug.Log("Rect " + i + "/" + j + ": " + fields[i, j].x + "/" + fields[i, j].y + " -- " + fields[i, j].width + "/" + fields[i, j].height);
                 }
             }
 
-            float imageProportion = (float)tex.height / (float)tex.width;
+            
 
 
             //Scale Image plane
@@ -63,6 +66,8 @@ public class ColorPickerNew : MonoBehaviour {
         if (WebcamManager.Instance.hasWebcam)
         {
 
+       
+
             if (!tex.isPlaying)
             {
                 tex.Play();
@@ -76,34 +81,56 @@ public class ColorPickerNew : MonoBehaviour {
 
 
                     //Debug.Log ("AVG Color for field " + i + "/" + j  + ": " +  getCubeColor (averageColors [i, j]));
-                    pickedColors[i + j] = tex.GetPixels((int)fields[i, j].x, (int)fields[i, j].y, (int)fields[i, j].width, (int)fields[i, j].height);
-                    averageColors[i, j] = getAverage(pickedColors[i + j]);
+                    pickedColors[i, j] = tex.GetPixels((int)fields[i, j].x, (int)fields[i, j].y, (int)fields[i, j].width, (int)fields[i, j].height);
+                    averageColors[i, j] = getAverage(pickedColors[i, j]);
                 }
             }
-
+            
             //printDetectedColorConfiguration ();
+
+            overlayTexture.Apply();
         }
       
     }
 
 
 	private void printDetectedColorConfiguration() {
-		//Check if Pixel is on field, if yes, fill
-		for (int x = 0; x < tex.width; x++) {
-			for (int y = 0; y < tex.height; y++) {
+        //Check if Pixel is on field, if yes, fill
 
-				for (int i = 0; i < nCols; i++) {
-					for (int j = 0; j < nRows; j++) {
+        for (int i = 0; i < nCols; i++)
+        {
+            for (int j = 0; j < nRows; j++)
+            {
 
-						if (fields[i,j].Contains(new Vector2(x,y))) {
-							overlayTexture.SetPixel(x, y, getCubeColor (averageColors [i,j]));
-						}
-					}
-				}
-			}
-		}
+                Color[] cols = new Color[(int)fields[i, j].width * (int)fields[i, j].height];
+                Color col = (averageColors[i, j]);
 
-		overlayTexture.Apply();
+
+
+                for (int a = 0; a < cols.Length; a++)
+                {
+                    cols[a] = col;
+                }
+
+                //for (int x = (int)fields[i, j].x; x < (int)fields[i, j].x + (int)fields[i, j].width; x++)
+                //{
+                //    for (int y = (int)fields[i, j].y; x < (int)fields[i, j].y + (int)fields[i, j].height; y++)
+                //    {
+                //        overlayTexture.SetPixel(x, y, col);
+                //    }
+                //}
+
+
+
+                overlayTexture.SetPixels((int)fields[i, j].x, (int)fields[i, j].y, (int)fields[i, j].width, (int)fields[i, j].height, cols);
+
+                Debug.Log(col);
+
+            }
+        }
+        
+
+
 
 	}
 

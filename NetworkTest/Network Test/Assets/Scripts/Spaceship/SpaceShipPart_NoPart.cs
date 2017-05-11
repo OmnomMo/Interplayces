@@ -10,7 +10,7 @@ public class SpaceShipPart_NoPart : MonoBehaviour, ShipPart {
 
     // Use this for initialization
     void Start () {
-		
+      //  Debug.Log("EmptyPart Created");
 	}
 	
 	// Update is called once per frame

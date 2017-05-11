@@ -9,6 +9,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
     public bool isCaptainReady;
     public bool isNavigatorReady;
 
+    public bool singlePlayerAble;
 
 
 
@@ -64,7 +65,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-       // Debug.Log("Connected! Whew");
+        Debug.Log("Connected! Whew");
         SetCaptainReady();
         JoinGameButtons.Instance.ColorCaptainGreen();
         base.OnClientConnect(conn);
@@ -82,6 +83,11 @@ public class MultiplayerSetup : NetworkLobbyManager{
             JoinGameButtons.Instance.ColorNavigatorGreen();
         }
         base.OnServerConnect(conn);
+    }
+
+    public override void OnLobbyServerSceneChanged(string sceneName)
+    {
+
     }
 
     // Update is called once per frame

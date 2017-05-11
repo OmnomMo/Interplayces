@@ -16,6 +16,15 @@ public class SwitchShipParts : NetworkBehaviour {
     public GameObject thrusterPrefab;
     public GameObject noPartPrefab;
 
+    int checkX;
+    int checkY;
+
+    public int switchedshipParts;
+
+
+    int nRows;
+    int nCols;
+
 
 
     private static SwitchShipParts instance;
@@ -27,9 +36,12 @@ public class SwitchShipParts : NetworkBehaviour {
         
         Debug.Log("Set instance of SwitchParts");
 
+        nRows = colorTracker.GetComponent<ColorPickerNew>().nCols;
+        nCols = colorTracker.GetComponent<ColorPickerNew>().nRows;
+
         if (SwitchShipParts.Instance != null)
         {
-            Debug.Log("SwitchParts not null!");
+           // Debug.Log("SwitchParts not null!");
             GameObject.Destroy(this.gameObject);
 
         } else
@@ -37,7 +49,7 @@ public class SwitchShipParts : NetworkBehaviour {
             instance = this;
         }
 
-        parts = new GameObject[colorTracker.GetComponent<ColorPickerNew>().nCols, colorTracker.GetComponent<ColorPickerNew>().nRows];
+        parts = new GameObject[nCols, nRows];
 
         CreateContainers();
 
@@ -55,6 +67,7 @@ public class SwitchShipParts : NetworkBehaviour {
        // NetworkActions.Instance.CmdCreateContainers();
         
         SetPartTypes();
+        CheckAllPartTypes();
 
         // Debug.Log()
         
@@ -66,9 +79,9 @@ public class SwitchShipParts : NetworkBehaviour {
         Vector3 newPos = new Vector3();
 
 
-        for (int x = 0; x < colorTracker.GetComponent<ColorPickerNew>().nCols; x++)
+        for (int x = 0; x < nCols; x++)
         {
-            for (int y = 0; y < colorTracker.GetComponent<ColorPickerNew>().nRows; y++)
+            for (int y = 0; y < nRows; y++)
             {
                 GameObject newPart = GameObject.Instantiate(spaceshipContainer);
                 newPart.transform.parent = this.transform;
@@ -76,11 +89,11 @@ public class SwitchShipParts : NetworkBehaviour {
 
 
                 newPos.x = x * 1.1f;
-                newPos.y = y * -1.1f;
+                newPos.y = y * 1.1f;
                 newPart.transform.localPosition = newPos;
                 parts[x, y] = newPart;
                 newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
-                newPart.GetComponentInChildren<ShipPart>().SetPosY(colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
+                newPart.GetComponentInChildren<ShipPart>().SetPosY(y);
 
             }
         }
@@ -105,6 +118,28 @@ public class SwitchShipParts : NetworkBehaviour {
 
     } 
 
+    //Periodically updates all parts to mitigate errors
+    public void CheckAllPartTypes()
+    {
+        if (GameState.Instance.isPlayerCaptain())
+        {
+
+            //update Part on x/y;
+            NetworkActions.Instance.CmdSetPartTypes(checkX, checkY, parts[checkX, checkY].transform.GetChild(0).GetComponent<ShipPart>().getID());
+
+
+            //increase x, if x is max, increase y
+            if (++checkX >= nCols)
+            {
+                checkX = 0;
+                if (++checkY >= nRows)
+                {
+                    checkY = 0;
+                }
+            }
+
+        }
+    }
 
     public void SetPartTypes()
     {
@@ -115,28 +150,59 @@ public class SwitchShipParts : NetworkBehaviour {
             if (colorTracker.GetComponent<ColorPickerNew>() != null)
             {
 
-                for (int x = 0; x < colorTracker.GetComponent<ColorPickerNew>().nCols; x++)
+
+
+                for (int x = 0; x < nCols; x++)
                 {
-                    for (int y = 0; y < colorTracker.GetComponent<ColorPickerNew>().nRows; y++)
+                    for (int y = 0; y < nRows; y++)
                     {
+                        
 
-                        //Debug.Log("1:" + (colorTracker.GetComponent<ColorPickerNew>() != null));
-                        //Debug.Log("2:" + (parts != null));
-                        //Debug.Log("3:" + (playingField.GetComponent<PlayingGrid>() !=  null));
+                        //Here x and y have to be swapped, because rect coordinates flip y and the recorded texture is in wide format
+                        //Get average color inside a specified rect from the camera texture
 
-                        // Debug.Log(colorTracker.GetComponent<ColorPickerNew>().averageColors[x, y]);
+                       
+                           int  newID = ColorToID(colorTracker.GetComponent<ColorPickerNew>().averageColors[((nRows - 1) - y), x]);
+                        
 
-                        int newID = ColorToID(colorTracker.GetComponent<ColorPickerNew>().averageColors[x, y]);
 
-                        NetworkActions.Instance.CmdSetPartTypes(x, y, newID);
+                        
+                        
+
+                        GameObject oldPart = parts[x,y].transform.GetChild(0).gameObject;
+
+
+                       // If the color inside the rect changed, instantiate new ship part of new type.
+
+                        if (newID != oldPart.GetComponent<ShipPart>().getID())
+                        {
+                            NetworkActions.Instance.CmdSetPartTypes(x, y, newID);
+                            
+
+                            Debug.Log("SwitchPart (" + x + "/" + y +  ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
+
+                            
+
+                   
+                        }
+
+                  
 
 
                     }
                 }
             }
+            else
+            {
+                Debug.Log("Webcam not found. Please connect webcam and resrtart game");
+            }
+
+            //StartCoroutine(TestClass.DelayedBreak());
         }
 
     }
+
+
 
     [ClientRpc]
     internal void RpcSetPT(int x, int y, int newID)
@@ -144,25 +210,18 @@ public class SwitchShipParts : NetworkBehaviour {
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;
 
-        //if part changed from last frame, create new Part
-        if (newPart.GetComponent<ShipPart>().getID() != oldPart.GetComponent<ShipPart>().getID())
-        {
 
-            playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
+        playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
 
-            GameObject.Destroy(oldPart);
+        playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
+        newPart.transform.parent = parts[x, y].transform;
+        newPart.transform.localPosition = Vector3.zero;
+        newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
+        newPart.GetComponentInChildren<ShipPart>().SetPosY(y);// colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
+
+        GameObject.Destroy(oldPart);
 
 
-            playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
-            newPart.transform.parent = parts[x, y].transform;
-            newPart.transform.localPosition = Vector3.zero;
-            newPart.GetComponentInChildren<ShipPart>().SetPosX(colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
-            newPart.GetComponentInChildren<ShipPart>().SetPosY(colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
-        }
-        else
-        {
-            GameObject.Destroy(newPart);
-        }
     }
 
 
@@ -171,10 +230,10 @@ public class SwitchShipParts : NetworkBehaviour {
         switch (id)
         {
             case 0:
-                return GameObject.Instantiate(thrusterPrefab);
+                return GameObject.Instantiate(batteryPrefab);
                 break;
             case 1:
-                return GameObject.Instantiate(batteryPrefab);
+                return GameObject.Instantiate(thrusterPrefab);
                 break;
             case 2:
                 return GameObject.Instantiate(shieldPrefab);
@@ -198,13 +257,13 @@ public class SwitchShipParts : NetworkBehaviour {
             //red
             if (c.r > c.g * 1.2 && c.r > c.b * 1.2)
             {
-                return 0;
+                return 1;
             }
 
             //green
             if (c.g > c.r /** 1.2*/ && c.g > c.b /** 1.2*/)
             {
-                return 1;
+                return 0;
             }
 
             //blue

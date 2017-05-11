@@ -179,7 +179,7 @@ public class SwitchShipParts : NetworkBehaviour {
                             NetworkActions.Instance.CmdSetPartTypes(x, y, newID);
                             
 
-                            Debug.Log("SwitchPart (" + x + "/" + y +  ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
+                            //Debug.Log("SwitchPart (" + x + "/" + y +  ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
 
                             
 

@@ -48,13 +48,29 @@ public class SpaceshipMovement : NetworkBehaviour {
         if (NetworkPlayer.Instance != null)
         {
 
-        
+
 
             //Only captain may control spaceship
             if (GameState.Instance.isPlayerCaptain())
             {
 
-               
+                //if hololens is connected, send position info to hololens
+
+                if (GameState.Instance.holoLensConnected)
+                {
+
+                    Message m = new Message();
+
+                    string[] coordinates = new string[2];
+                    coordinates[0] = transform.position.x.ToString();
+                    coordinates[1] = transform.position.y.ToString();
+
+                    m.commandID = (int)NetworkCommands.CmdSetPosition;
+                    m.parameters = coordinates;
+                    TCPSocketServer.Instance.Send(m);
+                }
+
+            
 
                 float deadZone = 0.4f;
 

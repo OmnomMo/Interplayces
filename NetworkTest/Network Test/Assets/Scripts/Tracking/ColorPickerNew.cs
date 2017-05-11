@@ -44,7 +44,7 @@ public class ColorPickerNew : MonoBehaviour {
                 {
                     fields[i, j] = new Rect(i * tex.width / nCols + 10, j * tex.height / nRows + 20, tex.width / 12, tex.height / 8);
 
-                    Debug.Log("Rect " + i + "/" + j + ": " + fields[i, j].x + "/" + fields[i, j].y + " -- " + fields[i, j].width + "/" + fields[i, j].height);
+                    //Debug.Log("Rect " + i + "/" + j + ": " + fields[i, j].x + "/" + fields[i, j].y + " -- " + fields[i, j].width + "/" + fields[i, j].height);
                 }
             }
 

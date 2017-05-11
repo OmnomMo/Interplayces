@@ -40,7 +40,7 @@ public class ServerUDP : MonoBehaviour {
 
     public void StartSendingIP()
     {
-        GetComponent<NetworkLobbyManager>().StartHost();
+        //GetComponent<NetworkLobbyManager>().StartHost();
         sender = new UdpClient(localPort, AddressFamily.InterNetwork);
         IPEndPoint groupEP = new IPEndPoint(IPAddress.Broadcast, remotePort);
         sender.Connect(groupEP);

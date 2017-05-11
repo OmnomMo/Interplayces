@@ -26,12 +26,12 @@ public class LobbyPLayerAutoReady : NetworkLobbyPlayer {
     public IEnumerator CheckReady()
     {
         yield return null;
-        Debug.Log(playerControllerId);
+       // Debug.Log(playerControllerId);
 
 
         if (isLocalPlayer)
         {
-            Debug.Log("I entered a Lobby!");
+           // Debug.Log("I entered a Lobby!");
             readyToBegin = true;
 
             if ((MultiplayerSetup.Instance.isCaptainReady && MultiplayerSetup.Instance.isNavigatorReady) || MultiplayerSetup.Instance.singlePlayerAble)

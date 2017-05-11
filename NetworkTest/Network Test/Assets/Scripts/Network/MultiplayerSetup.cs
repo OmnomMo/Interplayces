@@ -25,7 +25,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
 
         //If gamestate hasnt been initialized yet, jump to initialization scene
      
-
+        
         
         if (MultiplayerSetup.Instance == null)
         {
@@ -65,7 +65,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        Debug.Log("Connected! Whew");
+        //Debug.Log("Connected! Whew");
         SetCaptainReady();
         JoinGameButtons.Instance.ColorCaptainGreen();
         base.OnClientConnect(conn);
@@ -75,7 +75,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
     public override void OnServerConnect(NetworkConnection conn)
     {
 
-        Debug.Log("Connected: " + conn.address + " to " + networkAddress);
+        //Debug.Log("Connected: " + conn.address + " to " + networkAddress);
 
         if (conn.address != "localClient")
         {

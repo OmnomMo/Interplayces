@@ -67,13 +67,13 @@ public class JoinGameButtons : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (MultiplayerSetup.Instance.isCaptainReady && MultiplayerSetup.Instance.isNavigatorReady)
-        {
-            StartGameButton.interactable = true;
-        } else
-        {
-            StartGameButton.interactable = false;
-        }
+		//if (MultiplayerSetup.Instance.isCaptainReady && MultiplayerSetup.Instance.isNavigatorReady)
+  //      {
+  //          StartGameButton.interactable = true;
+  //      } else
+  //      {
+  //          StartGameButton.interactable = false;
+  //      }
 	}
 
     public void ColorCaptainGreen()
@@ -83,7 +83,13 @@ public class JoinGameButtons : MonoBehaviour {
 
     public void JoinAsCaptain()
     {
-        MultiplayerSetup.Instance.gameObject.GetComponent<ServerUDP>().StartSendingIP();
+
+        MultiplayerSetup.Instance.StartHost();
+
+        if (!GameState.Instance.holoLensConnected)
+        {
+            MultiplayerSetup.Instance.gameObject.GetComponent<ServerUDP>().StartSendingIP();
+        }
         MultiplayerSetup.Instance.StartAsCaptain();
         navButton.interactable = false;
 

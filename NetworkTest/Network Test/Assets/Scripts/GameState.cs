@@ -6,6 +6,9 @@ using UnityEngine.Networking;
 public class GameState : MonoBehaviour {
 
 
+
+    public bool holoLensConnected;
+
     public enum PlayerTypes { Captain, Navigator, NavigatorAR, None }
 
     PlayerTypes playerType;
@@ -21,7 +24,7 @@ public class GameState : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         if (GameState.Instance == null) {
             instance = this;
         } else
@@ -39,14 +42,23 @@ public class GameState : MonoBehaviour {
         return playerType;
     }
 
-    public void StartAsCaptain()
-    {
-        setPlayerCaptain();
-        networkManager.GetComponent<NetworkManager>().StartHost();
-  
+    //public void StartAsCaptain()
+    //{
+    //    setPlayerCaptain();
+
+    //    if (holoLensConnected)
+    //    {
+    //        Debug.Log("Hololens Connected. Set Player number to one");
+    //        networkManager.GetComponent<NetworkLobbyManager>().minPlayers = 1;
+    //    } else
+    //    {
+    //        Debug.Log("no Hololens");
+    //    }
+    //    networkManager.GetComponent<NetworkManager>().StartHost();
 
 
-    }
+
+    //}
 
 
     public void StartAsNavigator()
@@ -60,11 +72,22 @@ public class GameState : MonoBehaviour {
 
 
     public void setPlayerCaptain()
-    {
+
+        { 
+            if (holoLensConnected)
+            {
+                Debug.Log("Hololens Connected. Set Player number to one");
+                MultiplayerSetup.Instance.minPlayers = 1;
+
+            Message m = new Message();
+            m.commandID = (int)NetworkCommands.CmdSceneToBuilding;
+            TCPSocketServer.Instance.Send(m);
+            
+             }
 
 
-        //Debug.Log("Set Player Captain");
-        playerType = PlayerTypes.Captain;
+    //Debug.Log("Set Player Captain");
+    playerType = PlayerTypes.Captain;
     }
 
     public bool isPlayerCaptain()

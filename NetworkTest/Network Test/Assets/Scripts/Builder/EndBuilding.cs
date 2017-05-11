@@ -53,6 +53,16 @@ public class EndBuilding : NetworkBehaviour {
 
         GameObject.Find("MultiplayerSetup").GetComponent<NetworkLobbyManager>().ServerChangeScene("03_Main");
         // UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+
+
+        //if hololens is connected, send end scene command to hololens
+
+        if (GameState.Instance.holoLensConnected)
+        {
+            Message m = new Message();
+            m.commandID = (int)NetworkCommands.CmdSceneToGame;
+            TCPSocketServer.Instance.Send(m);
+        }
     }
 
     

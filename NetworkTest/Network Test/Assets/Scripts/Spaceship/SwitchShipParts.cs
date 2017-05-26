@@ -169,14 +169,14 @@ public class SwitchShipParts : NetworkBehaviour {
                         
                         
 
-                        GameObject oldPart = parts[x,y].transform.GetChild(0).gameObject;
+                        GameObject oldPart = parts[nCols - 1 -x,y].transform.GetChild(0).gameObject;
 
 
                        // If the color inside the rect changed, instantiate new ship part of new type.
 
                         if (newID != oldPart.GetComponent<ShipPart>().getID())
                         {
-                            NetworkActions.Instance.CmdSetPartTypes(x, y, newID);
+                            NetworkActions.Instance.CmdSetPartTypes(nCols - 1 - x, y, newID);
                             
 
                             //Debug.Log("SwitchPart (" + x + "/" + y +  ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
@@ -261,7 +261,7 @@ public class SwitchShipParts : NetworkBehaviour {
             }
 
             //green
-            if (c.g > c.r /** 1.2*/ && c.g > c.b /** 1.2*/)
+            if (c.g > c.r /** 1.2*/ && c.g > c.b /** 1.2*/ && c.r < 0.3 && c.g < 0.4)
             {
                 return 0;
             }
@@ -273,7 +273,7 @@ public class SwitchShipParts : NetworkBehaviour {
             }
 
             //yellow
-            if (c.r > c.b && c.g > c.b)
+            if (c.r > c.b * 1.2f && c.g > c.b * 1.2f && c.b < 0.5)
             {
                 return 3;
             }

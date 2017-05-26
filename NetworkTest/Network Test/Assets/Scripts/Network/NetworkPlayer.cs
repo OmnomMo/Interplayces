@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class NetworkPlayer : MonoBehaviour
+public class NetworkPlayer : NetworkBehaviour
 {
 
     
@@ -36,5 +37,13 @@ public class NetworkPlayer : MonoBehaviour
     public void removeCanvas()
     {
         dialogue.gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
+    public void RpcRestartGame()
+    {
+        //GameObject.Destroy(Score.Instance.gameObject);
+
+        MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
     }
 }

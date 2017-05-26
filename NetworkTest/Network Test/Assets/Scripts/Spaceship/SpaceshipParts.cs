@@ -19,6 +19,8 @@ public class SpaceshipParts : MonoBehaviour {
 
     public GameObject shieldObject;
 
+    public float weight;
+
     private static SpaceshipParts instance;
     public static SpaceshipParts Instance
     {

@@ -6,9 +6,10 @@ using System;
 
 public class SpaceshipMovement : NetworkBehaviour {
 
-    
+
     //public float thrust;
     //[Range(0.0f, 10.0f)]
+    public GameObject mapCenter;
     public float thrustMultiplier;
      float boostMultiplier;
     public float boostFactor;
@@ -20,6 +21,8 @@ public class SpaceshipMovement : NetworkBehaviour {
     public GameObject[] allParts;
 
     public bool isAccelerating;
+
+    public bool outOfBounds;
     
     bool isBraking;
 
@@ -126,7 +129,7 @@ public class SpaceshipMovement : NetworkBehaviour {
                         //Accelerates when direction pointed at is same as target direction
 
                         //Debug.Log("TargetAngle= " + targetAngle + " rotation = " + transform.eulerAngles.y);
-                        if (Mathf.Abs(targetAngle - transform.eulerAngles.y) < 10)
+                        if (Mathf.Abs(targetAngle - transform.eulerAngles.y) < 10 || Mathf.Abs(targetAngle - transform.eulerAngles.y) >350)
                         {
                             isAccelerating = true;
                         }else
@@ -179,37 +182,48 @@ public class SpaceshipMovement : NetworkBehaviour {
 
         //Debug Acceleration without Navigator
 
-        if (isAccelerating)
-        {
-            if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
-            {
-                GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier * boostMultiplier);
-            }
-        }
 
-        //if (SpaceshipGameplay.Instance.energy > 0)
-        if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
+        if (!outOfBounds)
         {
 
-
-            if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
+            if (isAccelerating)
             {
-
-                GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier * boostMultiplier);
-
-                SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
-
-                foreach (GameObject thruster in thrusters)
+                if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
                 {
-                    thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
+                    GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier * boostMultiplier);
                 }
             }
-        } else
-        {
-            foreach (GameObject thruster in thrusters)
+
+
+
+            //if (SpaceshipGameplay.Instance.energy > 0)
+            if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
             {
-                thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
+
+
+                if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
+                {
+
+                    GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier * boostMultiplier);
+
+                    SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
+
+                    foreach (GameObject thruster in thrusters)
+                    {
+                        thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
+                    }
+                }
             }
+            else
+            {
+                foreach (GameObject thruster in thrusters)
+                {
+                    thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
+                }
+            }
+        } else //if player is out of bounds
+        {
+            GetComponent<Rigidbody>().AddForce(Vector3.Normalize(mapCenter.transform.position - transform.position) * 1000);
         }
 
         if (isBraking)
@@ -219,6 +233,24 @@ public class SpaceshipMovement : NetworkBehaviour {
         {
             GetComponent<Rigidbody>().drag = dragNormal;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("LevelBounds")) {
+            outOfBounds = true;
+        }
+
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("LevelBounds"))
+        {
+            outOfBounds = false;
+        }
+
     }
 
     //private GameObject[] GetThrusters()
@@ -252,5 +284,5 @@ public class SpaceshipMovement : NetworkBehaviour {
 
     //}
 
-    
+
 }

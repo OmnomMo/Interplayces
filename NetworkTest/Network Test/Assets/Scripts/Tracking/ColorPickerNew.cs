@@ -152,29 +152,36 @@ public class ColorPickerNew : MonoBehaviour {
     }
 
 
-    private Color getCubeColor (Color c)
-    {
-        //red
-        if (c.r > c.g * 1.2 && c.r > c.b * 1.2) {
-            return Color.red;
-        }
+    //private Color getCubeColor (Color c)
+    //{
 
-        //green
-        if (c.g > c.r /** 1.2*/ && c.g > c.b /** 1.2*/) {
-            return Color.green;
-        }
+    //    Debug.Log(c.ToString());
 
-        //blue
-        if (c.b > c.g * 1.2 && c.b > c.r * 1.2) {
-            return Color.blue;
-        }
+    //    //red
+    //    if (c.r > c.g * 1.2 && c.r > c.b * 1.2)
+    //    {
+    //        return Color.red;
+    //    }
 
-		//yellow
-		if (c.r > c.b && c.g > c.b) {
-			return Color.yellow;
-		}
+    //    //green
+    //    if (c.g > c.r /** 1.2*/ && c.g > c.b /** 1.2*/ && c.r < 0.25 && c.g < 0.3)
+    //    {
+    //        return Color.green;
+    //    }
 
-        return Color.white;
-    }
+    //    //blue
+    //    if (c.b > c.g * 1.2 && c.b > c.r * 1.2)
+    //    {
+    //        return Color.blue;
+    //    }
+
+    //    //yellow
+    //    if (c.r > c.b * 1.5f && c.g > c.b * 1.5f && c.b < 0.25)
+    //    {
+    //        return Color.yellow;
+    //    }
+
+    //    return Color.white;
+    //}
 }
 

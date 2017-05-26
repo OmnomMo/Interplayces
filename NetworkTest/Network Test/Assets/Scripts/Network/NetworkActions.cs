@@ -38,7 +38,7 @@ public class NetworkActions : NetworkBehaviour {
     public void CmdRestartGame()
     {
 
-    //    GameState.Instance.RpcRestartGame();
+     NetworkPlayer.Instance.RpcRestartGame();
 
   
     }

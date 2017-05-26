@@ -135,11 +135,5 @@ public class GameState : MonoBehaviour {
 		
 	}
 
-    //[ClientRpc] 
-    //public void RpcRestartGame()
-    //{
-    //    GameObject.Destroy(Score.Instance.gameObject);
 
-    //    MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
-    //}
 }

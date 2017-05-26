@@ -10,6 +10,8 @@ public class SpaceshipMovement : NetworkBehaviour {
     //public float thrust;
     //[Range(0.0f, 10.0f)]
     public float thrustMultiplier;
+     float boostMultiplier;
+    public float boostFactor;
     public float DEBUGThrustBonus;
 
     public float maxVelocity;
@@ -17,7 +19,8 @@ public class SpaceshipMovement : NetworkBehaviour {
     public GameObject[] thrusters;
     public GameObject[] allParts;
 
-    bool isAccelerating;
+    public bool isAccelerating;
+    
     bool isBraking;
 
     public float dragNormal;
@@ -83,9 +86,58 @@ public class SpaceshipMovement : NetworkBehaviour {
                     //If there is any keyboard input at all, place rotationtarget in direction of input, look at direction rotation target is transformed to
                     if (!(noHorizontalInput && noVerticalInput))
                     {
-                        // Debug.Log("Rotation changing maybe!");
-                        rotationTarget.transform.position = new Vector3(Camera.main.transform.position.x + 5 * Input.GetAxis("HorizontalKeyboard"), transform.position.y, Camera.main.transform.position.z + 5 * Input.GetAxis("VerticalKeyboard"));
-                        transform.LookAt(rotationTarget.transform);
+             
+                        //rotates spaceship towards joystick direction
+
+
+                        float targetAngle = Mathf.Atan(Input.GetAxis("VerticalKeyboard") / Input.GetAxis("HorizontalKeyboard")) * Mathf.Rad2Deg * -1;
+
+
+                        
+
+                        if (Input.GetAxis("HorizontalKeyboard") >= 0 ) // && Input.GetAxis("VerticalKeyboard") >= 0)
+                        {
+                            targetAngle = targetAngle  + 90;
+                        }
+
+                        if (Input.GetAxis("HorizontalKeyboard") < 0)
+                        {
+                            targetAngle = targetAngle - 90;
+                        }
+
+
+
+                        Vector3 targetRotation = new Vector3(0, targetAngle, 0);
+                        iTween.RotateTo(gameObject, targetRotation, 1/rotationSpeed);
+
+
+
+
+                        //Debug.Log("Rotate towards: " + targetAngle);
+                        ////Vector3 targetRotation = new Vector3(Input.GetAxis("HorizontalKeyboard"),0,Input.GetAxis("VerticalKeyboard"));
+                        //Debug.Log("Rotate towards: " + Input.GetAxis("HorizontalKeyboard") + "/" + Input.GetAxis("VerticalKeyboard"));
+
+                        if (targetAngle < 0)
+                        {
+                            targetAngle = targetAngle + 360;
+                        }
+
+
+                        //Accelerates when direction pointed at is same as target direction
+
+                        //Debug.Log("TargetAngle= " + targetAngle + " rotation = " + transform.eulerAngles.y);
+                        if (Mathf.Abs(targetAngle - transform.eulerAngles.y) < 10)
+                        {
+                            isAccelerating = true;
+                        }else
+                        {
+                            isAccelerating = false;
+                        }
+
+
+                    } else
+                    {
+                        isAccelerating = false;
                     }
                 } else
                 {
@@ -99,11 +151,13 @@ public class SpaceshipMovement : NetworkBehaviour {
 
                 if (Input.GetButton("Accelerate"))
                 {
-                    isAccelerating = true;
+                    // isAccelerating = true;
+                    boostMultiplier = boostFactor;
                 }
                 else
                 {
-                    isAccelerating = false;
+                    //isAccelerating = false;
+                    boostMultiplier = 1;
                 }
 
                 if (Input.GetButton("Brake"))
@@ -129,11 +183,11 @@ public class SpaceshipMovement : NetworkBehaviour {
         {
             if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
             {
-                GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier);
+                GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier * boostMultiplier);
             }
         }
 
-        if (SpaceshipGameplay.Instance.energy > 0)
+        //if (SpaceshipGameplay.Instance.energy > 0)
         if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
         {
 
@@ -141,7 +195,7 @@ public class SpaceshipMovement : NetworkBehaviour {
             if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
             {
 
-                GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier);
+                GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier * boostMultiplier);
 
                 SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
 

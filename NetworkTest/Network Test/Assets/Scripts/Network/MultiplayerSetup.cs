@@ -20,21 +20,43 @@ public class MultiplayerSetup : NetworkLobbyManager{
     }
 
 
+    void OnApplicationQuit()
+    {
+        Debug.Log("Ending Game. Closing network Manager");
+        NetworkManager.Shutdown();
+        NetworkLobbyManager.Shutdown();
+    }
+
+
+    void OnDestroy()
+    {
+        print("MultiplayerSetup was destroyed");
+    }
+
     // Use this for initialization
     void Start () {
 
         //If gamestate hasnt been initialized yet, jump to initialization scene
-     
-        
-        
-        if (MultiplayerSetup.Instance == null)
+
+
+        if (GameState.Instance != null)
+        {
+            if (GameState.Instance.holoLensConnected)
+            {
+                networkPort = 1755;
+            }
+        }
+            
+            if (MultiplayerSetup.Instance == null)
         {
             instance = this;
         }
         else
         {
+            Debug.Log("MultiplayerSetup is destroyed");
             GameObject.Destroy(gameObject);
         }
+            
 
         isCaptainReady = false;
         isNavigatorReady = false;

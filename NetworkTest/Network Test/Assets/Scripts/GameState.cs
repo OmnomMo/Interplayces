@@ -25,6 +25,9 @@ public class GameState : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+
+        
+
         if (GameState.Instance == null) {
             instance = this;
         } else

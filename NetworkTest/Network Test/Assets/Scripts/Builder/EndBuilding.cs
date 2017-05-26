@@ -49,9 +49,11 @@ public class EndBuilding : NetworkBehaviour {
             currentNode = currentNode.Next;
         }
 
-       // Debug.Log(SpaceShipPlans.Instance.ToString());
+        // Debug.Log(SpaceShipPlans.Instance.ToString());
 
-        GameObject.Find("MultiplayerSetup").GetComponent<NetworkLobbyManager>().ServerChangeScene("03_Main");
+
+        MultiplayerSetup.Instance.ServerChangeScene("03_Level_Select");
+        //GameObject.Find("MultiplayerSetup").GetComponent<NetworkLobbyManager>().ServerChangeScene("03_Main");
         // UnityEngine.SceneManagement.SceneManager.LoadScene(2);
 
 
@@ -60,7 +62,7 @@ public class EndBuilding : NetworkBehaviour {
         if (GameState.Instance.holoLensConnected)
         {
             Message m = new Message();
-            m.commandID = (int)NetworkCommands.CmdSceneToGame;
+            m.commandID = (int)NetworkCommands.CmdSceneToLevelSelect;
             TCPSocketServer.Instance.Send(m);
         }
     }

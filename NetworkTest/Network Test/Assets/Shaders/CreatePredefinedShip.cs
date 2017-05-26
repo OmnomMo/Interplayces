@@ -22,14 +22,23 @@ public class CreatePredefinedShip : NetworkActions {
 
     public static CreatePredefinedShip Instance { get { return instance; } }
 
+
+    int nRows;
+    int nCols;
+
+
     void Awake()
     {
         instance = this;
+
+        nRows = colorTracker.GetComponent<ColorPickerNew>().nCols;
+        nCols = colorTracker.GetComponent<ColorPickerNew>().nRows;
+
     }
 
     // Use this for initialization
     void Start () {
-        parts = new GameObject[colorTracker.GetComponent<ColorPickerNew>().nCols, colorTracker.GetComponent<ColorPickerNew>().nRows];
+        parts = new GameObject[nCols, nRows];
 
         CreateContainers();
 
@@ -64,9 +73,9 @@ public class CreatePredefinedShip : NetworkActions {
         Vector3 newPos = new Vector3();
 
 
-        for (int x = 0; x < colorTracker.GetComponent<ColorPickerNew>().nCols; x++)
+        for (int x = 0; x < nCols; x++)
         {
-            for (int y = 0; y < colorTracker.GetComponent<ColorPickerNew>().nRows; y++)
+            for (int y = 0; y < nRows; y++)
             {
                 GameObject newPart = GameObject.Instantiate(spaceshipContainer);
                 newPart.transform.parent = this.transform;
@@ -74,54 +83,94 @@ public class CreatePredefinedShip : NetworkActions {
 
 
                 newPos.x = x * 1.1f;
-                newPos.y = y * -1.1f;
+                newPos.y = y * 1.1f;
                 newPart.transform.localPosition = newPos;
                 parts[x, y] = newPart;
-                newPart.GetComponentInChildren<ShipPart>().SetPosX(x); // colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
-                newPart.GetComponentInChildren<ShipPart>().SetPosY(colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
-
-                newPart.SetActive(true);
-
-
-                //if (GameState.Instance.isPlayerCaptain())
-                //{
-                //    NetworkActions.Instance.CmdPreSetPartTypes(x, y, 4);
-                //}
+                newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
+                newPart.GetComponentInChildren<ShipPart>().SetPosY(y);
 
             }
         }
     }
 
+    //public void CreateContainers()
+    //{
+
+    //    Vector3 newPos = new Vector3();
+
+
+    //    for (int x = 0; x < colorTracker.GetComponent<ColorPickerNew>().nCols; x++)
+    //    {
+    //        for (int y = 0; y < colorTracker.GetComponent<ColorPickerNew>().nRows; y++)
+    //        {
+    //            GameObject newPart = GameObject.Instantiate(spaceshipContainer);
+    //            newPart.transform.parent = this.transform;
+
+
+
+    //            newPos.x = x * 1.1f;
+    //            newPos.y = y * -1.1f;
+    //            newPart.transform.localPosition = newPos;
+    //            parts[x, y] = newPart;
+    //            newPart.GetComponentInChildren<ShipPart>().SetPosX(x); // colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
+    //            newPart.GetComponentInChildren<ShipPart>().SetPosY(colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
+
+    //            newPart.SetActive(true);
+
+
+    //            //if (GameState.Instance.isPlayerCaptain())
+    //            //{
+    //            //    NetworkActions.Instance.CmdPreSetPartTypes(x, y, 4);
+    //            //}
+
+    //        }
+    //    }
+    //}
+
     [ClientRpc]
     internal void RpcSetPT(int x, int y, int newID)
     {
+        //GameObject newPart = IDToPart(newID);
+        //GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;
+
+        ////Debug.Log(x + "/" + y + ": Teil + " + newPart.GetComponent<ShipPart>().getID() + " ersetzt Teil " + oldPart.GetComponent<ShipPart>().getID() +" at " + oldPart.GetComponent<ShipPart>().GetPosX()+ "/" + oldPart.GetComponent<ShipPart>().GetPosY());
+
+        ////if part changed from last frame, create new Part
+        ////if (newPart.GetComponent<ShipPart>().getID() != oldPart.GetComponent<ShipPart>().getID())
+        //{
+
+        //    playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
+
+        //    GameObject.Destroy(oldPart);
+
+        //    //if (parts[x,y].transform.childCount != 0)
+        //    //{
+        //    //    GameObject.Destroy(parts[x, y].transform.GetChild(0));
+        //    //    Debug.Log("Error, container " + x + "/" + y + "still has children!");
+        //    //}
+
+
+
+        //    playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
+        //    newPart.transform.parent = parts[x, y].transform;
+        //    newPart.transform.localPosition = Vector3.zero;
+        //    newPart.GetComponentInChildren<ShipPart>().SetPosX(x);// colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
+        //    newPart.GetComponentInChildren<ShipPart>().SetPosY(colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
+
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;
 
-        //Debug.Log(x + "/" + y + ": Teil + " + newPart.GetComponent<ShipPart>().getID() + " ersetzt Teil " + oldPart.GetComponent<ShipPart>().getID() +" at " + oldPart.GetComponent<ShipPart>().GetPosX()+ "/" + oldPart.GetComponent<ShipPart>().GetPosY());
 
-        //if part changed from last frame, create new Part
-        //if (newPart.GetComponent<ShipPart>().getID() != oldPart.GetComponent<ShipPart>().getID())
-        {
+        playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
 
-            playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
+        playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
+        newPart.transform.parent = parts[x, y].transform;
+        newPart.transform.localPosition = Vector3.zero;
+        newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
+        newPart.GetComponentInChildren<ShipPart>().SetPosY(y);// colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
 
-            GameObject.Destroy(oldPart);
-
-            //if (parts[x,y].transform.childCount != 0)
-            //{
-            //    GameObject.Destroy(parts[x, y].transform.GetChild(0));
-            //    Debug.Log("Error, container " + x + "/" + y + "still has children!");
-            //}
-
-
-
-            playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
-            newPart.transform.parent = parts[x, y].transform;
-            newPart.transform.localPosition = Vector3.zero;
-            newPart.GetComponentInChildren<ShipPart>().SetPosX(x);// colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
-            newPart.GetComponentInChildren<ShipPart>().SetPosY(colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
-        }
+        Debug.Log("SwitchPart (" + x + "/" + y + ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
+        
         //else
         //{
         //    GameObject.Destroy(newPart);

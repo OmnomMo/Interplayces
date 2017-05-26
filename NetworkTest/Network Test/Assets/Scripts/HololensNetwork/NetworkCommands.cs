@@ -9,6 +9,8 @@
 	CmdSceneToBuilding,
 	CmdSceneToGame,
 
-    CmdSetPosition
+    CmdSceneToLevelSelect,
+    CmdSetPosition,
+    CmdSelectLevel
 }
 ;

@@ -231,7 +231,9 @@ public class SpaceshipGameplay : NetworkBehaviour {
         {
             hitPoints = 0;
 
-            ToEndScreen.Instance.EndZeroHP();
+
+            Debug.Log("Zero Hitpoints remaining. To End screen.");
+           ToEndScreen.Instance.EndZeroHP();
         }
     }
 

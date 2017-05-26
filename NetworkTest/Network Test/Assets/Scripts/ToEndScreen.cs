@@ -31,6 +31,8 @@ public class ToEndScreen : NetworkBehaviour {
 
     public void  EndZeroHP()
     {
+
+        Debug.Log("No HP left");
         reason = reasonForTermination.hp;
 
         EnterEndScreen();
@@ -38,6 +40,7 @@ public class ToEndScreen : NetworkBehaviour {
 
     public void EndZeroEnergy()
     {
+        Debug.Log("No Energy Left");
         reason = reasonForTermination.energy;
 
         EnterEndScreen();
@@ -45,6 +48,7 @@ public class ToEndScreen : NetworkBehaviour {
 
     public void EndPlayerAction()
     {
+        Debug.Log("Player Ended Game");
         reason = reasonForTermination.player;
 
         EnterEndScreen();

@@ -232,17 +232,37 @@ public class TCPSocketServer : MonoBehaviour {
 
 	void stopServer() {
 		keepReading = false;
+
+		if (handler != null && handler.Connected) {
+			handler.Disconnect (false);
+			try {
+				handler.Close ();
+				Debug.Log ("Disconnected");
+			} catch(Exception e) {
+				Debug.Log (e.Message);
+			}
+		}
+
+		try {
+			listener.Disconnect(false);
+			listener.Close();
+		}catch(Exception e) {
+			Debug.Log (e.Message);
+		}
+
+
 		if (socketThread != null) {
 			socketThread.Abort ();
 		}
 
-		if (handler != null && handler.Connected) {
-			handler.Disconnect (false);
-			Debug.Log ("Disconnected");
-		}
+	
 	}
 
 	void OnDisable() {
+		stopServer ();
+	}
+
+	void OnApplicationQuit() {
 		stopServer ();
 	}
 

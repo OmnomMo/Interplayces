@@ -61,9 +61,11 @@ public class EndBuilding : NetworkBehaviour {
 
         if (GameState.Instance.holoLensConnected)
         {
+            Debug.Log("Try to send Message (End Building)");
             Message m = new Message();
+            m.parameters = new string[0];
             m.commandID = (int)NetworkCommands.CmdSceneToLevelSelect;
-            TCPSocketServer.Instance.Send(m);
+            Debug.Log(TCPSocketServer.Instance.Send(m));
         }
     }
 

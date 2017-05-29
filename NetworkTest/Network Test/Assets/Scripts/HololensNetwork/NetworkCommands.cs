@@ -1,16 +1,17 @@
 ﻿enum NetworkCommands {
-	ReqHighlightMousePosition, 
-	ReqStopPlanetHighlight,
-	ReqHighlightPlanet,
+    ReqSetThrust,
+    ReqSetScan,
+    ReqSetShield,
 
-	CmdSetActivePlanet,
-	CmdUnsetActivePlanet,
-	CmdSetTargetPoint,
-	CmdSceneToBuilding,
-	CmdSceneToGame,
-
-    CmdSceneToLevelSelect,
+    CmdSetThrust,
+    CmdSetScan,
+    CmdSetShield,
+    CmdSetTargetPoint,
     CmdSetPosition,
-    CmdSelectLevel
+    
+    CmdSceneToBuilding,
+    CmdSceneToLevelSelect,
+    CmdSceneToGame,
+    CmdSceneToEnd
 }
 ;

@@ -14,7 +14,7 @@ public class ToEndScreen : NetworkBehaviour {
     public bool hasEnded;
 
 
-    public enum reasonForTermination { hp, energy, player}
+    public enum reasonForTermination { hp, energy, player, win}
     reasonForTermination reason;
 
 	// Use this for initialization
@@ -52,6 +52,15 @@ public class ToEndScreen : NetworkBehaviour {
         reason = reasonForTermination.player;
 
         EnterEndScreen();
+    }
+
+    public void EndWin()
+    {
+        Debug.Log("Player won level");
+        reason = reasonForTermination.win;
+        EnterEndScreen();
+
+
     }
 
 

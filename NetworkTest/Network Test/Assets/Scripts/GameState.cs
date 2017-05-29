@@ -77,16 +77,16 @@ public class GameState : MonoBehaviour {
     public void setPlayerCaptain()
 
         { 
-            if (holoLensConnected)
-            {
-                Debug.Log("Hololens Connected. Set Player number to one");
-                MultiplayerSetup.Instance.minPlayers = 1;
+            //if (holoLensConnected)
+            //{
+            //    Debug.Log("Hololens Connected. Set Player number to one");
+            //    MultiplayerSetup.Instance.minPlayers = 1;
 
-            Message m = new Message();
-            m.commandID = (int)NetworkCommands.CmdSceneToBuilding;
-            TCPSocketServer.Instance.Send(m);
+            //Message m = new Message();
+            //m.commandID = (int)NetworkCommands.CmdSceneToBuilding;
+            //TCPSocketServer.Instance.Send(m);
             
-             }
+            // }
 
 
     //Debug.Log("Set Player Captain");

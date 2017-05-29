@@ -134,13 +134,13 @@ public class TCPSocketServer : MonoBehaviour {
 
 					Debug.Log ("Client Connected");
 
-					//Message m = new Message ();
-					//m.commandID = (int)NetworkCommands.CmdSceneToGame;
-					//m.parameters = new string[0];
-					//Debug.Log("Message: " + m.commandID);
-					//Send (m);
+                    Message m = new Message();
+                    m.commandID = (int)NetworkCommands.CmdSceneToBuilding;
+                    m.parameters = new string[0];
+                    Debug.Log("Message: " + m.commandID);
+                    Debug.Log(Send(m));
 
-					lock (threadLocker) {
+                    lock (threadLocker) {
 						listening = false;
 						connected = true;
 					}

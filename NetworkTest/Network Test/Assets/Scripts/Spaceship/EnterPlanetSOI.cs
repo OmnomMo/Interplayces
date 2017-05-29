@@ -28,6 +28,80 @@ public class EnterPlanetSOI : MonoBehaviour {
             planet.GetComponent<PlanetInfo>().ShowInfo();
             planet.GetComponent<PlanetInfo>().playerStay = true;
             Score.Instance.AddScanToPoints(planet);
+
+
+            for (int i = 0; i < LevelProgress.Instance.objectives.Length; i++)
+            {
+                //if one of the goals is to reach planet, set goal to completed;
+
+                if (LevelProgress.Instance.objectives[i] is GoalObjective)
+                {
+
+                    GoalObjective gO = (GoalObjective)LevelProgress.Instance.objectives[i];
+
+
+                    if (gO.goal == other)
+                    {
+                        gO.Complete();
+                    }
+                }
+
+                if (LevelProgress.Instance.objectives[i] is MultiObjective)
+                {
+
+                    MultiObjective mO = (MultiObjective)LevelProgress.Instance.objectives[i];
+                    for (int u = 0; u < mO.subObjectives.Length; u++)
+                    {
+                        if (mO.subObjectives[u] is GoalObjective)
+                        {
+
+                            GoalObjective gO = (GoalObjective)mO.subObjectives[u];
+
+
+                            if (gO.goal == other)
+                            {
+                                gO.Complete();
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            //Check for completed objectives
+            //foreach (Objective o in LevelProgress.Instance.objectives)
+            //{
+            //    //if one of the goals is to reach planet, set goal to completed;
+
+            //    if (o is GoalObjective)
+            //    {
+
+            //        if ((GoalObjective) o.goal == other)
+            //        {
+            //            o.Complete();
+            //        }
+            //    }
+
+            //    if (o is MultiObjective)
+            //    {
+            //        foreach (Objective so in o.subObjectives)
+            //        {
+
+            //        }
+            //    }
+
+        
+
+            //foreach (MultiObjective o in LevelProgress.Instance.objectives)
+            //{
+            //    foreach (GoalObjective gO in o.subObjectives)
+            //    {
+            //        if (gO.goal == other)
+            //        {
+            //            o.Complete();
+            //        }
+            //    }
+            //}
         }
     }
 

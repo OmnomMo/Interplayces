@@ -50,7 +50,15 @@ public class EndSceneDisplay : MonoBehaviour {
                 }
                 else
                 {
-                    reasonText.text = "Ende.";
+                    if (reason == ToEndScreen.reasonForTermination.win)
+                    {
+                        reasonText.text = "Glückwunsch, ihr habt den Level erfolgreich abgeschlossen!";
+                    }
+                    else
+                    {
+                        reasonText.text = "Ende.";
+                    }
+
                 }
             }
         }

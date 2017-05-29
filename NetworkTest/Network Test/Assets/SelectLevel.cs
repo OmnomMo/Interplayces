@@ -35,15 +35,12 @@ public class SelectLevel : NetworkBehaviour {
             {
 
                 Message m = new Message();
-                m.commandID = (int)NetworkCommands.CmdSelectLevel;
+                m.commandID = (int)NetworkCommands.CmdSceneToGame;
                 string[] nLevelString = new string[1];
                 nLevelString[0] = nLevel.ToString();
                 m.parameters = nLevelString;
                 TCPSocketServer.Instance.Send(m);
 
-                Message m2 = new Message();
-                m2.commandID = (int)NetworkCommands.CmdSceneToGame;
-                TCPSocketServer.Instance.Send(m2);
             }
 
 

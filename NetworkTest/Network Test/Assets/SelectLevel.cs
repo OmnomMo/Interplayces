@@ -10,6 +10,7 @@ public class SelectLevel : NetworkBehaviour {
     public string level3Name;
     public string level4Name;
     public string level5Name;
+    
 
 
 	// Use this for initialization
@@ -36,8 +37,23 @@ public class SelectLevel : NetworkBehaviour {
 
                 Message m = new Message();
                 m.commandID = (int)NetworkCommands.CmdSceneToGame;
-                string[] nLevelString = new string[1];
+                string[] nLevelString = new string[2];
                 nLevelString[0] = nLevel.ToString();
+
+                int capacity = 0;
+
+                foreach (StoredShipPart p in SpaceShipPlans.Instance.parts)
+                {
+                    if (p.id == 0)
+                    {
+
+                        //TODO: Dynamic
+                        capacity += 1000;
+                    }
+                }
+
+                //Send max energy of spaceship
+                nLevelString[1] = capacity.ToString();
                 m.parameters = nLevelString;
                 TCPSocketServer.Instance.Send(m);
 

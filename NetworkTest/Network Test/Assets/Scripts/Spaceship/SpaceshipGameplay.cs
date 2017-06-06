@@ -43,6 +43,8 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public Image hitpointsDisplay;
     public Image energyDisplay;
 
+    public float timeLastSent;
+
     private static SpaceshipGameplay instance;
     public static SpaceshipGameplay Instance
     {
@@ -72,6 +74,27 @@ public class SpaceshipGameplay : NetworkBehaviour {
         if (energy <= 0)
         {
             ToEndScreen.Instance.EndZeroEnergy();
+        }
+
+
+        if (GameState.Instance.holoLensConnected)
+        {
+
+            if (Time.time - timeLastSent > 0.29f)
+            {
+                timeLastSent = Time.time;
+
+                Message m = new Message();
+
+                string[] energyValue = new string[1];
+                energyValue[0] = energy.ToString();
+
+                m.commandID = (int)NetworkCommands.CmdSetEnergyValue;
+                m.parameters = energyValue;
+                TCPSocketServer.Instance.Send(m);
+            }
+
+
         }
 
 
@@ -225,6 +248,25 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
     public void DealHullDamage(float d)
     {
+
+        if (GameState.Instance.holoLensConnected)
+        {
+
+   
+
+                Message m = new Message();
+
+                string[] healthValue = new string[1];
+                healthValue[0] = hitPoints.ToString();
+
+                m.commandID = (int)NetworkCommands.CmdSetHealthValue;
+                m.parameters = healthValue;
+                TCPSocketServer.Instance.Send(m);
+            
+        }
+
+
+
         hitPoints -= (int)d;
 
         if (hitPoints <= 0)

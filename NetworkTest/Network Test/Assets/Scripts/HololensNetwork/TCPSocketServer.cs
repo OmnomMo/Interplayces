@@ -33,9 +33,12 @@ public class TCPSocketServer : MonoBehaviour {
 	IPAddress ip;
 
 	public BroadcastingBehaviour broadcast;
-	static ManualResetEvent _serverDone = new ManualResetEvent (false);
-	const int TIMEOUT_MILLISECONDS = 10000;
+	//static ManualResetEvent _serverReceivingDone = new ManualResetEvent (false);
+    static ManualResetEvent _serverSendingDone = new ManualResetEvent(false);
+    const int TIMEOUT_MILLISECONDS = 10;
 	const int MAX_BUFFER_SIZE = 2048;
+
+    private List<Message> receivedMessages;
 
 	private byte[] receiveBuffer = new byte[MAX_BUFFER_SIZE];
 
@@ -46,6 +49,8 @@ public class TCPSocketServer : MonoBehaviour {
         //output.text = ("Test");
 
         instance = this;
+
+        receivedMessages = new List<global::Message>();
 
         DontDestroyOnLoad(gameObject);
 
@@ -60,6 +65,11 @@ public class TCPSocketServer : MonoBehaviour {
 		socketThread.IsBackground = true;
 		socketThread.Start ();
 	}
+
+    public List<Message> GetMessages
+    {
+       get { return receivedMessages; }
+    }
 
 	private string getIPAddress() {
 		IPHostEntry host;
@@ -169,6 +179,10 @@ public class TCPSocketServer : MonoBehaviour {
 		Debug.Log ("DATA RECEIVED: " + receivedMessage.commandID);
 
 		//TODO process data here
+        if (receivedMessage != null)
+        {
+            receivedMessages.Add(receivedMessage);
+        }
 
 		handler.BeginReceive (receiveBuffer, 0, receiveBuffer.Length, 0, new AsyncCallback(ReceiveCallback),null);
 	}
@@ -185,16 +199,16 @@ public class TCPSocketServer : MonoBehaviour {
 
 			socketEventArgs.Completed += new EventHandler<SocketAsyncEventArgs> (delegate(object s, SocketAsyncEventArgs e) {
 				response = e.SocketError.ToString ();
-				_serverDone.Set ();
+				_serverSendingDone.Set ();
 			});
 				
 			byte[] payload = serializeMessage (data);
 			socketEventArgs.SetBuffer (payload, 0, payload.Length);
 
-			_serverDone.Reset ();
+			_serverSendingDone.Reset ();
 			handler.SendAsync (socketEventArgs);
 
-			_serverDone.WaitOne (TIMEOUT_MILLISECONDS);
+			_serverSendingDone.WaitOne (TIMEOUT_MILLISECONDS);
 
 		} else {
 			response = "Socket not initialized";
@@ -230,11 +244,14 @@ public class TCPSocketServer : MonoBehaviour {
 	}
 
 
-	void stopServer() {
+	public void stopServer() {
 		keepReading = false;
 
-		if (handler != null && handler.Connected) {
-			handler.Disconnect (false);
+		if (handler != null) {// && handler.Connected) {
+            if (handler.Connected)
+            {
+                handler.Disconnect(false);
+            }
 			try {
 				handler.Close ();
 				Debug.Log ("Disconnected");
@@ -244,12 +261,21 @@ public class TCPSocketServer : MonoBehaviour {
 		}
 
 		try {
-			listener.Disconnect(false);
+
+            //handler.Close();
+
+            if (listener != null && listener.Connected)
+            {
+                Debug.Log("Disconnect Listener");
+                listener.Disconnect(false);
+            }
+            Debug.Log("Close Listener");
 			listener.Close();
 		}catch(Exception e) {
 			Debug.Log (e.Message);
 		}
 
+        
 
 		if (socketThread != null) {
 			socketThread.Abort ();
@@ -263,6 +289,7 @@ public class TCPSocketServer : MonoBehaviour {
 	}
 
 	void OnApplicationQuit() {
+        Debug.Log("Quit Application, stop Server");
 		stopServer ();
 	}
 

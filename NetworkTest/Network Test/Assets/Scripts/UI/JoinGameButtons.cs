@@ -83,14 +83,16 @@ public class JoinGameButtons : MonoBehaviour {
 
     public void JoinAsCaptain()
     {
+       
+            MultiplayerSetup.Instance.StartHost();
 
-        MultiplayerSetup.Instance.StartHost();
+            if (!GameState.Instance.holoLensConnected)
+            {
+                MultiplayerSetup.Instance.gameObject.GetComponent<ServerUDP>().StartSendingIP();
+            }
+            MultiplayerSetup.Instance.StartAsCaptain();
 
-        if (!GameState.Instance.holoLensConnected)
-        {
-            MultiplayerSetup.Instance.gameObject.GetComponent<ServerUDP>().StartSendingIP();
-        }
-        MultiplayerSetup.Instance.StartAsCaptain();
+        
         navButton.interactable = false;
 
         ColorCaptainGreen();

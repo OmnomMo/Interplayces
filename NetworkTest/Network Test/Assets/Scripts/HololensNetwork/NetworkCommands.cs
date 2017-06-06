@@ -2,12 +2,10 @@
     ReqSetThrust,
     ReqSetScan,
     ReqSetShield,
-
-    CmdSetThrust,
-    CmdSetScan,
-    CmdSetShield,
-    CmdSetTargetPoint,
-    CmdSetPosition,
+    
+    CmdSetHealthValue,
+    CmdSetEnergyValue,
+    CmdSetSpaceshipPosition,
     
     CmdSceneToBuilding,
     CmdSceneToLevelSelect,

@@ -36,6 +36,8 @@ public class SpaceshipMovement : NetworkBehaviour {
 
     public bool rotateVersion02;
 
+    public float timeLastSent;
+
     // Use this for initialization
     void Start () {
         allParts = new GameObject[0];
@@ -65,15 +67,21 @@ public class SpaceshipMovement : NetworkBehaviour {
                 if (GameState.Instance.holoLensConnected)
                 {
 
-                    Message m = new Message();
+                    if (Time.time - timeLastSent > 0.1f)
+                    {
 
-                    string[] coordinates = new string[2];
-                    coordinates[0] = transform.position.x.ToString();
-                    coordinates[1] = transform.position.y.ToString();
+                        timeLastSent = Time.time;
 
-                    m.commandID = (int)NetworkCommands.CmdSetPosition;
-                    m.parameters = coordinates;
-                    TCPSocketServer.Instance.Send(m);
+                        Message m = new Message();
+
+                        string[] coordinates = new string[2];
+                        coordinates[0] = transform.position.x.ToString();
+                        coordinates[1] = transform.position.z.ToString();
+
+                        m.commandID = (int)NetworkCommands.CmdSetSpaceshipPosition;
+                        m.parameters = coordinates;
+                        TCPSocketServer.Instance.Send(m);
+                    }
                 }
 
             

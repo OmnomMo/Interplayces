@@ -22,4 +22,10 @@ public class BroadcastingBehaviour : NetworkDiscovery {
 		broadcasting = false;
 		Debug.Log ("Broadcasting stopped");
 	}
+
+    void OnApplicationQuit()
+    {
+        Debug.Log("Quit Application, stop Broadcasting");
+        StopBroadcasting();
+    }
 }

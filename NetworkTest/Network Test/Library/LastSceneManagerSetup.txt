@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Levels/04_02_Level_02.unity
+- path: Assets/Scenes/00_MultiplayerSetup.unity
   isLoaded: 1
   isActive: 1

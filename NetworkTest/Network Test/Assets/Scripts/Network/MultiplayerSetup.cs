@@ -23,6 +23,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
     void OnApplicationQuit()
     {
         Debug.Log("Ending Game. Closing network Manager");
+        TCPSocketServer.Instance.stopServer();
         NetworkManager.Shutdown();
         NetworkLobbyManager.Shutdown();
     }
@@ -30,6 +31,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
 
     void OnDestroy()
     {
+   
         print("MultiplayerSetup was destroyed");
     }
 

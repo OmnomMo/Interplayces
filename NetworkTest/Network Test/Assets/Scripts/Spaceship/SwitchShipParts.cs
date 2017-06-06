@@ -254,6 +254,15 @@ public class SwitchShipParts : NetworkBehaviour {
     {
         if (c.r + c.g + c.b > 0.5)
         {
+
+
+
+            if (c.r > c.g * 1.2f && c.b > c.g  && c.r > 0.4 && c.b > 0.35)
+            //if (c.r > c.b * 1.2f && c.g > c.b * 1.2f && c.b < 0.5)
+            {
+                return 3;
+            }
+
             //red
             if (c.r > c.g * 1.2 && c.r > c.b * 1.2)
             {
@@ -261,7 +270,7 @@ public class SwitchShipParts : NetworkBehaviour {
             }
 
             //green
-            if (c.g > c.r /** 1.2*/ && c.g > c.b /** 1.2*/ && c.r < 0.3 && c.g < 0.4)
+            if (c.g > c.r /** 1.2*/ && c.g > c.b /** 1.2*/ && c.r < 0.38 && c.g < 0.48)
             {
                 return 0;
             }
@@ -273,10 +282,7 @@ public class SwitchShipParts : NetworkBehaviour {
             }
 
             //yellow
-            if (c.r > c.b * 1.2f && c.g > c.b * 1.2f && c.b < 0.5)
-            {
-                return 3;
-            }
+
 
         }
 

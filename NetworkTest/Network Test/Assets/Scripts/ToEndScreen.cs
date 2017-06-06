@@ -70,6 +70,21 @@ public class ToEndScreen : NetworkBehaviour {
         {
             Debug.Log("Initializing EnterEndScreen");
             NetworkActions.Instance.CmdEnterEndScreen();
+
+
+            //Sends info to Hololens if connected
+            if (GameState.Instance.holoLensConnected)
+            {
+
+                Message m = new Message();
+                m.commandID = (int)NetworkCommands.CmdSceneToEnd;
+                string[] parameters = new string[0];
+
+                m.parameters = parameters;
+                TCPSocketServer.Instance.Send(m);
+
+
+            }
         }
       
     }

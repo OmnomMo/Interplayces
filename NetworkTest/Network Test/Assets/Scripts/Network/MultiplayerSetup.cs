@@ -55,8 +55,8 @@ public class MultiplayerSetup : NetworkLobbyManager{
         }
         else
         {
-            Debug.Log("MultiplayerSetup is destroyed");
-            GameObject.Destroy(gameObject);
+            //Debug.Log("MultiplayerSetup is destroyed");
+            //GameObject.Destroy(gameObject);
         }
             
 

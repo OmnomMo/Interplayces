@@ -21,6 +21,8 @@ public class TCPSocketServer : MonoBehaviour {
         get { return instance; }
     }
 
+    private bool joinedGame;
+
 
     System.Threading.Thread socketThread;
 	volatile bool keepReading = false;
@@ -92,8 +94,16 @@ public class TCPSocketServer : MonoBehaviour {
 			
 		//} else 
 		if (handler != null  && handler.Connected) {
-			//Debug.Log ("Update - Connected");
-			if (broadcast.broadcasting) {
+            //Debug.Log ("Update - Connected");
+
+            if (!joinedGame)
+            {
+
+                JoinGameButtons.Instance.JoinAsCaptain();
+                joinedGame = true;
+            }
+
+            if (broadcast.broadcasting) {
 				broadcast.StopBroadcasting ();
 			}
 			//if (output != null) {
@@ -149,6 +159,7 @@ public class TCPSocketServer : MonoBehaviour {
                     m.parameters = new string[0];
                     Debug.Log("Message: " + m.commandID);
                     Debug.Log(Send(m));
+
 
                     lock (threadLocker) {
 						listening = false;

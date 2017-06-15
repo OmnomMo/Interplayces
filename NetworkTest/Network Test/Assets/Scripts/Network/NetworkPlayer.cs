@@ -46,4 +46,24 @@ public class NetworkPlayer : NetworkBehaviour
 
         MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
     }
+
+    [ClientRpc]
+    public void RpcRestartLevel()
+    {
+        //GameObject.Destroy(Score.Instance.gameObject);
+
+        MultiplayerSetup.Instance.ServerChangeScene(Application.loadedLevelName);
+    }
+
+    [ClientRpc]
+    public void RpcPauseGame()
+    {
+        GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().PauseGame();
+    }
+
+    [ClientRpc]
+    public void RpcUnpauseGame()
+    {
+        GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().UnPauseGame();
+    }
 }

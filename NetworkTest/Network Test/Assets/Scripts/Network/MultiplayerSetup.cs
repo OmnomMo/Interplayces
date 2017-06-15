@@ -23,7 +23,10 @@ public class MultiplayerSetup : NetworkLobbyManager{
     void OnApplicationQuit()
     {
         Debug.Log("Ending Game. Closing network Manager");
-        TCPSocketServer.Instance.stopServer();
+        if (TCPSocketServer.Instance != null)
+        {
+            TCPSocketServer.Instance.stopServer();
+        }
         NetworkManager.Shutdown();
         NetworkLobbyManager.Shutdown();
     }

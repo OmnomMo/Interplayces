@@ -44,6 +44,23 @@ public class NetworkActions : NetworkBehaviour {
     }
 
     [Command]
+    public void CmdPauseGame()
+    {
+        NetworkPlayer.Instance.RpcPauseGame();
+    }
+
+    [Command] 
+    public void CmdUnPauseGame()
+    {
+        NetworkPlayer.Instance.RpcUnpauseGame();
+    }
+
+    public void CmdRestartLevel()
+    {
+        NetworkPlayer.Instance.RpcRestartLevel();
+    }
+
+    [Command]
    public void CmdEndPhase()
     { 
         EndBuilding.Instance.RpcEndPhase();

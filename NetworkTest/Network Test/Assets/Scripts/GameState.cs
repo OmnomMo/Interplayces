@@ -9,6 +9,8 @@ public class GameState : MonoBehaviour {
 
     public bool holoLensConnected;
 
+    public bool paused;
+
     public enum PlayerTypes { Captain, Navigator, NavigatorAR, None }
 
     PlayerTypes playerType;
@@ -64,6 +66,7 @@ public class GameState : MonoBehaviour {
 
     //}
 
+    
 
     public void StartAsNavigator()
     {

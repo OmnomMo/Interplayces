@@ -12,9 +12,12 @@ public class NetworkPlayer : NetworkBehaviour
     private static NetworkPlayer instance;
     public static NetworkPlayer Instance { get { return instance; } }
 
+    public GameObject navInterface;
+
     // Use this for initialization
     void Start()
     {
+        
 
         instance = this;
         Object.DontDestroyOnLoad(gameObject);
@@ -59,12 +62,15 @@ public class NetworkPlayer : NetworkBehaviour
     public void RpcPauseGame()
     {
         GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().PauseGame();
+        SceneManager.Instance.DeactivateGameInterface();
+      
     }
 
     [ClientRpc]
     public void RpcUnpauseGame()
     {
         GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().UnPauseGame();
+        SceneManager.Instance.ActivateGameInterface();
     }
 
     [ClientRpc]

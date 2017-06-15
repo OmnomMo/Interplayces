@@ -21,9 +21,14 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    void OnDestroy()
+    {
+        Debug.Log("INterface2 Destroyed");
+    }
+    // Update is called once per frame
+    void Update () {
         //hitpointsDisplay.text = hitPoints.ToString() + " HP";
         // hitpointsDisplay.GetComponent<RectTransform>().localScale = new Vector3((float)hitPoints/maxHitpoints, 1, 1);
   

@@ -480,12 +480,15 @@ namespace GreatArcStudios
             Time.timeScale = 0;
             for (int i = 0; i < otherUIElements.Length; i++)
             {
-                otherUIElements[i].gameObject.SetActive(false);
+              
+                //otherUIElements[i].gameObject.SetActive(false);
             }
             /* if (blurBool == false)
               {
                  blurEffect.enabled = true;
              }  */
+
+            GameState.Instance.paused = true;
         }
 
         public void UnPauseGame()
@@ -498,7 +501,7 @@ namespace GreatArcStudios
             mask.SetActive(false);
             for (int i = 0; i < otherUIElements.Length; i++)
             {
-                otherUIElements[i].gameObject.SetActive(true);
+                //otherUIElements[i].gameObject.SetActive(true);
             }
         }
         /*

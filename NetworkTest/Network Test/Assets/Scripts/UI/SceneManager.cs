@@ -24,7 +24,12 @@ public class SceneManager : MonoBehaviour {
 
     void Awake()
     {
-        instance = this;
+        if (GameState.Instance == null)
+        {
+            instance = this;
+            Debug.Log("Gamestate not active. Restarting");
+            Application.LoadLevel(0);
+        }
     }
 
     // Use this for initialization
@@ -32,6 +37,7 @@ public class SceneManager : MonoBehaviour {
 
         if (GameState.Instance == null)
         {
+            Debug.Log("Gamestate not active. Restarting");
             Application.LoadLevel(0);
         }
         else

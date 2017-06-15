@@ -23,6 +23,8 @@ public class SpaceshipMovement : NetworkBehaviour {
     public bool isAccelerating;
 
     public bool outOfBounds;
+
+    public bool controllable;
     
     bool isBraking;
 
@@ -95,7 +97,7 @@ public class SpaceshipMovement : NetworkBehaviour {
                 if (!rotateVersion02)
                 {
                     //If there is any keyboard input at all, place rotationtarget in direction of input, look at direction rotation target is transformed to
-                    if (!(noHorizontalInput && noVerticalInput))
+                    if (!(noHorizontalInput && noVerticalInput) && controllable)
                     {
              
                         //rotates spaceship towards joystick direction
@@ -152,10 +154,12 @@ public class SpaceshipMovement : NetworkBehaviour {
                     }
                 } else
                 {
-                    
+                    if (controllable)
+                    {
 
-                    rotationTarget2.transform.Rotate(new Vector3(0, rotationSpeed * Input.GetAxis("HorizontalKeyboard") * Time.deltaTime, 0));
-                    transform.LookAt(rotationTarget2.transform.GetChild(0));
+                        rotationTarget2.transform.Rotate(new Vector3(0, rotationSpeed * Input.GetAxis("HorizontalKeyboard") * Time.deltaTime, 0));
+                        transform.LookAt(rotationTarget2.transform.GetChild(0));
+                    }
 
                 }
 
@@ -194,7 +198,7 @@ public class SpaceshipMovement : NetworkBehaviour {
         if (!outOfBounds)
         {
 
-            if (isAccelerating)
+            if (isAccelerating && controllable)
             {
                 if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
                 {
@@ -205,7 +209,7 @@ public class SpaceshipMovement : NetworkBehaviour {
 
 
             //if (SpaceshipGameplay.Instance.energy > 0)
-            if (isAccelerating && SpaceshipGameplay.Instance.energy > 0)
+            if (isAccelerating && SpaceshipGameplay.Instance.energy > 0 && controllable)
             {
 
 
@@ -234,7 +238,7 @@ public class SpaceshipMovement : NetworkBehaviour {
             GetComponent<Rigidbody>().AddForce(Vector3.Normalize(mapCenter.transform.position - transform.position) * 1000);
         }
 
-        if (isBraking)
+        if (isBraking && controllable)
         {
             GetComponent<Rigidbody>().drag = dragBraking;
         } else

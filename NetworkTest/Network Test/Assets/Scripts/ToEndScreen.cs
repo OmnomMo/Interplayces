@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class ToEndScreen : NetworkBehaviour {
+
+    public GameObject endingMessage;
+    public GameObject endingMessageText;
+
 
     private static ToEndScreen instance;
     public static ToEndScreen Instance
@@ -68,9 +73,10 @@ public class ToEndScreen : NetworkBehaviour {
     {
         if (GameState.Instance.isPlayerCaptain())
         {
-            Debug.Log("Initializing EnterEndScreen");
-            NetworkActions.Instance.CmdEnterEndScreen();
 
+            StartCoroutine(DelayedEnterEndScreen());
+
+            NetworkActions.Instance.CmdShowEndMessage();
 
             //Sends info to Hololens if connected
             if (GameState.Instance.holoLensConnected)
@@ -87,6 +93,52 @@ public class ToEndScreen : NetworkBehaviour {
             }
         }
       
+    }
+
+    public void showEndMessage()
+    {
+        endingMessage.SetActive(true);
+        SpaceshipGameplay.Instance.gameObject.GetComponent<SpaceshipMovement>().controllable = false;
+
+        if (reason == ToEndScreen.reasonForTermination.hp)
+        {
+            endingMessageText.GetComponent<Text>().text = "Raumschiff zerstört!";
+        }
+        else
+        {
+            if (reason == ToEndScreen.reasonForTermination.energy)
+            {
+                endingMessageText.GetComponent<Text>().text = "Keine Energie mehr!";
+            }
+            else
+            {
+                if (reason == ToEndScreen.reasonForTermination.player)
+                {
+                    endingMessageText.GetComponent<Text>().text = "Die Expedition wurde abgebrochen.";
+                }
+                else
+                {
+                    if (reason == ToEndScreen.reasonForTermination.win)
+                    {
+                        endingMessageText.GetComponent<Text>().text = "Geschafft!";
+                    }
+                    else
+                    {
+                        endingMessageText.GetComponent<Text>().text = "Ende.";
+                    }
+
+                }
+            }
+        }
+    }
+
+    public IEnumerator DelayedEnterEndScreen()
+    {
+        yield return new WaitForSeconds(5.0f);
+        Debug.Log("Initializing EnterEndScreen");
+        NetworkActions.Instance.CmdEnterEndScreen();
+
+
     }
 
     [ClientRpc] 

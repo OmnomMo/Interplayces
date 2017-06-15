@@ -333,7 +333,7 @@ namespace GreatArcStudios
             lastTexLimit = QualitySettings.masterTextureLimit;
             //set last shadow cascade 
             lastShadowCascade = QualitySettings.shadowCascades;
-            saveSettings.LoadGameSettings(File.ReadAllText(Application.persistentDataPath + "/" + saveSettings.fileName));
+            //saveSettings.LoadGameSettings(File.ReadAllText(Application.persistentDataPath + "/" + saveSettings.fileName));
             try
             {
                 densityINI = Terrain.activeTerrain.detailObjectDensity;
@@ -793,41 +793,41 @@ namespace GreatArcStudios
             yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)vidPanelAnimator.GetCurrentAnimatorClipInfo(0).Length));
             try
             {
-                mainCam.farClipPlane = renderDistINI;
-                Terrain.activeTerrain.detailObjectDensity = densityINI;
-                mainCam.fieldOfView = fovINI;
+               // mainCam.farClipPlane = renderDistINI;
+               // Terrain.activeTerrain.detailObjectDensity = densityINI;
+               // mainCam.fieldOfView = fovINI;
                 mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
                 audioPanel.SetActive(false);
-                aoBool = lastAOBool;
-                dofBool = lastDOFBool;
-                Screen.SetResolution(beforeRes.width, beforeRes.height, Screen.fullScreen);
-                QualitySettings.shadowDistance = shadowDistINI;
-                QualitySettings.antiAliasing = (int)aaQualINI;
-                QualitySettings.antiAliasing = msaaINI;
-                QualitySettings.vSyncCount = vsyncINI;
-                QualitySettings.masterTextureLimit = lastTexLimit;
-                QualitySettings.shadowCascades = lastShadowCascade;
-                Screen.fullScreen = isFullscreen;
+                //aoBool = lastAOBool;
+                //dofBool = lastDOFBool;
+                //Screen.SetResolution(beforeRes.width, beforeRes.height, Screen.fullScreen);
+                //QualitySettings.shadowDistance = shadowDistINI;
+                //QualitySettings.antiAliasing = (int)aaQualINI;
+                //QualitySettings.antiAliasing = msaaINI;
+                //QualitySettings.vSyncCount = vsyncINI;
+                //QualitySettings.masterTextureLimit = lastTexLimit;
+                //QualitySettings.shadowCascades = lastShadowCascade;
+                //Screen.fullScreen = isFullscreen;
             }
             catch
             {
 
                 Debug.Log("A problem occured (chances are the terrain was not assigned )");
-                mainCam.farClipPlane = renderDistINI;
-                mainCam.fieldOfView = fovINI;
+               // mainCam.farClipPlane = renderDistINI;
+               // mainCam.fieldOfView = fovINI;
                 mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
                 audioPanel.SetActive(false);
-                aoBool = lastAOBool;
-                dofBool = lastDOFBool;
-                QualitySettings.shadowDistance = shadowDistINI;
-                Screen.SetResolution(beforeRes.width, beforeRes.height, Screen.fullScreen);
-                QualitySettings.antiAliasing = (int)aaQualINI;
-                QualitySettings.antiAliasing = msaaINI;
-                QualitySettings.vSyncCount = vsyncINI;
-                QualitySettings.masterTextureLimit = lastTexLimit;
-                QualitySettings.shadowCascades = lastShadowCascade;
+                //aoBool = lastAOBool;
+                //dofBool = lastDOFBool;
+                //QualitySettings.shadowDistance = shadowDistINI;
+                //Screen.SetResolution(beforeRes.width, beforeRes.height, Screen.fullScreen);
+                //QualitySettings.antiAliasing = (int)aaQualINI;
+                //QualitySettings.antiAliasing = msaaINI;
+                //QualitySettings.vSyncCount = vsyncINI;
+                //QualitySettings.masterTextureLimit = lastTexLimit;
+                //QualitySettings.shadowCascades = lastShadowCascade;
                 //Screen.fullScreen = isFullscreen;
 
             }
@@ -854,10 +854,10 @@ namespace GreatArcStudios
             mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
-            renderDistINI = mainCam.farClipPlane;
-            shadowDistINI = QualitySettings.shadowDistance;
+           // renderDistINI = mainCam.farClipPlane;
+           // shadowDistINI = QualitySettings.shadowDistance;
             Debug.Log("Shadow dist ini" + shadowDistINI);
-            fovINI = mainCam.fieldOfView;
+          //  fovINI = mainCam.fieldOfView;
             aoBool = aoToggle.isOn;
             dofBool = dofToggle.isOn;
             lastAOBool = aoBool;
@@ -881,7 +881,7 @@ namespace GreatArcStudios
                 }
             }
             catch { Debug.Log("Please assign a terrain"); }
-            saveSettings.SaveGameSettings();
+          //  saveSettings.SaveGameSettings();
 
         }
         /// <summary>
@@ -941,14 +941,14 @@ namespace GreatArcStudios
         {
             try
             {
-                mainCam.farClipPlane = f;
+               // mainCam.farClipPlane = f;
 
             }
             catch
             {
                 Debug.Log(" Finding main camera now...it is still suggested that you manually assign this");
                 mainCam = Camera.main;
-                mainCam.farClipPlane = f;
+               // mainCam.farClipPlane = f;
 
             }
 
@@ -1014,7 +1014,7 @@ namespace GreatArcStudios
         /// <param name="fov"></param>
         public void updateFOV(float fov)
         {
-            mainCam.fieldOfView = fov;
+          //  mainCam.fieldOfView = fov;
         }
         /// <summary>
         /// Toggle on or off Depth of Field. This is meant to be used with a checkbox.

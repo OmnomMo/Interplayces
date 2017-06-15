@@ -66,4 +66,10 @@ public class NetworkPlayer : NetworkBehaviour
     {
         GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().UnPauseGame();
     }
+
+    [ClientRpc]
+    public void RpcShowEndMessage()
+    {
+        ToEndScreen.Instance.showEndMessage();
+    }
 }

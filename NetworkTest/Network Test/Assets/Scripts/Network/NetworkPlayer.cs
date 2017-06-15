@@ -74,8 +74,8 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcShowEndMessage()
+    public void RpcShowEndMessage(int message)
     {
-        ToEndScreen.Instance.showEndMessage();
+        ToEndScreen.Instance.showEndMessage(message);
     }
 }

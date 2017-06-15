@@ -26,7 +26,7 @@ public class SceneManager : MonoBehaviour {
     {
         if (GameState.Instance == null)
         {
-            instance = this;
+ 
             Debug.Log("Gamestate not active. Restarting");
             Application.LoadLevel(0);
         }
@@ -34,6 +34,8 @@ public class SceneManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        instance = this;
 
         if (GameState.Instance == null)
         {

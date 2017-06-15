@@ -76,7 +76,7 @@ public class ToEndScreen : NetworkBehaviour {
 
             StartCoroutine(DelayedEnterEndScreen());
 
-            NetworkActions.Instance.CmdShowEndMessage();
+            NetworkActions.Instance.CmdShowEndMessage((int)reason);
 
             //Sends info to Hololens if connected
             if (GameState.Instance.holoLensConnected)
@@ -95,30 +95,33 @@ public class ToEndScreen : NetworkBehaviour {
       
     }
 
-    public void showEndMessage()
+    public void showEndMessage(int message)
     {
         endingMessage.SetActive(true);
+
+        reason = (reasonForTermination)message;
+
         SpaceshipGameplay.Instance.gameObject.GetComponent<SpaceshipMovement>().controllable = false;
 
-        if (reason == ToEndScreen.reasonForTermination.hp)
+        if ((reasonForTermination)message == ToEndScreen.reasonForTermination.hp)
         {
             endingMessageText.GetComponent<Text>().text = "Raumschiff zerstört!";
         }
         else
         {
-            if (reason == ToEndScreen.reasonForTermination.energy)
+            if ((reasonForTermination) message == ToEndScreen.reasonForTermination.energy)
             {
                 endingMessageText.GetComponent<Text>().text = "Keine Energie mehr!";
             }
             else
             {
-                if (reason == ToEndScreen.reasonForTermination.player)
+                if ((reasonForTermination) message == ToEndScreen.reasonForTermination.player)
                 {
                     endingMessageText.GetComponent<Text>().text = "Die Expedition wurde abgebrochen.";
                 }
                 else
                 {
-                    if (reason == ToEndScreen.reasonForTermination.win)
+                    if ((reasonForTermination) message == ToEndScreen.reasonForTermination.win)
                     {
                         endingMessageText.GetComponent<Text>().text = "Geschafft!";
                     }

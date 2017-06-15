@@ -7,9 +7,11 @@ public class GoalObjective : Objective {
     public Collider goal;
 
 
+
+
 	// Use this for initialization
-	void Start () {
-		
+	new void Start () {
+        base.Start();
 	}
 	
 	// Update is called once per frame

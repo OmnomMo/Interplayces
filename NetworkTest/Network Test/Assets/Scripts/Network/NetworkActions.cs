@@ -60,9 +60,9 @@ public class NetworkActions : NetworkBehaviour {
         NetworkPlayer.Instance.RpcRestartLevel();
     }
 
-    public void CmdShowEndMessage()
+    public void CmdShowEndMessage(int message)
     {
-        NetworkPlayer.Instance.RpcShowEndMessage();
+        NetworkPlayer.Instance.RpcShowEndMessage(message);
     }
 
     [Command]

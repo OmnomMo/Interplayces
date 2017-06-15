@@ -314,9 +314,9 @@ namespace GreatArcStudios
             beforeMaster = AudioListener.volume;
             //get all ini values
             aaQualINI = QualitySettings.antiAliasing;
-            renderDistINI = mainCam.farClipPlane;
+           // renderDistINI = mainCam.farClipPlane;
             shadowDistINI = QualitySettings.shadowDistance;
-            fovINI = mainCam.fieldOfView;
+            //fovINI = mainCam.fieldOfView;
             msaaINI = QualitySettings.antiAliasing;
             vsyncINI = QualitySettings.vSyncCount;
             //enable titles
@@ -1007,8 +1007,8 @@ namespace GreatArcStudios
         /// <param name="qual"></param>
         public void updateTerrainLod(float qual)
         {
-            try { if (useSimpleTerrain == true) { simpleTerrain.heightmapMaximumLOD = (int)qual; } else { terrain.heightmapMaximumLOD = (int)qual; } }
-            catch { Debug.Log("Terrain not assigned"); return; }
+            //try { if (useSimpleTerrain == true) { simpleTerrain.heightmapMaximumLOD = (int)qual; } else { terrain.heightmapMaximumLOD = (int)qual; } }
+            //catch { Debug.Log("Terrain not assigned"); return; }
 
         }
         /// <summary>
@@ -1073,7 +1073,7 @@ namespace GreatArcStudios
             }
             catch
             {
-                Debug.Log("No AO post processing found");
+               // Debug.Log("No AO post processing found");
                 return;
             }
         }

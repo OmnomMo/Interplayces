@@ -9,6 +9,8 @@ public class GameState : MonoBehaviour {
 
     public bool holoLensConnected;
 
+    public bool settingsFound = true;
+
     public bool paused;
 
     public enum PlayerTypes { Captain, Navigator, NavigatorAR, None }

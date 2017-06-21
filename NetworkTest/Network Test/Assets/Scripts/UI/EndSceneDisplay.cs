@@ -72,7 +72,7 @@ public class EndSceneDisplay : MonoBehaviour {
 
         foundObjectsText.text = planetList;
 
-        GameObject.Destroy(ToEndScreen.Instance.gameObject);
+       // GameObject.Destroy(ToEndScreen.Instance.gameObject);
 
     }
 

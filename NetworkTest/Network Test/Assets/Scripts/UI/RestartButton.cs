@@ -20,6 +20,11 @@ public class RestartButton : MonoBehaviour {
 
         //MultiplayerSetup.Instance.ServerChangeScene("SpaceShipEditor_Tracking");
     }
+
+    public void EnterLevelSelect()
+    {
+        NetworkActions.Instance.CmdReturnToLevelSelect();
+    }
 	
 	// Update is called once per frame
 	void Update () {

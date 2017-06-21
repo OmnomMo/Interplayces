@@ -51,6 +51,12 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void RpcReturnToLevelSelect()
+    {
+        MultiplayerSetup.Instance.ServerChangeScene("03_Level_Select");
+    }
+
+    [ClientRpc]
     public void RpcRestartLevel()
     {
         //GameObject.Destroy(Score.Instance.gameObject);

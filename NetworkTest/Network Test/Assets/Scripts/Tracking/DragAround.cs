@@ -27,17 +27,17 @@ public class DragAround : NetworkBehaviour {
     void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log("Collision Test. Is cube on field?");
+        //Debug.Log("Collision Test. Is cube on field?");
         if (other.gameObject.tag == "PlayingField")
         {
             partContainer.GetComponent<FollowSphere>().isOnField = true;
-            Debug.Log("Cube is on field!");
+            //Debug.Log("Cube is on field!");
         }
     }
     [ClientRpc]
     public void RpcStartDrag()
     {
-        Debug.Log("Start Dragging " + gameObject.ToString());
+       // Debug.Log("Start Dragging " + gameObject.ToString());
         dragged = true;
     }
     [ClientRpc]

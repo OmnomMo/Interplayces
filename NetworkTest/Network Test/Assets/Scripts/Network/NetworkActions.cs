@@ -43,6 +43,13 @@ public class NetworkActions : NetworkBehaviour {
   
     }
 
+
+    [Command]
+    public void CmdReturnToLevelSelect()
+    {
+        NetworkPlayer.Instance.RpcReturnToLevelSelect();
+    }
+
     [Command]
     public void CmdPauseGame()
     {

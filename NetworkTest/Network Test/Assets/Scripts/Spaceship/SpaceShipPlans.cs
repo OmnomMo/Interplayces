@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceShipPlans : MonoBehaviour {
 
     public LinkedList<StoredShipPart> parts;
+
 
     private static SpaceShipPlans instance;
     public static SpaceShipPlans Instance
@@ -13,7 +15,19 @@ public class SpaceShipPlans : MonoBehaviour {
     }
     void Awake()
     {
-        instance = this;
+
+        if (SpaceShipPlans.Instance == null)
+        {
+
+
+            instance = this;
+            
+        } else
+        {
+            GameObject.Destroy(this.gameObject);
+        }
+
+
         Object.DontDestroyOnLoad(gameObject);
         parts = new LinkedList<StoredShipPart>();
     }

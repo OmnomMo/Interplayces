@@ -21,7 +21,7 @@ public class ColorPickerNew : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        if (WebcamManager.Instance.hasWebcam)
+        if (WebcamManager.Instance != null && WebcamManager.Instance.hasWebcam)
         {
 
             tex = WebcamManager.Instance.tex;
@@ -63,7 +63,7 @@ public class ColorPickerNew : MonoBehaviour {
 
 
 	void Update () {
-        if (WebcamManager.Instance.hasWebcam)
+        if (WebcamManager.Instance != null && WebcamManager.Instance.hasWebcam)
         {
 
        

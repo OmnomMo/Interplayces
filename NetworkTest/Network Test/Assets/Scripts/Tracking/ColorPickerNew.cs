@@ -26,7 +26,7 @@ public class ColorPickerNew : MonoBehaviour {
 
             tex = WebcamManager.Instance.tex;
 
-            Debug.Log("Texture: " + tex.width + "/" + tex.height);
+           // Debug.Log("Texture: " + tex.width + "/" + tex.height);
             overlayTexture = new Texture2D(tex.width, tex.height);
             overlayImage.GetComponent<RawImage>().texture = overlayTexture;
 

@@ -235,6 +235,9 @@ public class PlayingGrid : MonoBehaviour {
 
     public void IncludePiece(GameObject piece)
     {
+
+
+        Debug.Log("Try to include " + piece.ToString());
         //Check if piece is already in Play
 
 

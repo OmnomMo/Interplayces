@@ -160,6 +160,7 @@ public class NetworkActions : NetworkBehaviour {
     public void CmdDragSphere(GameObject sphere)
     {
         //Debug.Log("Drag!");
+        //Debug.Log("Start Dragging " + sphere.ToString());
         sphere.GetComponent<DragAround>().dragged = true;
         //sphere.GetComponent<DragAround>().RpcStartDrag();
     }

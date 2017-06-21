@@ -17,6 +17,8 @@ public class CreatePredefinedShip : NetworkActions {
     public GameObject thrusterPrefab;
     public GameObject noPartPrefab;
 
+    public bool shipVersion1;
+
 
     private static CreatePredefinedShip instance;
 
@@ -42,7 +44,7 @@ public class CreatePredefinedShip : NetworkActions {
 
         CreateContainers();
 
-       // if (GameState.Instance.isPlayerCaptain())
+        if (shipVersion1)
         {
             //Debug.Break();
             StartCoroutine(PresetStarship());

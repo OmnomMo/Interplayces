@@ -14,6 +14,30 @@ namespace Dweiss {
 	[System.Serializable]
 	public class Settings : ASettings {
 
+        [Header("--DarkBackground--")]
+
+        public float absoluteFactorThreshold = 1.1f;
+        public float specificFactorThreshold = 1.8f;
+
+        public float lightBackgroundThreshold = 1.7f;
+        public float darkBackgroundThreshold = 1.4f;
+
+        public float darkBG_MagentaRed_threshhold = 0.7f;
+
+        public float darkBG_Magenta_BgtG = 1.15f;
+        public float darkBG_Magenta_BgtG2 = 0.1f;
+
+        public float darkBG_blue_BgtG = 1.1f;
+        public float darkBG_blue_BgtR = 1.3f;
+
+        public float darkBG_blue_Bgt = 0.6f;
+
+        public float darkBG_green_GgtR = 1f;
+        public float darkBG_green_GgtB = 1f;
+
+
+
+
         [Header("--Magenta--")]
 
         public float Magenta_RgtG = 1.2f;

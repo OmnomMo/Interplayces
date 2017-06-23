@@ -261,21 +261,29 @@ public class SwitchShipParts : NetworkBehaviour {
 
         //Color codes are stored in settings.txt, if not found, use default values
 
-
+        float absoluteFactorThreshold = Dweiss.Settings.Instance.absoluteFactorThreshold;
+        float specificFactorthreshold = Dweiss.Settings.Instance.specificFactorThreshold;
 
         if (testingSetup)
         {
-      
 
+            bool basicColorDIfference = c.r / c.b > absoluteFactorThreshold || c.r / c.g > absoluteFactorThreshold ||
+                       c.g / c.b > absoluteFactorThreshold || c.g / c.r > absoluteFactorThreshold ||
+                       c.b / c.r > absoluteFactorThreshold || c.b / c.g > absoluteFactorThreshold;
+
+            if (!basicColorDIfference)
+            {
+                return 4;
+            }
 
 
             if (lightBackground)
             {
                 if ((c.r + c.g + c.b > 1.7f)) {
 
-                    bool significantColorDIfference = c.r / c.b > 1.5f || c.r / c.g > 1.5f ||
-                        c.g / c.b > 1.5f || c.g / c.r > 1.5f ||
-                        c.b / c.r > 1.5f || c.b / c.g > 1.5f;
+                    bool significantColorDIfference = c.r / c.b > specificFactorthreshold || c.r / c.g > specificFactorthreshold ||
+                        c.g / c.b > specificFactorthreshold || c.g / c.r > specificFactorthreshold ||
+                        c.b / c.r > specificFactorthreshold || c.b / c.g > specificFactorthreshold;
 
 
                     if (!significantColorDIfference)
@@ -286,16 +294,16 @@ public class SwitchShipParts : NetworkBehaviour {
             } else
             {
 
-                if ((c.r + c.g + c.b < 0.7f))
+                if ((c.r + c.g + c.b < 1.4f))
                 {
                     return 4;
                 }
             }
 
 
-            if (c.r > 0.8f)
+            if (c.r > 0.7f)
             {
-                if (c.b > c.g * 1.2f)
+                if (c.b > c.g * 1.15f || c.b - c.g > 0.1f)
                 {
                     //magenta
                     return 3;
@@ -308,10 +316,22 @@ public class SwitchShipParts : NetworkBehaviour {
             {
                 if (c.b > 1.1f*c.g)
                 {
-                    return 2;
+                    //blue
+
+                    if (c.b > c.r * 1.3 && c.b > 0.6f)
+                    {
+                        return 2;
+                    } else { return 4; }
                 } else
                 {
-                    return 0;
+                    if (c.g > c.r * 1f && c.g > c.b * 1f)
+                    {
+                        //green
+                        return 0;
+                    } else
+                    {
+                        return 4;
+                    }
                 }
             }
         }

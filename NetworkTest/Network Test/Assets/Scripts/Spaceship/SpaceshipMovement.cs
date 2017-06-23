@@ -49,7 +49,7 @@ public class SpaceshipMovement : NetworkBehaviour {
     public IEnumerator collectThrusters()
     {
         yield return null;
-        thrusters = GetComponent<SpaceshipParts>().allThrusters;
+        thrusters = GetComponent<SpaceshipParts>().GetEnabledThrusters();
     }
 
     // Update is called once per frame

@@ -20,6 +20,9 @@ public class SwitchShipParts : NetworkBehaviour {
     int checkY;
 
     public int switchedshipParts;
+    public bool testingSetup;
+
+    public bool lightBackground; 
 
 
     int nRows;
@@ -67,7 +70,7 @@ public class SwitchShipParts : NetworkBehaviour {
        // NetworkActions.Instance.CmdCreateContainers();
         
         SetPartTypes();
-        CheckAllPartTypes();
+       // CheckAllPartTypes();
 
         // Debug.Log()
         
@@ -210,6 +213,9 @@ public class SwitchShipParts : NetworkBehaviour {
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;
 
+        var oldPartType = oldPart.GetComponent<ShipPart>().GetType();
+
+       // if (newPart.GetComponent<ShipPart>() is typeof(oldPart.GetComponent<ShipPart>().GetType()))
 
         playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
 
@@ -255,48 +261,105 @@ public class SwitchShipParts : NetworkBehaviour {
 
         //Color codes are stored in settings.txt, if not found, use default values
 
-        if (GameState.Instance.settingsFound)
-        {
 
-            if (c.r + c.g + c.b > 0.5)
+
+        if (testingSetup)
+        {
+      
+
+
+
+            if (lightBackground)
+            {
+                if ((c.r + c.g + c.b > 1.7f)) {
+
+                    bool significantColorDIfference = c.r / c.b > 1.5f || c.r / c.g > 1.5f ||
+                        c.g / c.b > 1.5f || c.g / c.r > 1.5f ||
+                        c.b / c.r > 1.5f || c.b / c.g > 1.5f;
+
+
+                    if (!significantColorDIfference)
+                    {
+                        return 4;
+                    }
+                }
+            } else
             {
 
-
-                //magenta
-                if (c.r > c.g * Dweiss.Settings.Instance.Magenta_RgtG && c.b > c.g * Dweiss.Settings.Instance.Magenta_BgtG && c.r > Dweiss.Settings.Instance.Magenta_Rgt && c.b > Dweiss.Settings.Instance.Magenta_Bgt)
-                //if (c.r > c.b * 1.2f && c.g > c.b * 1.2f && c.b < 0.5)
+                if ((c.r + c.g + c.b < 0.7f))
                 {
-                    return 3;
+                    return 4;
                 }
+            }
 
-                //red
-                if (c.r > c.g * Dweiss.Settings.Instance.Red_RgtG && c.r > c.b * Dweiss.Settings.Instance.Red_RgtB && c.r > Dweiss.Settings.Instance.Red_Rgt)
+
+            if (c.r > 0.8f)
+            {
+                if (c.b > c.g * 1.2f)
                 {
+                    //magenta
+                    return 3;
+                } else
+                {
+                    //Red or orange
                     return 1;
                 }
-
-                //green
-                if (c.g > c.r * Dweiss.Settings.Instance.Green_GgtR && c.g > c.b * Dweiss.Settings.Instance.Green_GgtB && c.r < Dweiss.Settings.Instance.Green_Rst && c.g < Dweiss.Settings.Instance.Green_Gst && c.g > Dweiss.Settings.Instance.Green_Gbt)
+            } else
+            {
+                if (c.b > 1.1f*c.g)
+                {
+                    return 2;
+                } else
                 {
                     return 0;
                 }
-
-                //blue
-                if (c.b > c.g * Dweiss.Settings.Instance.Blue_BgtG && c.b > c.r * Dweiss.Settings.Instance.Blue_BgtR && c.b > Dweiss.Settings.Instance.Blue_Bgt)
-                {
-                    return 2;
-                }
-
-                //yellow
-
-
             }
         }
         else
         {
 
-           // old variant with fixed values
-            if (c.r + c.g + c.b > 0.5)
+            if (GameState.Instance.settingsFound)
+            {
+
+                if (c.r + c.g + c.b > 0.5)
+                {
+
+
+                    //magenta
+                    if (c.r > c.g * Dweiss.Settings.Instance.Magenta_RgtG && c.b > c.g * Dweiss.Settings.Instance.Magenta_BgtG && c.r > Dweiss.Settings.Instance.Magenta_Rgt && c.b > Dweiss.Settings.Instance.Magenta_Bgt)
+                    //if (c.r > c.b * 1.2f && c.g > c.b * 1.2f && c.b < 0.5)
+                    {
+                        return 3;
+                    }
+
+                    //red
+                    if (c.r > c.g * Dweiss.Settings.Instance.Red_RgtG && c.r > c.b * Dweiss.Settings.Instance.Red_RgtB && c.r > Dweiss.Settings.Instance.Red_Rgt)
+                    {
+                        return 1;
+                    }
+
+                    //green
+                    if (c.g > c.r * Dweiss.Settings.Instance.Green_GgtR && c.g > c.b * Dweiss.Settings.Instance.Green_GgtB && c.r < Dweiss.Settings.Instance.Green_Rst && c.g < Dweiss.Settings.Instance.Green_Gst && c.g > Dweiss.Settings.Instance.Green_Gbt)
+                    {
+                        return 0;
+                    }
+
+                    //blue
+                    if (c.b > c.g * Dweiss.Settings.Instance.Blue_BgtG && c.b > c.r * Dweiss.Settings.Instance.Blue_BgtR && c.b > Dweiss.Settings.Instance.Blue_Bgt)
+                    {
+                        return 2;
+                    }
+
+                    //yellow
+
+
+                }
+            }
+            else
+            {
+
+                // old variant with fixed values
+                if (c.r + c.g + c.b > 0.5)
                 {
 
 
@@ -329,9 +392,10 @@ public class SwitchShipParts : NetworkBehaviour {
 
 
                 }
-        }
+            }
 
-        return 4;
+            return 4;
+        }
     }
 
     //public GameObject ColorToPart(Color c)

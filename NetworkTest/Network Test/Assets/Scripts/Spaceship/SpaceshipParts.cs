@@ -12,6 +12,7 @@ public class SpaceshipParts : MonoBehaviour {
     public GameObject partsParent;
     public GameObject[] allBatteries;
     public GameObject[] allThrusters;
+    public GameObject[] allEnabledThrusters;
     public GameObject[] allShields;
     public GameObject[] allScanners;
 
@@ -39,7 +40,7 @@ public class SpaceshipParts : MonoBehaviour {
     //    }
     //}
 
-    public GameObject AddPart (int id, int x, int y)
+    public GameObject AddPart (int id, int x, int y, bool enabled = true)
     {
 
         //If part is a nonPart:
@@ -65,6 +66,7 @@ public class SpaceshipParts : MonoBehaviour {
                 newPart.GetComponent<ShipPart>().SetID(id);
                 newPart.GetComponent<ShipPart>().SetPosX(x);
                 newPart.GetComponent<ShipPart>().SetPosY(y);
+                newPart.GetComponent<ShipPart>().SetEnabled(enabled);
 
                 newPart.transform.parent = partsParent.transform;
 
@@ -148,6 +150,38 @@ public class SpaceshipParts : MonoBehaviour {
 
         return thrusters;
 
+    }
+
+    public GameObject[] GetEnabledThrusters()
+    {
+        GameObject[] allParts = GetActiveParts();
+
+        //Debug.Log("N Parts: " + allParts.Length);
+
+        int nThrusters = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            Debug.Log("IS part enabled thruster?");
+            if (part.GetComponent<SpaceShipPart_Thruster>() != null && part.GetComponent<SpaceShipPart_Thruster>().partEnabled)
+            {
+                Debug.Log("Yes!");
+                nThrusters++;
+            } 
+        }
+
+        GameObject[] thrusters = new GameObject[nThrusters];
+        int i = 0;
+
+        foreach (GameObject part in allParts)
+        {
+            if (part.GetComponent<SpaceShipPart_Thruster>() != null && part.GetComponent<SpaceShipPart_Thruster>().partEnabled)
+            {
+                thrusters[i++] = part;
+            }
+        }
+
+        return thrusters;
     }
 
     public GameObject[] GetBatteries()
@@ -301,7 +335,10 @@ public class SpaceshipParts : MonoBehaviour {
 
         foreach (GameObject b in allBatteries)
         {
-            energy += GetComponent<SpaceshipBatteryPart>().energy;
+            if (b.GetComponent<SpaceshipBatteryPart>().IsEnabled())
+            {
+                energy += GetComponent<SpaceshipBatteryPart>().energy;
+            }
         }
 
         return energy;
@@ -313,7 +350,10 @@ public class SpaceshipParts : MonoBehaviour {
 
         foreach (GameObject b in allBatteries)
         {
-            capacity += b.GetComponent<SpaceshipBatteryPart>().capacity;
+            if (b.GetComponent<SpaceshipBatteryPart>().IsEnabled())
+            {
+                capacity += b.GetComponent<SpaceshipBatteryPart>().capacity;
+            }
         }
 
         return capacity;
@@ -325,7 +365,10 @@ public class SpaceshipParts : MonoBehaviour {
 
         foreach (GameObject b in allShields)
         {
-            capacity += b.GetComponent<SpaceShipShieldPart>().shieldCapacity;
+            if (b.GetComponent<SpaceShipShieldPart>().IsEnabled())
+            {
+                capacity += b.GetComponent<SpaceShipShieldPart>().shieldCapacity;
+            }
         }
 
         return capacity;

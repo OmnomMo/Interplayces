@@ -7,6 +7,7 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
 
     public float maxPower;
     public bool isFiring;
+    public bool partEnabled;
     public GameObject fireEffect;
 
     public int ID;
@@ -69,5 +70,15 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
     public int GetPosY()
     {
         return posY;
+    }
+
+    public void SetEnabled(bool enabled)
+    {
+        partEnabled = enabled;
+    }
+
+    public bool IsEnabled()
+    {
+        return partEnabled;
     }
 }

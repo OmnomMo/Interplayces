@@ -8,11 +8,12 @@ public class SpaceShip_ScannerPart : MonoBehaviour, ShipPart {
     public int ID;
     public int posX;
     public int posY;
+    public bool partEnabled;
 
     // Use this for initialization
     void Start () {
-		
-	}
+        partEnabled = true;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,5 +48,15 @@ public class SpaceShip_ScannerPart : MonoBehaviour, ShipPart {
     public int GetPosY()
     {
         return posY;
+    }
+
+    public void SetEnabled(bool enabled)
+    {
+        partEnabled = enabled;
+    }
+
+    public bool IsEnabled()
+    {
+        return partEnabled;
     }
 }

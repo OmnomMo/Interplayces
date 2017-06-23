@@ -15,4 +15,7 @@ public interface ShipPart
     void SetPosY(int newPosY);
     int GetPosY();
 
+    void SetEnabled(bool enabled);
+    bool IsEnabled();
+
 }

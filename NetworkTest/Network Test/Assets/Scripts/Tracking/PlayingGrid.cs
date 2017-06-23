@@ -138,7 +138,7 @@ public class PlayingGrid : MonoBehaviour {
     {
         //Debug.Log("posX: " + posX + "    posY: " + posY);
 
-        if (grid[posX,posY] == null)
+        if (grid[posX,posY] == null) // || grid[posX,posY].GetComponent<ShipPart>().getID() == 4)
         {
             return true;
         } else

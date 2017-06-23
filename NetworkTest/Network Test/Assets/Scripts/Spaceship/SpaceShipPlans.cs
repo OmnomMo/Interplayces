@@ -38,9 +38,9 @@ public class SpaceShipPlans : MonoBehaviour {
         parts = new LinkedList<StoredShipPart>();
     }
 
-    public void AddPart(int id_, int posX_, int posY_)
+    public void AddPart(int id_, int posX_, int posY_, bool enabled = true)
     {
-        parts.AddLast(new StoredShipPart(id_, posX_, posY_));
+        parts.AddLast(new StoredShipPart(id_, posX_, posY_, enabled));
     }
 
     public override string ToString()
@@ -79,7 +79,8 @@ public class SpaceShipPlans : MonoBehaviour {
 
             while ((currentNode != null))
             {
-                SpaceshipParts.Instance.AddPart(currentNode.Value.id, currentNode.Value.posX, currentNode.Value.posY);
+              
+                SpaceshipParts.Instance.AddPart(currentNode.Value.id, currentNode.Value.posX, currentNode.Value.posY, currentNode.Value.partEnabled);
                    currentNode = currentNode.Next;
             }
 
@@ -113,11 +114,13 @@ public class StoredShipPart
     public int id;
     public int posX;
     public int posY;
+    public bool partEnabled;
 
-    public StoredShipPart(int id_, int posX_, int posY_)
+    public StoredShipPart(int id_, int posX_, int posY_, bool enabled = false)
     {
         id = id_;
         posX = posX_;
         posY = posY_;
+        partEnabled = enabled;
     }
 }

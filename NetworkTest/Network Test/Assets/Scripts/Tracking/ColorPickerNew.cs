@@ -68,6 +68,8 @@ public class ColorPickerNew : MonoBehaviour {
 
        
 
+
+
             if (!tex.isPlaying)
             {
                 tex.Play();
@@ -86,9 +88,9 @@ public class ColorPickerNew : MonoBehaviour {
                 }
             }
             
-            //printDetectedColorConfiguration ();
+            printDetectedColorConfiguration ();
 
-            overlayTexture.Apply();
+           overlayTexture.Apply();
         }
       
     }
@@ -96,6 +98,17 @@ public class ColorPickerNew : MonoBehaviour {
 
 	private void printDetectedColorConfiguration() {
         //Check if Pixel is on field, if yes, fill
+        Color[] clearCols = new Color[overlayTexture.width * overlayTexture.height];
+        Color clearCol = new Color(0f,0f,0f,0f);
+
+        for (int t = 0; t < clearCols.Length; t++)
+        {
+            clearCols[t] = clearCol;
+        }
+
+        overlayTexture.SetPixels(clearCols);
+        
+
 
         for (int i = 0; i < nCols; i++)
         {
@@ -121,10 +134,10 @@ public class ColorPickerNew : MonoBehaviour {
                 //}
 
 
-
+                Debug.Log("SetPixels");
                 overlayTexture.SetPixels((int)fields[i, j].x, (int)fields[i, j].y, (int)fields[i, j].width, (int)fields[i, j].height, cols);
 
-                Debug.Log(col);
+                //Debug.Log(col);
 
             }
         }

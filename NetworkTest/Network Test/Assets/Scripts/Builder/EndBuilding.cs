@@ -45,7 +45,7 @@ public class EndBuilding : NetworkBehaviour {
 
             //Debug.Log(sPart);
 
-            SpaceShipPlans.Instance.AddPart(sPart.getID(), sPart.GetPosX(), sPart.GetPosY());
+            SpaceShipPlans.Instance.AddPart(sPart.getID(), sPart.GetPosX(), sPart.GetPosY(), sPart.IsEnabled());
             currentNode = currentNode.Next;
         }
 

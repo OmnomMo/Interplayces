@@ -64,6 +64,7 @@ public class Objective : MonoBehaviour
 
         if (descriptionObject != null)
         {
+           // Debug.Log("Set description Text to: " + description);
             descriptionObject.GetComponent<Text>().text = description;
         }
 
@@ -89,11 +90,11 @@ public class Objective : MonoBehaviour
     public bool Complete()
     {
 
-        Debug.Log("Try to complete: " + description);
+        //Debug.Log("Try to complete: " + description);
         if (!HasPrerequisite() || (HasPrerequisite() && prerequisiteDone)) {
 
 
-            if (parentObjective == null || parentObjective != null && parentObjective.prerequisiteDone)
+            if (parentObjective == null || (!parentObjective.HasPrerequisite() || parentObjective.prerequisiteDone))
             {
                 completed = true;
                 OnCompletion();

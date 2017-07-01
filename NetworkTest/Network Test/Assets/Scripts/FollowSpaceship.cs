@@ -17,6 +17,8 @@ public class FollowSpaceship : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        GetComponent<Camera>().farClipPlane = 200000;
+
         camPos = new Vector3();
 
 	}

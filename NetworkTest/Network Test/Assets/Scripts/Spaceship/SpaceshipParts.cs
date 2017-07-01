@@ -125,7 +125,7 @@ public class SpaceshipParts : MonoBehaviour {
     {
         GameObject[] allParts = GetActiveParts();
 
-        Debug.Log("N Parts: " + allParts.Length);
+        //Debug.Log("N Parts: " + allParts.Length);
 
         int nThrusters = 0;
 
@@ -162,10 +162,10 @@ public class SpaceshipParts : MonoBehaviour {
 
         foreach (GameObject part in allParts)
         {
-            Debug.Log("IS part enabled thruster?");
+            //Debug.Log("IS part enabled thruster?");
             if (part.GetComponent<SpaceShipPart_Thruster>() != null && part.GetComponent<SpaceShipPart_Thruster>().partEnabled)
             {
-                Debug.Log("Yes!");
+                //Debug.Log("Yes!");
                 nThrusters++;
             } 
         }

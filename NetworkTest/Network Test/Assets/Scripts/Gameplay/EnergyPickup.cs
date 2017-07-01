@@ -10,7 +10,8 @@ using UnityEngine.Networking;
 
 public class EnergyPickup : NetworkBehaviour {
 
-    public float energyAmount;
+    public static float energyAmount = 100;
+
     public bool pickedUp;
 
     [SyncVar]
@@ -20,13 +21,13 @@ public class EnergyPickup : NetworkBehaviour {
 	void Start () {
         pickedUp = false;
         StartCoroutine(registerPickup());
-       // Debug.Log(PickupManager.Instance.energyPickups.Count);
+        //Debug.Log(PickupManager.Instance.energyPickups.Count);
 	}
 
     public IEnumerator registerPickup()
     {
         yield return null;
-        id = PickupManager.Instance.registerPickup(this);
+        PickupManager.Instance.registerPickup(this);
     }
 	
 	// Update is called once per frame
@@ -51,7 +52,7 @@ public class EnergyPickup : NetworkBehaviour {
                     SpaceshipGameplay.Instance.RechargeEnergy(energyAmount);
                     PickupManager.Instance.PickupEnergy(this);
                     //GameObject.Destroy(gameObject);
-                    //pickedUp = true;
+                    pickedUp = true;
                 }
             }
         }

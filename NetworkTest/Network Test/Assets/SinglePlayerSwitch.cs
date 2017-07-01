@@ -24,11 +24,13 @@ public class SinglePlayerSwitch : MonoBehaviour {
         {
             Debug.Log("SwitchSinglePlayer");
             multiplayerSetup.GetComponent<MultiplayerSetup>().minPlayers = 1;
+            GameState.Instance.singlePlayer = true;
         }
         else
         {
             Debug.Log("SwitchMultiPlayer");
             multiplayerSetup.GetComponent<MultiplayerSetup>().minPlayers = 2;
+            GameState.Instance.singlePlayer = false;
         }
     }
 }

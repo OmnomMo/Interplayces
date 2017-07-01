@@ -134,7 +134,7 @@ public class ColorPickerNew : MonoBehaviour {
                 //}
 
 
-                Debug.Log("SetPixels");
+               // Debug.Log("SetPixels");
                 overlayTexture.SetPixels((int)fields[i, j].x, (int)fields[i, j].y, (int)fields[i, j].width, (int)fields[i, j].height, cols);
 
                 //Debug.Log(col);

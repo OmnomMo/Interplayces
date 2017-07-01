@@ -171,7 +171,7 @@ public class CreatePredefinedShip : NetworkActions {
         newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
         newPart.GetComponentInChildren<ShipPart>().SetPosY(y);// colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
 
-        Debug.Log("SwitchPart (" + x + "/" + y + ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
+        //Debug.Log("SwitchPart (" + x + "/" + y + ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
         
         //else
         //{

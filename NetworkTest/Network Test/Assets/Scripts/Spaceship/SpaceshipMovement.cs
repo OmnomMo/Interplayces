@@ -198,39 +198,57 @@ public class SpaceshipMovement : NetworkBehaviour {
         if (!outOfBounds)
         {
 
-            if (isAccelerating && controllable)
+            if (GameState.Instance.singlePlayer)
             {
-                if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
+                if (isAccelerating && controllable)
                 {
-                    GetComponent<Rigidbody>().AddForce(transform.forward * DEBUGThrustBonus * thrustMultiplier * boostMultiplier);
-                }
-            }
-
-
-
-            //if (SpaceshipGameplay.Instance.energy > 0)
-            if (isAccelerating && SpaceshipGameplay.Instance.energy > 0 && controllable)
-            {
-
-
-                if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
-                {
-
-                    GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier * boostMultiplier);
-
-                    SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
-
-                    foreach (GameObject thruster in thrusters)
+                    if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
                     {
-                        thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
+                        GetComponent<Rigidbody>().AddForce(transform.forward * thrusters.Length * thrustMultiplier * boostMultiplier * DEBUGThrustBonus);
+
+                        foreach (GameObject thruster in thrusters)
+                        {
+                            thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
+                        }
                     }
+                } else
+                {
+                        foreach (GameObject thruster in thrusters)
+                        {
+                            thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
+                        }
+                  
                 }
             }
             else
             {
-                foreach (GameObject thruster in thrusters)
+
+
+
+                //if (SpaceshipGameplay.Instance.energy > 0)
+                if (isAccelerating && SpaceshipGameplay.Instance.energy > 0 && controllable)
                 {
-                    thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
+
+
+                    if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
+                    {
+
+                        GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier * boostMultiplier);
+
+                        SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
+
+                        foreach (GameObject thruster in thrusters)
+                        {
+                            thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (GameObject thruster in thrusters)
+                    {
+                        thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
+                    }
                 }
             }
         } else //if player is out of bounds

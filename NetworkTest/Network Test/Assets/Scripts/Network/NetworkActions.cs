@@ -150,6 +150,14 @@ public class NetworkActions : NetworkBehaviour {
         PickupManager.Instance.RpcDestroyPickup(n);
     }
 
+
+    [Command]
+    public void CmdPickupResource(int n)
+    {
+        //Debug.Log(n);
+        PickupManager.Instance.RpcDestroyResourcePickup(n);
+    }
+
     [Command]
     public void CmdSetEnergy(int n)
     {

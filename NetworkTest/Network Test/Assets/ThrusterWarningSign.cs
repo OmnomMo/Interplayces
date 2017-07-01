@@ -20,10 +20,10 @@ public class ThrusterWarningSign : MonoBehaviour {
         //Check if thruster is placed correctly
         SpaceShipPart_Thruster thruster = transform.parent.GetComponent<SpaceShipPart_Thruster>();
 
-        if (thruster.posY == 0 || transform.parent.parent.GetComponent<FollowSphere>().isOnField == false)
-        {
-            canFire = true;
-        } else
+        //if (thruster.posY == 0 || transform.parent.parent.GetComponent<FollowSphere>().isOnField == false)
+        //{
+        //    canFire = true;
+        //} else
         {
             if (PlayingGrid.Instance.IsEmpty(thruster.posX, thruster.posY-1))
             {

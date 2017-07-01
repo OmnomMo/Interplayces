@@ -29,6 +29,11 @@ public class HideForNavigator : MonoBehaviour {
                 {
                     GetComponent<MeshRenderer>().enabled = false;
                 }
+
+                if (GetComponent<Canvas>() != null)
+                {
+                    GetComponent<Canvas>().enabled = false;
+                }
             }
         }
 	}

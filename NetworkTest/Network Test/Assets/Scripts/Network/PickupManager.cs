@@ -10,6 +10,9 @@ public class PickupManager : NetworkBehaviour {
 
     public List<EnergyPickup> energyPickups;
 
+    public List<ResourcePickup> resourcePickups;
+
+
 
 
     private static PickupManager instance;
@@ -18,6 +21,7 @@ public class PickupManager : NetworkBehaviour {
     private void Awake()
     {
         energyPickups = new List<EnergyPickup>();
+        resourcePickups = new List<ResourcePickup>();
         instance = this;
     }
 
@@ -30,6 +34,16 @@ public class PickupManager : NetworkBehaviour {
             list += ep.ToString() + "\n";
         }
 
+        list += "ResourcePickups: \n";
+
+
+        foreach (ResourcePickup rp in resourcePickups)
+        {
+            list += rp.ToString() + "\n";
+        }
+
+
+
         return list;
     }
 
@@ -40,6 +54,16 @@ public class PickupManager : NetworkBehaviour {
         return energyPickups.IndexOf(pickup);
     }
 
+    public int registerPickup(ResourcePickup pickup)
+    {
+        resourcePickups.Add(pickup);
+        return resourcePickups.IndexOf(pickup);
+    }
+
+    public void PickupResource(ResourcePickup p)
+    {
+        NetworkActions.Instance.CmdPickupResource(p.id);
+    }
 
     public void PickupEnergy (EnergyPickup p)
     {
@@ -49,16 +73,53 @@ public class PickupManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void RpcDestroyPickup (int n)
+    public void RpcDestroyPickup (int id)
     {
-       // Debug.Log(n);
-        energyPickups[n].pickedUp = true;
-        energyPickups[n].gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = false;
+        // Debug.Log(n);
 
-        Component halo = energyPickups[n].transform.GetChild(0).GetComponent("Halo");
+        EnergyPickup pickup = null;
+
+        foreach (EnergyPickup ep in energyPickups)
+        {
+            if (ep.id == id)
+            {
+                pickup = ep;
+                break;
+            }
+        }
+
+
+        pickup.pickedUp = true;
+        pickup.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = false;
+
+        Component halo = pickup.transform.GetChild(0).GetComponent("Halo");
         halo.GetType().GetProperty("enabled").SetValue(halo, false, null);
 
     }
+
+    [ClientRpc]
+    public void RpcDestroyResourcePickup(int id)
+    {
+        ResourcePickup pickup = null;
+
+        foreach (ResourcePickup rp in resourcePickups)
+        {
+            if (rp.id == id)
+            {
+                pickup = rp;
+                break;
+            }
+        }
+
+
+        pickup.pickedUp = true;
+        pickup.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = false;
+
+        Component halo = pickup.transform.GetChild(0).GetComponent("Halo");
+        halo.GetType().GetProperty("enabled").SetValue(halo, false, null);
+
+    }
+
 
     // Use this for initialization
     void Start () {

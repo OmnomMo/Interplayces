@@ -37,7 +37,7 @@ public class SwitchShipParts : NetworkBehaviour {
     private void Awake()
     {
         
-        Debug.Log("Set instance of SwitchParts");
+        //Debug.Log("Set instance of SwitchParts");
 
         nRows = colorTracker.GetComponent<ColorPickerNew>().nCols;
         nCols = colorTracker.GetComponent<ColorPickerNew>().nRows;

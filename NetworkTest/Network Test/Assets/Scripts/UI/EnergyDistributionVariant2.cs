@@ -68,8 +68,11 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
         sliders[1] = shieldSlider.GetComponent<Slider>();
         sliders[2] = scanSlider.GetComponent<Slider>();
 
+       // Debug.Log((sliders[0].value + sliders[1].value + sliders[2].value));
+
         if ((sliders[0].value + sliders[1].value + sliders[2].value) > 1.0f)
         {
+            //Debug.Log("StartBalancing");
             float delta = (sliders[0].value + sliders[1].value + sliders[2].value) - 1f;
 
             if (changedSlider != 0)

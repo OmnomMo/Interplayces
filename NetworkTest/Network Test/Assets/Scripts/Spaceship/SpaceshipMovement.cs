@@ -34,7 +34,7 @@ public class SpaceshipMovement : NetworkBehaviour {
     public GameObject rotationTarget;
     public GameObject rotationTarget2;
     public float rotationSpeed;
-    public float drainPerFrame = 1f;
+    public float drainPerFrame;
 
     public bool rotateVersion02;
 

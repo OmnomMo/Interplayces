@@ -197,6 +197,7 @@ public class NetworkActions : NetworkBehaviour {
     public void CmdPreSetPartTypes(int x, int y, int newID)
     {
         CreatePredefinedShip.Instance.RpcSetPT(x, y, newID);
+        Debug.Log("Set Preset Part");
     }
 
     //---------------------------------------------------------------

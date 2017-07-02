@@ -298,7 +298,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         if (GameState.Instance.isPlayerNavigator())
         {
-            if (DrainEnergy(scanEnergyDrain * scanPower * SpaceshipParts.Instance.allScanners.Length))
+            if (DrainEnergy(scanEnergyDrain * scanPower * SpaceshipParts.Instance.allScanners.Length * Time.deltaTime))
             {
                 Camera.main.GetComponent<FollowSpaceship>().camHeight = 200 + Mathf.Pow((500 * scanPower * SpaceshipParts.Instance.allScanners.Length), 1.25f);
             }

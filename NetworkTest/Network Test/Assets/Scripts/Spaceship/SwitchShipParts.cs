@@ -16,11 +16,14 @@ public class SwitchShipParts : NetworkBehaviour {
     public GameObject thrusterPrefab;
     public GameObject noPartPrefab;
 
+    public GameObject[,] shipContainers;
+
     int checkX;
     int checkY;
 
     public int switchedshipParts;
     public bool testingSetup;
+    public bool trackColor;
 
     public bool lightBackground; 
 
@@ -67,9 +70,11 @@ public class SwitchShipParts : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-       // NetworkActions.Instance.CmdCreateContainers();
-        
-        SetPartTypes();
+        // NetworkActions.Instance.CmdCreateContainers();
+        if (trackColor)
+        {
+            SetPartTypes();
+        }
        // CheckAllPartTypes();
 
         // Debug.Log()
@@ -81,6 +86,8 @@ public class SwitchShipParts : NetworkBehaviour {
 
         Vector3 newPos = new Vector3();
 
+        shipContainers = new GameObject[nCols , nRows];
+
 
         for (int x = 0; x < nCols; x++)
         {
@@ -89,7 +96,7 @@ public class SwitchShipParts : NetworkBehaviour {
                 GameObject newPart = GameObject.Instantiate(spaceshipContainer);
                 newPart.transform.parent = this.transform;
 
-
+                shipContainers[x, y] = newPart;
 
                 newPos.x = x * 1.1f;
                 newPos.y = y * 1.1f;

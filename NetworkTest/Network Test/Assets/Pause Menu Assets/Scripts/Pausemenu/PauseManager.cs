@@ -454,12 +454,12 @@ namespace GreatArcStudios
                 pauseMenu.text = "Pause Menu";
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == false)
+            if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("EscapeButton")) &&  mainPanel.active == false)
             {
                 NetworkActions.Instance.CmdPauseGame();
                
             }
-            else if(Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == true) {
+            else if((Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("EscapeButton")) && mainPanel.active == true) {
 
                 NetworkActions.Instance.CmdUnPauseGame();
 

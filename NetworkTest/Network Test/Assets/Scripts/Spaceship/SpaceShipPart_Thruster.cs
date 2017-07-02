@@ -81,4 +81,10 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
     {
         return partEnabled;
     }
+
+    public bool RemoveFromGrid()
+    {
+        return PlayingGrid.Instance.RemovePiece(this.gameObject);
+        
+    }
 }

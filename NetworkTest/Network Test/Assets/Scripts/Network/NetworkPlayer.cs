@@ -68,7 +68,7 @@ public class NetworkPlayer : NetworkBehaviour
     public void RpcPauseGame()
     {
         GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().PauseGame();
-        SceneManager.Instance.DeactivateGameInterface();
+        MainSceneManager.Instance.DeactivateGameInterface();
       
     }
 
@@ -76,7 +76,7 @@ public class NetworkPlayer : NetworkBehaviour
     public void RpcUnpauseGame()
     {
         GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().UnPauseGame();
-        SceneManager.Instance.ActivateGameInterface();
+        MainSceneManager.Instance.ActivateGameInterface();
     }
 
     [ClientRpc]

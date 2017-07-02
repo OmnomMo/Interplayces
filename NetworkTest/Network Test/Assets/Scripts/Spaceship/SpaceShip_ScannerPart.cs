@@ -59,4 +59,10 @@ public class SpaceShip_ScannerPart : MonoBehaviour, ShipPart {
     {
         return partEnabled;
     }
+
+    public bool RemoveFromGrid()
+    {
+        return PlayingGrid.Instance.RemovePiece(this.gameObject);
+
+    }
 }

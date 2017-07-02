@@ -27,9 +27,10 @@ public class SpaceshipBatteryPart : MonoBehaviour, ShipPart {
     // Update is called once per frame
     void Update()
     {
-        float percentage = (energy / capacity) * 100;
-        string percString = percentage.ToString("0.0");
-        display.GetComponent<Text>().text = percString + "%";
+        //Display battery power on object
+        //float percentage = (energy / capacity) * 100;
+        //string percString = percentage.ToString("0.0");
+        //display.GetComponent<Text>().text = percString + "%";
     }
 
     public void SetID(int newID)
@@ -70,6 +71,12 @@ public class SpaceshipBatteryPart : MonoBehaviour, ShipPart {
     public bool IsEnabled()
     {
         return partEnabled;
+    }
+
+    public bool RemoveFromGrid()
+    {
+        return PlayingGrid.Instance.RemovePiece(this.gameObject);
+
     }
 
 

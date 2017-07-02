@@ -12,7 +12,7 @@ public class CheckForPieces : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (PlayingGrid.Instance.HasPieces())
+		if (PlayingGrid.Instance.CanFly())
         {
             GetComponent<Button>().interactable = true;
         } else

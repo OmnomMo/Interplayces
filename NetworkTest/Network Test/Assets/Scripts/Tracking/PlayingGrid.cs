@@ -102,6 +102,7 @@ public class PlayingGrid : MonoBehaviour {
                     grid[x, y] = null;
                     // grid[x, y].SetActive(false);
                     //Parts.Instance.ResetConnections();
+                    Debug.Log("Removepiece" + oldPiece.ToString());
                     return oldPiece;
                 }
             }
@@ -201,6 +202,47 @@ public class PlayingGrid : MonoBehaviour {
         return newPosition;
     }
 
+
+    //public Vector3 SnapTranslationToNearest(Vector3 pos)
+    //{
+    //    return SnapTranslationToNearest(pos.x, pos.y, pos.z);
+    //}
+
+    public GameObject SnapTranslationToNearest (GameObject piece)
+    {
+
+
+        float nearest = float.MaxValue;
+        Vector3 pos = Vector3.zero;
+
+
+        foreach (GameObject gridPiece in SwitchShipParts.Instance.shipContainers)
+        {
+            float distanceSq = Mathf.Pow(gridPiece.transform.position.x - piece.transform.position.x, 2) + Mathf.Pow(gridPiece.transform.position.y - piece.transform.position.y, 2) + Mathf.Pow(gridPiece.transform.position.z - piece.transform.position.z, 2);
+
+
+            if (distanceSq < nearest)
+            {
+
+                if (IsEmpty(new Vector2(gridPiece.GetComponentInChildren<ShipPart>().GetPosX(), gridPiece.GetComponentInChildren<ShipPart>().GetPosY()))) {
+                    nearest = distanceSq;
+                    pos = new Vector3(gridPiece.transform.position.x, gridPiece.transform.position.y, gridPiece.transform.position.z);
+
+                    piece.GetComponentInChildren<ShipPart>().SetPosX(gridPiece.GetComponentInChildren<ShipPart>().GetPosX());
+                    piece.GetComponentInChildren<ShipPart>().SetPosY(gridPiece.GetComponentInChildren<ShipPart>().GetPosY());
+
+                    
+                }
+            }
+        }
+
+        AddPiece(piece, piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
+
+        piece.transform.position = pos;
+
+        return piece;
+    }
+
     public Vector3 SnapTranslation (Vector3 transl)
     {
         return SnapTranslation(transl.x, transl.y, transl.z);
@@ -271,6 +313,85 @@ public class PlayingGrid : MonoBehaviour {
 
         AddPiece(piece, piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
        // Debug.Log(GetPiece(5, 2));
+
+
+
+        //Include if not already here
+    }
+
+    public bool CanFly()
+    {
+        bool hasThruster = false;
+        bool hasBatteries = false;
+
+        for (int x = 0; x < gridColumns; x++)
+        {
+            for (int y = 0; y < gridRows; y++)
+            {
+
+                if (hasThruster && hasBatteries)
+                {
+                    break;
+                }
+
+                if (grid[x, y] != null)
+                {
+                    if (grid[x,y].GetComponentInChildren<ShipPart>().getID() == 0)
+                    {
+                        hasBatteries = true;
+                    }
+
+                    if (grid[x, y].GetComponentInChildren<ShipPart>().getID() == 1)
+                    {
+                        hasThruster = true;
+                    }
+                }
+            }
+        }
+
+
+        return (hasThruster && hasBatteries);
+    }
+
+
+    public void IncludePieceV02(GameObject piece)
+    {
+
+
+        Debug.Log("Try to include " + piece.ToString());
+        //Check if piece is already in Play
+
+
+        RemovePiece(piece);
+
+
+        //Update Position if necessary
+         SnapTranslationToNearest(piece);
+
+        //Set GridCoordinates of Piece
+       // Vector2 gridPos = ConvertToGridCoordinates(tempPosition);
+
+        //Debug.Log(gridPos);
+
+        //If position is already occupied, stay in current position
+
+        //if (!IsEmpty(gridPos))
+        //{
+        //    gridPos = new Vector2(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
+        //}
+
+
+
+        //piece.GetComponentInChildren<ShipPart>().SetPosX((int)gridPos.x);
+        //piece.GetComponentInChildren<ShipPart>().SetPosY((int)gridPos.y);
+
+        //piece.transform.localPosition = ConvertToLocalCoordinates(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
+        //piece.transform.Translate(0, 0, -1);
+
+
+
+        //AddPiece(piece, piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
+        // Debug.Log(GetPiece(5, 2));
 
 
 

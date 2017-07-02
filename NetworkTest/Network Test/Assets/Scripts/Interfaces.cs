@@ -18,4 +18,6 @@ public interface ShipPart
     void SetEnabled(bool enabled);
     bool IsEnabled();
 
+    bool RemoveFromGrid();
+
 }

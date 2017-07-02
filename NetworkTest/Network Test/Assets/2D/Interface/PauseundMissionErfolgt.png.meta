@@ -1,9 +1,17 @@
 fileFormatVersion: 2
 guid: ffdfd687104578241ade1a3fd31e4184
-timeCreated: 1498896602
+timeCreated: 1498987736
 licenseType: Pro
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: PauseundMissionErfolgt_0
+    21300002: PauseundMissionErfolgt_1
+    21300004: PauseundMissionErfolgt_2
+    21300006: PauseundMissionErfolgt_3
+    21300008: PauseundMissionErfolgt_4
+    21300010: PauseundMissionErfolgt_5
+    21300012: PauseundMissionErfolgt_6
+    21300014: PauseundMissionErfolgt_7
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -68,7 +76,111 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: PauseundMissionErfolgt_0
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 1435
+        width: 355
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PauseundMissionErfolgt_1
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 1260
+        width: 341
+        height: 92
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5188227}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PauseundMissionErfolgt_2
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 1139
+        width: 524
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PauseundMissionErfolgt_3
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1035
+        width: 546
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PauseundMissionErfolgt_4
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 761
+        width: 1456
+        height: 264
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PauseundMissionErfolgt_5
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 30
+        width: 453
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PauseundMissionErfolgt_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 163
+        width: 1566
+        height: 566
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PauseundMissionErfolgt_7
+      rect:
+        serializedVersion: 2
+        x: 1413
+        y: 24
+        width: 436
+        height: 81
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

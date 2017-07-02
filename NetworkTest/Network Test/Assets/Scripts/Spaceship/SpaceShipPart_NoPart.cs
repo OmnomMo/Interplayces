@@ -59,6 +59,11 @@ public class SpaceShipPart_NoPart : MonoBehaviour, ShipPart {
     {
         return partEnabled;
     }
+
+    public bool RemoveFromGrid()
+    {
+        return false;
+    }
 }
 
 

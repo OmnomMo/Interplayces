@@ -60,12 +60,12 @@ public class CreatePredefinedShip : NetworkActions {
         yield return null;
         NetworkActions.Instance.CmdPreSetPartTypes(2, 3, 0);
         NetworkActions.Instance.CmdPreSetPartTypes(2, 4, 0);
-        NetworkActions.Instance.CmdPreSetPartTypes(1, 5, 1);
-        NetworkActions.Instance.CmdPreSetPartTypes(3, 5, 1);
+        NetworkActions.Instance.CmdPreSetPartTypes(1, 5, 3);
+        NetworkActions.Instance.CmdPreSetPartTypes(3, 5, 3);
         NetworkActions.Instance.CmdPreSetPartTypes(1, 3, 2);
         NetworkActions.Instance.CmdPreSetPartTypes(3, 3, 2);
-        NetworkActions.Instance.CmdPreSetPartTypes(1, 2, 3);
-        NetworkActions.Instance.CmdPreSetPartTypes(3, 2, 3);
+        NetworkActions.Instance.CmdPreSetPartTypes(1, 2, 1);
+        NetworkActions.Instance.CmdPreSetPartTypes(3, 2, 1);
     }
 
 
@@ -168,6 +168,8 @@ public class CreatePredefinedShip : NetworkActions {
         playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
         newPart.transform.parent = parts[x, y].transform;
         newPart.transform.localPosition = Vector3.zero;
+        newPart.transform.GetChild(0).localEulerAngles = Vector3.zero;
+        newPart.transform.GetChild(0).localScale = new Vector3(11f, 11f, 11f);
         newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
         newPart.GetComponentInChildren<ShipPart>().SetPosY(y);// colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
 

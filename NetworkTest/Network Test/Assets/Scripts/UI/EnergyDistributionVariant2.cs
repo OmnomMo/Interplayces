@@ -32,11 +32,11 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
         //hitpointsDisplay.text = hitPoints.ToString() + " HP";
         // hitpointsDisplay.GetComponent<RectTransform>().localScale = new Vector3((float)hitPoints/maxHitpoints, 1, 1);
   
-        if (SceneManager.Instance == null)
+        if (MainSceneManager.Instance == null)
         {
             Debug.Log("SceneManager Not Set!");
         }
-        if (SceneManager.Instance.activeInterface == 2)
+        if (MainSceneManager.Instance.activeInterface == 2)
         {
             NetworkActions.Instance.CmdSetThrust(thrustSlider.GetComponent<Slider>().value);
             NetworkActions.Instance.CmdSetShield(shieldSlider.GetComponent<Slider>().value);

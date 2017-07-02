@@ -43,6 +43,7 @@ public class SpaceshipMovement : NetworkBehaviour {
     // Use this for initialization
     void Start () {
         allParts = new GameObject[0];
+        mapCenter = GameObject.Find("LevelBounds");
         StartCoroutine(collectThrusters());
 	}
 

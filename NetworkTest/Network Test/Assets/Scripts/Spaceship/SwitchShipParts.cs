@@ -96,6 +96,8 @@ public class SwitchShipParts : NetworkBehaviour {
                 GameObject newPart = GameObject.Instantiate(spaceshipContainer);
                 newPart.transform.parent = this.transform;
 
+                
+
                 shipContainers[x, y] = newPart;
 
                 newPos.x = x * 1.1f;
@@ -217,6 +219,8 @@ public class SwitchShipParts : NetworkBehaviour {
     [ClientRpc]
     internal void RpcSetPT(int x, int y, int newID)
     {
+        Debug.Log("SetNewPart");
+
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;
 
@@ -229,6 +233,7 @@ public class SwitchShipParts : NetworkBehaviour {
         playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
         newPart.transform.parent = parts[x, y].transform;
         newPart.transform.localPosition = Vector3.zero;
+        newPart.transform.Rotate(new Vector3(-90, 0, 0));
         newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
         newPart.GetComponentInChildren<ShipPart>().SetPosY(y);// colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
 
@@ -317,6 +322,7 @@ public class SwitchShipParts : NetworkBehaviour {
                 } else
                 {
                     //Red or orange
+                    Debug.Log("REd");
                     return 1;
                 }
             } else

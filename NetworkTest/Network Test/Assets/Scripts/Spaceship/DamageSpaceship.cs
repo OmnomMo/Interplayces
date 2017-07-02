@@ -29,6 +29,8 @@ public class DamageSpaceship : MonoBehaviour
             {
                 float damageDealt = damage * Vector3.Magnitude(collision.relativeVelocity);
 
+                Debug.Log("Damage Dealt: " + damageDealt);
+
                 if (damageDealt > maxDamage)
                 {
                     damageDealt = maxDamage;

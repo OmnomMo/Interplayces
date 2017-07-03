@@ -516,7 +516,8 @@ namespace TouchScript
         private void LevelWasLoaded(Scene scene, LoadSceneMode mode)
         {
             StopAllCoroutines();
-            StartCoroutine(lateAwake());
+            Debug.Log("Stop TouchScriptManager from fucking shit up.");
+            //StartCoroutine(lateAwake());
         }
 #else
         private void OnLevelWasLoaded(int value)

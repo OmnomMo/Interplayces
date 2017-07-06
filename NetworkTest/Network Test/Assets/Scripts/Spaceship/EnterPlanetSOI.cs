@@ -54,7 +54,24 @@ public class EnterPlanetSOI : MonoBehaviour {
             }
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("PlanetSOI"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("HelpSOI"))
+        {
+
+            if (planet != null)
+            {
+                planet.GetComponent<PlanetInfo>().HideInfo();
+                planet.GetComponent<PlanetInfo>().playerStay = false;
+            }
+
+            playerInSOI = true;
+            planet = other.gameObject;
+            planet.GetComponent<PlanetInfo>().ShowInfo();
+            planet.GetComponent<PlanetInfo>().playerStay = true;
+        }
+
+
+
+            if (other.gameObject.layer == LayerMask.NameToLayer("PlanetSOI"))
         {
 
             if (planet != null)
@@ -115,6 +132,17 @@ public class EnterPlanetSOI : MonoBehaviour {
         {
             playerInSOI = false;
 
+            if (planet != null)
+            {
+                planet.GetComponent<PlanetInfo>().HideInfo();
+                planet.GetComponent<PlanetInfo>().playerStay = false;
+            }
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("HelpSOI"))
+        {
+
+            playerInSOI = false;
             if (planet != null)
             {
                 planet.GetComponent<PlanetInfo>().HideInfo();

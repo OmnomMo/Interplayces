@@ -236,7 +236,7 @@ public class SpaceshipMovement : NetworkBehaviour {
 
                         GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier * boostMultiplier);
 
-                        SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame);
+                        SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame * boostMultiplier);
 
                         foreach (GameObject thruster in thrusters)
                         {

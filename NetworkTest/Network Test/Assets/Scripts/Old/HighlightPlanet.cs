@@ -21,12 +21,12 @@ public class HighlightPlanet : MonoBehaviour {
     void OnMouseDown()
     {
 
-      if (GameState.Instance.isPlayerNavigator())
-        {
+      //if (GameState.Instance.isPlayerNavigator())
+      //  {
 
-            Debug.Log("Click on Planet");
-            PlanetNavigation.Instance.RequestHighlight(parentPlanet);
-        }
+      //      Debug.Log("Click on Planet");
+      //      PlanetNavigation.Instance.RequestHighlight(parentPlanet);
+      //  }
     }
 
 

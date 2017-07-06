@@ -10,7 +10,7 @@ using UnityEngine.Networking;
 
 public class EnergyPickup : NetworkBehaviour {
 
-    public static float energyAmount = 100;
+    public static float energyAmount = 250;
 
     public bool pickedUp;
 

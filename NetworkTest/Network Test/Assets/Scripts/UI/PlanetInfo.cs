@@ -19,8 +19,14 @@ public class PlanetInfo : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        infoTextObject.text = planetInfo;
-        nameTextObject.text = planetName;
+        if (infoTextObject != null)
+        {
+            infoTextObject.text = planetInfo;
+        }
+        if (nameTextObject != null)
+        {
+            nameTextObject.text = planetName;
+        }
 	}
 
     public void ShowInfo()

@@ -340,7 +340,7 @@ namespace GreatArcStudios
             }
             catch
             {
-                if (terrain = null)
+                if (terrain == null)
                 {
                     Debug.Log("Terrain Not Assigned");
                 }

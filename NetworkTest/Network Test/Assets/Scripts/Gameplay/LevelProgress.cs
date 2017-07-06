@@ -20,12 +20,29 @@ public class LevelProgress : MonoBehaviour {
         {
             instance = this;
         }
+
+        HideObjectivesForNavigator();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void HideObjectivesForNavigator()
+    {
+        //if (GameState.Instance.isPlayerNavigator())
+        //{
+        //    Transform[] ObjectiveInterfaces = transform.GetComponentsInChildren<Transform>();
+
+        //    foreach (Transform t in ObjectiveInterfaces)
+        //    {
+        //        t.gameObject.SetActive(false);
+        //    }
+        //}
+    }
+
+
 }
 
 
@@ -121,12 +138,17 @@ public class Objective : MonoBehaviour
             backgroundPanel.GetComponent<Image>().color = new Color(0.2f, 1f, 0.2f);
         }
 
+        if (descriptionObject != null)
+        {
+            descriptionObject.GetComponent<Text>().color = new Color(0.2f, 1f, 0.2f);
+        }
+
         if (followingObjectives.Count > 0)
         {
             foreach (Objective o in followingObjectives)
             {
                 o.prerequisiteDone = true;
-                o.descriptionObject.GetComponent<Text>().color = new Color(0f, 0f, 0f);
+                o.descriptionObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
 
                 if (o is MultiObjective)
                 {
@@ -135,7 +157,7 @@ public class Objective : MonoBehaviour
 
                     foreach (Objective sO in mO.subObjectives)
                     {
-                        sO.descriptionObject.GetComponent<Text>().color = new Color(0f, 0f, 0f);
+                        sO.descriptionObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
                     }
                 }
             }

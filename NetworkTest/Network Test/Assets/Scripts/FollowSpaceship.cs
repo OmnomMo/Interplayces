@@ -13,9 +13,10 @@ public class FollowSpaceship : MonoBehaviour {
     public float camHeight;
 
     public bool followRotation;
+    public float timeLastSent;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
         GetComponent<Camera>().farClipPlane = 200000;
 
@@ -44,7 +45,31 @@ public class FollowSpaceship : MonoBehaviour {
             //if (GameState.Instance.isPlayerNavigator())
             //{
                 camPos.y = camHeight;
-           // }
+            // }
+
+           // Debug.Log(Camera.main.transform.position.y.ToString());
+
+            if (GameState.Instance.holoLensConnected)
+            {
+                if (Time.time - timeLastSent > 0.1f)
+                {
+
+
+                    timeLastSent = Time.time;
+                    Message m = new Message();
+
+                    string[] cameraY = new string[1];
+
+
+
+
+                    cameraY[0] = Camera.main.transform.position.y.ToString();
+                    
+                    m.commandID = (int)NetworkCommands.CmdCameraY;
+                    m.parameters = cameraY;
+                    TCPSocketServer.Instance.Send(m);
+                }
+            }
         }
 
         camPos.z = spaceship.position.z;

@@ -63,6 +63,24 @@ public class PickupManager : NetworkBehaviour {
     public void PickupResource(ResourcePickup p)
     {
         NetworkActions.Instance.CmdPickupResource(p.id);
+
+        Debug.Log("PickUp " + p.id.ToString());
+
+        if (GameState.Instance.holoLensConnected) {
+
+            Message m = new Message();
+
+            string[] ipckupID = new string[1];
+
+
+
+            
+            ipckupID[0] = p.id.ToString();
+
+            m.commandID = (int)NetworkCommands.CmdPickupResource;
+            m.parameters = ipckupID;
+            TCPSocketServer.Instance.Send(m);
+        }
     }
 
     public void PickupEnergy (EnergyPickup p)
@@ -70,6 +88,25 @@ public class PickupManager : NetworkBehaviour {
 
         
         NetworkActions.Instance.CmdPickupEnergy(p.id);
+
+        Debug.Log("PickUp " + p.id.ToString());
+
+        if (GameState.Instance.holoLensConnected)
+        {
+
+            Message m = new Message();
+
+            string[] ipckupID = new string[1];
+
+
+
+
+            ipckupID[0] = p.id.ToString();
+
+            m.commandID = (int)NetworkCommands.CmdPickupResource;
+            m.parameters = ipckupID;
+            TCPSocketServer.Instance.Send(m);
+        }
     }
 
     [ClientRpc]

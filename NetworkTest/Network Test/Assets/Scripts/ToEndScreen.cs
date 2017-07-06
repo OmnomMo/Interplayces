@@ -9,6 +9,9 @@ public class ToEndScreen : NetworkBehaviour {
     public GameObject endingMessage;
     public GameObject endingMessageText;
 
+    public GameObject endingImageSuccess;
+    public GameObject endingImageFailure;
+
 
     private static ToEndScreen instance;
     public static ToEndScreen Instance
@@ -106,27 +109,36 @@ public class ToEndScreen : NetworkBehaviour {
         if ((reasonForTermination)message == ToEndScreen.reasonForTermination.hp)
         {
             endingMessageText.GetComponent<Text>().text = "Raumschiff zerstört!";
+            endingImageFailure.SetActive(true);
+            endingImageSuccess.SetActive(false);
         }
         else
         {
             if ((reasonForTermination) message == ToEndScreen.reasonForTermination.energy)
             {
                 endingMessageText.GetComponent<Text>().text = "Keine Energie mehr!";
+                endingImageFailure.SetActive(true);
+                endingImageSuccess.SetActive(false);
             }
             else
             {
                 if ((reasonForTermination) message == ToEndScreen.reasonForTermination.player)
                 {
                     endingMessageText.GetComponent<Text>().text = "Die Expedition wurde abgebrochen.";
+                    endingImageFailure.SetActive(true);
+                    endingImageSuccess.SetActive(false);
                 }
                 else
                 {
                     if ((reasonForTermination) message == ToEndScreen.reasonForTermination.win)
                     {
                         endingMessageText.GetComponent<Text>().text = "Geschafft!";
+                        endingImageFailure.SetActive(false);
+                        endingImageSuccess.SetActive(true);
                     }
                     else
                     {
+                        endingMessageText.SetActive(true);
                         endingMessageText.GetComponent<Text>().text = "Ende.";
                     }
 

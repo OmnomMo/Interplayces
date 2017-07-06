@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //Hides Object only for Navigator (or for capatin if bool is actice)
 
@@ -20,6 +21,16 @@ public class HideForNavigator : MonoBehaviour {
                 {
                     GetComponent<MeshRenderer>().enabled = false;
                 }
+
+                if (GetComponent<Text>() != null)
+                {
+                    GetComponent<Text>().enabled = false;
+                }
+
+                if (GetComponent<Canvas>() != null)
+                {
+                    GetComponent<Canvas>().enabled = false;
+                }
             }
         }else
         {
@@ -33,6 +44,12 @@ public class HideForNavigator : MonoBehaviour {
                 if (GetComponent<Canvas>() != null)
                 {
                     GetComponent<Canvas>().enabled = false;
+                }
+
+
+                if (GetComponent<Text>() != null)
+                {
+                    GetComponent<Text>().enabled = false;
                 }
             }
         }

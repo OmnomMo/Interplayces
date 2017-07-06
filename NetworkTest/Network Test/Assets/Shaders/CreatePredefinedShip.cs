@@ -22,7 +22,7 @@ public class CreatePredefinedShip : NetworkActions {
 
     private static CreatePredefinedShip instance;
 
-    public static CreatePredefinedShip Instance { get { return instance; } }
+    new public static CreatePredefinedShip Instance { get { return instance; } }
 
 
     int nRows;

@@ -6,6 +6,10 @@
     CmdSetHealthValue,
     CmdSetEnergyValue,
     CmdSetSpaceshipPosition,
+    CmdCameraY,
+
+    CmdPickupEnergy,
+    CmdPickupResource,
     
     CmdSceneToBuilding,
     CmdSceneToLevelSelect,

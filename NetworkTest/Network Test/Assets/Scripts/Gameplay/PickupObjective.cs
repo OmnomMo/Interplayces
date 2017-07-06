@@ -13,7 +13,7 @@ public class PickupObjective : Objective {
 
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
         nCurrent = 0;
         base.Start();
         descriptionObject.GetComponent<Text>().text = description + " (" + nCurrent + "/" + nRequired + ")";

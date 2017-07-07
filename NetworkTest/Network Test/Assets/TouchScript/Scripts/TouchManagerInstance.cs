@@ -569,38 +569,38 @@ namespace TouchScript
 
         private void createCameraLayer()
         {
-            if (layerCount == 0 && shouldCreateCameraLayer)
-            {
-                if (Camera.main != null)
-                {
-                    if (Application.isEditor)
-                        Debug.Log(
-                            "[TouchScript] No camera layer found, adding CameraLayer for the main camera. (this message is harmless)");
-                    var layer = Camera.main.gameObject.AddComponent<CameraLayer>();
-                    AddLayer(layer);
-                }
-            }
+            //if (layerCount == 0 && shouldCreateCameraLayer)
+            //{
+            //    if (Camera.main != null)
+            //    {
+            //        if (Application.isEditor)
+            //            Debug.Log(
+            //                "[TouchScript] No camera layer found, adding CameraLayer for the main camera. (this message is harmless)");
+            //        var layer = Camera.main.gameObject.AddComponent<CameraLayer>();
+            //        AddLayer(layer);
+            //    }
+            //}
         }
 
         private void createTouchInput()
         {
-            if (inputCount == 0 && shouldCreateStandardInput)
-            {
-                if (Application.isEditor)
-                    Debug.Log("[TouchScript] No input source found, adding StandardInput. (this message is harmless)");
-                GameObject obj = null;
-                var objects = FindObjectsOfType<TouchManager>();
-                if (objects.Length == 0)
-                {
-                    obj = GameObject.Find("TouchScript");
-                    if (obj == null) obj = new GameObject("TouchScript");
-                }
-                else
-                {
-                    obj = objects[0].gameObject;
-                }
-                obj.AddComponent<StandardInput>();
-            }
+            //if (inputCount == 0 && shouldCreateStandardInput)
+            //{
+            //    if (Application.isEditor)
+            //        Debug.Log("[TouchScript] No input source found, adding StandardInput. (this message is harmless)");
+            //    GameObject obj = null;
+            //    var objects = FindObjectsOfType<TouchManager>();
+            //    if (objects.Length == 0)
+            //    {
+            //        obj = GameObject.Find("TouchScript");
+            //        if (obj == null) obj = new GameObject("TouchScript");
+            //    }
+            //    else
+            //    {
+            //        obj = objects[0].gameObject;
+            //    }
+            //    obj.AddComponent<StandardInput>();
+            //}
         }
 
         private void updateInputs()

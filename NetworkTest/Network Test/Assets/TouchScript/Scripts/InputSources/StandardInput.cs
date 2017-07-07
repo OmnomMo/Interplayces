@@ -281,8 +281,8 @@ namespace TouchScript.InputSources
 
         private void enableMouse()
         {
-            mouseHandler = new MouseHandler(MouseTags, beginTouch, moveTouch, endTouch, cancelTouch);
-            Debug.Log("[TouchScript] Initialized Unity mouse input.");
+            //mouseHandler = new MouseHandler(MouseTags, beginTouch, moveTouch, endTouch, cancelTouch);
+            //Debug.Log("[TouchScript] Initialized Unity mouse input.");
         }
 
         private void disableMouse()
@@ -296,8 +296,8 @@ namespace TouchScript.InputSources
 
         private void enableTouch()
         {
-            touchHandler = new TouchHandler(TouchTags, beginTouch, moveTouch, endTouch, cancelTouch);
-            Debug.Log("[TouchScript] Initialized Unity touch input.");
+            //touchHandler = new TouchHandler(TouchTags, beginTouch, moveTouch, endTouch, cancelTouch);
+            //Debug.Log("[TouchScript] Initialized Unity touch input.");
         }
 
         private void disableTouch()

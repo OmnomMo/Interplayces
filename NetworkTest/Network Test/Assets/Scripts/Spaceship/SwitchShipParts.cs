@@ -75,7 +75,7 @@ public class SwitchShipParts : NetworkBehaviour {
         {
             SetPartTypes();
         }
-        CheckAllPartTypes();
+       // CheckAllPartTypes();
 
         // Debug.Log()
         
@@ -135,7 +135,7 @@ public class SwitchShipParts : NetworkBehaviour {
     {
         if (GameState.Instance.isPlayerCaptain())
         {
-            Debug.Log("Recheck Part " + checkX + "/" + checkY);
+            //Debug.Log("Recheck Part " + checkX + "/" + checkY);
             //update Part on x/y;
             NetworkActions.Instance.CmdSetPartTypes(checkX, checkY, parts[checkX, checkY].transform.GetChild(0).GetComponent<ShipPart>().getID());
 
@@ -189,7 +189,7 @@ public class SwitchShipParts : NetworkBehaviour {
                         if (newID != oldPart.GetComponent<ShipPart>().getID())
                         {
                             NetworkActions.Instance.CmdSetPartTypes(nCols - 1 - x, y, newID);
-                            Debug.Log("CmdSetPart " + x + "/" + y); 
+                            //Debug.Log("CmdSetPart " + x + "/" + y); 
                             
 
                             //Debug.Log("SwitchPart (" + x + "/" + y +  ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
@@ -222,7 +222,7 @@ public class SwitchShipParts : NetworkBehaviour {
     {
         
 
-        Debug.Log("SetNewPart");
+        Debug.Log("SetNewPart" + x + y+ newID);
 
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;
@@ -232,6 +232,7 @@ public class SwitchShipParts : NetworkBehaviour {
        // if (newPart.GetComponent<ShipPart>() is typeof(oldPart.GetComponent<ShipPart>().GetType()))
 
         playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
+       // GameObject PlayingGrid.Instance.grid[oldPart.GetComponent<ShipPart>().GetPosX(), oldPart.GetComponent<ShipPart>().GetPosY()] = ;
 
         playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
         newPart.transform.parent = parts[x, y].transform;

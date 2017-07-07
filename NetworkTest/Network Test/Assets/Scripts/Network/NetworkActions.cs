@@ -190,6 +190,7 @@ public class NetworkActions : NetworkBehaviour {
     [Command]
     public void CmdSetPartTypes(int x, int y, int newID)
     {
+       // Debug.Log("SetPartType " + x + y + newID);
         SwitchShipParts.Instance.RpcSetPT(x, y, newID);
     }
 

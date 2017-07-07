@@ -79,7 +79,7 @@ public class DragAround : NetworkBehaviour {
             {
                 GameObject.Destroy(partContainer);
 
-                partStack.GetComponent<ShipPartStack>().ReturnPart();
+               // partStack.GetComponent<ShipPartStack>().ReturnPart();
 
                 GameObject.Destroy(this.gameObject);
 

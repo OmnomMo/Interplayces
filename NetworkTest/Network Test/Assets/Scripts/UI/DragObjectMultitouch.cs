@@ -6,6 +6,7 @@ public class DragObjectMultitouch : MonoBehaviour {
 
     public Transform followingObject;
 
+
     bool stoppedDrag;
 
 	// Use this for initialization

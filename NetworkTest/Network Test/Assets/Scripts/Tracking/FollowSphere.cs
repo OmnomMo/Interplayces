@@ -6,6 +6,7 @@ public class FollowSphere : MonoBehaviour {
 
     public GameObject sphere;
     public GameObject playingField;
+    public GameObject playingGrid;
     public bool isOnField;
 
     bool followDelayed;
@@ -27,21 +28,21 @@ public class FollowSphere : MonoBehaviour {
         }
 
 
-        if ( /*sphere.GetComponent<DragAround>().dragged &&*/ isOnField && sphere.GetComponent<TouchScript.Gestures.TransformGesture>().State == TouchScript.Gestures.Gesture.GestureState.Changed)
+        if ( /*sphere.GetComponent<DragAround>().dragged &&*/ isOnField)// && sphere.GetComponent<TouchScript.Gestures.TransformGesture>().State == TouchScript.Gestures.Gesture.GestureState.Changed)
         {
-            PlayingGrid.Instance.IncludePieceV02(gameObject);
+            playingGrid.GetComponent<PlayingGrid>().IncludePieceV02(gameObject);
             followDelayed = true;
         } else
         {
             //Follow one frmae longer
             if (followDelayed)
             {
-                PlayingGrid.Instance.IncludePieceV02(gameObject);
+                playingGrid.GetComponent<PlayingGrid>().IncludePieceV02(gameObject);
                 followDelayed = false;
 
                 if (!isOnField)
                 {
-                    bool removed = PlayingGrid.Instance.RemovePiece(gameObject);
+                    bool removed = playingGrid.GetComponent<PlayingGrid>().RemovePiece(gameObject);
                 }
             } else
             {

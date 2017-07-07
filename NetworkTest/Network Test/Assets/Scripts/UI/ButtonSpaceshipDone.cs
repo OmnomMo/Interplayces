@@ -16,6 +16,9 @@ public class ButtonSpaceshipDone : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetButton("Submit") || Input.GetButton("Accelerate"))
+        {
+            SpaceshipDone();
+        }
 	}
 }

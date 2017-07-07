@@ -15,8 +15,11 @@ public class HideForNavigator : MonoBehaviour {
 
         if (!hideForCaptain)
         {
+            
             if (GameState.Instance != null && GameState.Instance.isPlayerNavigator())
             {
+                Debug.Log("Hide " + gameObject.ToString() + "for Navigator.");
+
                 if (GetComponent<MeshRenderer>() != null)
                 {
                     GetComponent<MeshRenderer>().enabled = false;
@@ -30,12 +33,19 @@ public class HideForNavigator : MonoBehaviour {
                 if (GetComponent<Canvas>() != null)
                 {
                     GetComponent<Canvas>().enabled = false;
+                }
+
+                if (GetComponent<Image>() != null)
+                {
+                    GetComponent<Image>().enabled = false;
                 }
             }
         }else
         {
+
             if (GameState.Instance != null && GameState.Instance.isPlayerCaptain())
             {
+                Debug.Log("Hide " + gameObject.ToString() + "for Captain.");
                 if (GetComponent<MeshRenderer>() != null)
                 {
                     GetComponent<MeshRenderer>().enabled = false;
@@ -50,6 +60,11 @@ public class HideForNavigator : MonoBehaviour {
                 if (GetComponent<Text>() != null)
                 {
                     GetComponent<Text>().enabled = false;
+                }
+
+                if (GetComponent<Image>() != null)
+                {
+                    GetComponent<Image>().enabled = false;
                 }
             }
         }

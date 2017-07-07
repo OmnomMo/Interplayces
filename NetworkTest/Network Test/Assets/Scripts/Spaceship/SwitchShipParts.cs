@@ -75,7 +75,7 @@ public class SwitchShipParts : NetworkBehaviour {
         {
             SetPartTypes();
         }
-       // CheckAllPartTypes();
+        CheckAllPartTypes();
 
         // Debug.Log()
         
@@ -135,7 +135,7 @@ public class SwitchShipParts : NetworkBehaviour {
     {
         if (GameState.Instance.isPlayerCaptain())
         {
-
+            Debug.Log("Recheck Part " + checkX + "/" + checkY);
             //update Part on x/y;
             NetworkActions.Instance.CmdSetPartTypes(checkX, checkY, parts[checkX, checkY].transform.GetChild(0).GetComponent<ShipPart>().getID());
 
@@ -189,6 +189,7 @@ public class SwitchShipParts : NetworkBehaviour {
                         if (newID != oldPart.GetComponent<ShipPart>().getID())
                         {
                             NetworkActions.Instance.CmdSetPartTypes(nCols - 1 - x, y, newID);
+                            Debug.Log("CmdSetPart " + x + "/" + y); 
                             
 
                             //Debug.Log("SwitchPart (" + x + "/" + y +  ") from " + oldPart.GetComponent<ShipPart>().getID() + "to" + newID);
@@ -219,6 +220,8 @@ public class SwitchShipParts : NetworkBehaviour {
     [ClientRpc]
     internal void RpcSetPT(int x, int y, int newID)
     {
+        
+
         Debug.Log("SetNewPart");
 
         GameObject newPart = IDToPart(newID);
@@ -306,14 +309,14 @@ public class SwitchShipParts : NetworkBehaviour {
             } else
             {
 
-                if ((c.r + c.g + c.b < 1.4f))
+                if ((c.r + c.g + c.b < 1.2f))
                 {
                     return 4;
                 }
             }
 
 
-            if (c.r > 0.7f)
+            if (c.r > 0.6f)
             {
                 if (c.b > c.g * 1.15f || c.b - c.g > 0.1f)
                 {
@@ -322,7 +325,7 @@ public class SwitchShipParts : NetworkBehaviour {
                 } else
                 {
                     //Red or orange
-                    Debug.Log("REd");
+                   // Debug.Log("REd");
                     return 1;
                 }
             } else

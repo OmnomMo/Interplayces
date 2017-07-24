@@ -73,6 +73,8 @@ public class PlayingGrid : MonoBehaviour {
 
         if (grid[posX, posY] == null || grid[posX, posY].GetComponentInChildren<ShipPart>().getID() == 4)
         {
+
+            
             grid[posX, posY] = newPiece;
             // newPiece.SetActive(true);
             //Parts.Instance.ResetConnections();
@@ -91,6 +93,19 @@ public class PlayingGrid : MonoBehaviour {
     {
 
         NetworkActions.Instance.CmdSetPartTypes(x,y, 4);
+    }
+
+    public void RemovePiece(int x, int y)
+    {
+
+        if (grid[x, y] != null)
+        {
+
+            GameObject oldPiece = grid[x, y];
+            oldPiece.SetActive(false);
+            GameObject.Destroy(oldPiece);
+            grid[x, y] = null;
+        }
     }
 
     //Remove Piece. Return piece when found, return null when not
@@ -320,17 +335,30 @@ public class PlayingGrid : MonoBehaviour {
 
         //ClearPiece(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
 
-        
+
 
         //RemovePiece(piece);
 
-       // Debug.Log(grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().GetPosX() + "   " + grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().GetPosY() + "   " + grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().getID());
+        // Debug.Log(grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().GetPosX() + "   " + grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().GetPosY() + "   " + grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().getID());
 
+
+         NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), 4);
+
+       // StartCoroutine(delayedSwitch(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), 4));
 
         SnapTranslationToNearest(piece);
 
         NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), piece.GetComponentInChildren<ShipPart>().getID());
        // Debug.Log(piece.GetComponentInChildren<ShipPart>().getID());
+
+    }
+
+    public IEnumerator delayedSwitch(int x, int y, int id)
+    {
+        yield return null;
+
+
+        NetworkActions.Instance.CmdSetPartTypes(x,y,id);
 
     }
 

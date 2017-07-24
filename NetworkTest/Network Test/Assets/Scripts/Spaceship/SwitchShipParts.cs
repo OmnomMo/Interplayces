@@ -231,7 +231,9 @@ public class SwitchShipParts : NetworkBehaviour {
 
        // if (newPart.GetComponent<ShipPart>() is typeof(oldPart.GetComponent<ShipPart>().GetType()))
 
-        playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
+      //  playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
+
+        playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart.GetComponent<ShipPart>().GetPosX(), oldPart.GetComponent<ShipPart>().GetPosY());
        // GameObject PlayingGrid.Instance.grid[oldPart.GetComponent<ShipPart>().GetPosX(), oldPart.GetComponent<ShipPart>().GetPosY()] = ;
 
         playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);

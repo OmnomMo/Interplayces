@@ -24,7 +24,7 @@ public class FollowSphere : MonoBehaviour {
        // if (sphere.GetComponent<DragAround>().dragged)
         {
 
-            transform.position = new Vector3(sphere.transform.position.x, sphere.transform.position.y, transform.position.z);
+            transform.position = new Vector3(sphere.transform.position.x, sphere.transform.position.y, -2);// transform.position.z);
         }
 
 
@@ -37,12 +37,14 @@ public class FollowSphere : MonoBehaviour {
             //Follow one frmae longer
             if (followDelayed)
             {
-                playingGrid.GetComponent<PlayingGrid>().IncludePieceV02(gameObject);
+                //playingGrid.GetComponent<PlayingGrid>().IncludePieceV02(gameObject);
+
+                NetworkActions.Instance.CmdSetPartTypes(transform.GetComponentInChildren<ShipPart>().GetPosX(), transform.GetComponentInChildren<ShipPart>().GetPosY(), 4);
                 followDelayed = false;
 
                 if (!isOnField)
                 {
-                    bool removed = playingGrid.GetComponent<PlayingGrid>().RemovePiece(gameObject);
+                    bool removed = playingGrid.GetComponent<PlayingGrid>().RemovePieceNonDestructive(gameObject);
                 }
             } else
             {

@@ -108,6 +108,28 @@ public class PlayingGrid : MonoBehaviour {
         }
     }
 
+    public void RemovePieceNonDestructive(int x, int y)
+    {
+        if (grid[x, y] != null)
+        {
+
+            GameObject oldPiece = grid[x, y];
+           // oldPiece.SetActive(false);
+           // GameObject.Destroy(oldPiece);
+            grid[x, y] = null;
+        }
+    }
+
+    public bool RemovePieceNonDestructive(GameObject oldPiece)
+    {
+        grid[oldPiece.GetComponentInChildren<ShipPart>().GetPosX(), oldPiece.GetComponentInChildren<ShipPart>().GetPosY()] = null;
+        //oldPiece.SetActive(false);
+        //GameObject.Destroy(oldPiece);
+
+        return true;
+
+    }
+
     //Remove Piece. Return piece when found, return null when not
     public GameObject RemovePiece(GameObject oldPiece)
     {

@@ -42,6 +42,8 @@ public class FollowSphere : MonoBehaviour {
                 NetworkActions.Instance.CmdSetPartTypes(transform.GetComponentInChildren<ShipPart>().GetPosX(), transform.GetComponentInChildren<ShipPart>().GetPosY(), 4);
                 followDelayed = false;
 
+                Debug.Log(PlayingGrid.Instance.grid[0, 0]);
+
                 if (!isOnField)
                 {
                     bool removed = playingGrid.GetComponent<PlayingGrid>().RemovePieceNonDestructive(gameObject);

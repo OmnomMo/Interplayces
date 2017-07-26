@@ -222,7 +222,7 @@ public class SwitchShipParts : NetworkBehaviour {
     {
         
 
-        Debug.Log("SetNewPart" + x + y+ newID);
+        //Debug.Log("SetNewPart" + x + y+ newID);
 
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;

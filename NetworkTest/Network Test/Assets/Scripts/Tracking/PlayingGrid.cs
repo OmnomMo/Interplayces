@@ -203,6 +203,25 @@ public class PlayingGrid : MonoBehaviour {
         }
     }
 
+    public bool IsEmptyOrSame(int posX, int posY, GameObject comparator)
+    {
+        if (grid[posX, posY] == null || grid[posX,posY].GetComponent<ShipPart>().getID() == 4)
+        {
+            return true;
+        }
+        else
+        {
+
+            Debug.Log(grid[posX, posY].GetComponent<ShipPart>().GetPosX() + " " + comparator.GetComponent<ShipPart>().GetPosX() + " " + grid[posX, posY].GetComponent<ShipPart>().GetPosY() + " " + comparator.GetComponent<ShipPart>().GetPosY());
+            if (grid[posX, posY].GetComponent<ShipPart>().GetPosX() == comparator.GetComponent<ShipPart>().GetPosX() && grid[posX,posY].GetComponent<ShipPart>().GetPosY() == comparator.GetComponent<ShipPart>().GetPosY())
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
 
     public bool IsEmpty(Vector2 pos)
     {
@@ -256,16 +275,17 @@ public class PlayingGrid : MonoBehaviour {
 
             if (distanceSq < nearest)
             {
+                //Debug.Log(piece);
               //  Debug.Log(nearest + "is empty?");
-                if (IsEmpty(new Vector2(gridPiece.GetComponentInChildren<ShipPart>().GetPosX(), gridPiece.GetComponentInChildren<ShipPart>().GetPosY())))
+                if (IsEmptyOrSame(gridPiece.GetComponentInChildren<ShipPart>().GetPosX(), gridPiece.GetComponentInChildren<ShipPart>().GetPosY(), piece.transform.GetChild(0).gameObject))
                     
                     
                     {
                     nearest = distanceSq;
 
-                  //  Debug.Log(nearest);
+                    //  Debug.Log(nearest);
 
-                    pos = new Vector3(gridPiece.transform.position.x, gridPiece.transform.position.y, gridPiece.transform.position.z);
+                    pos = new Vector3(gridPiece.transform.position.x, gridPiece.transform.position.y, -2);//gridPiece.transform.position.z);
 
                     piece.GetComponentInChildren<ShipPart>().SetPosX(gridPiece.GetComponentInChildren<ShipPart>().GetPosX());
                     piece.GetComponentInChildren<ShipPart>().SetPosY(gridPiece.GetComponentInChildren<ShipPart>().GetPosY());
@@ -278,7 +298,7 @@ public class PlayingGrid : MonoBehaviour {
 
                         nearest = distanceSq;
 
-                        //Debug.Log(nearest);
+                        Debug.Log("FIELD NOT EMPTY LOOSER");
 
                         pos = new Vector3(gridPiece.transform.position.x, gridPiece.transform.position.y, gridPiece.transform.position.z);
 

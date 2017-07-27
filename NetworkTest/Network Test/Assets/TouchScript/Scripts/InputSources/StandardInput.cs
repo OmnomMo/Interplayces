@@ -327,8 +327,10 @@ namespace TouchScript.InputSources
 
         private void enableWindows7Touch()
         {
-            windows7TouchHandler = new Windows7TouchHandler(TouchTags, beginTouch, moveTouch, endTouch, cancelTouch);
-            Debug.Log("[TouchScript] Initialized Windows 7 touch input.");
+            if (GameState.Instance.isPlayerCaptain()) {
+                windows7TouchHandler = new Windows7TouchHandler(TouchTags, beginTouch, moveTouch, endTouch, cancelTouch);
+                Debug.Log("[TouchScript] Initialized Windows 7 touch input.");
+            }
         }
 
         private void disableWindows7Touch()

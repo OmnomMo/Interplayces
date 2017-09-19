@@ -15,6 +15,7 @@ public class MainSceneManager : MonoBehaviour {
     public int activeInterface;
 
 
+
     private static MainSceneManager instance;
     public static MainSceneManager Instance
     {

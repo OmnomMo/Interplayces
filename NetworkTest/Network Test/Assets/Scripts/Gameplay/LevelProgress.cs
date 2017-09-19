@@ -65,9 +65,57 @@ public class Objective : MonoBehaviour
 
     public string description;
 
+    public bool active;
+    public bool started = false;
+    public float startingTime;
 
     public bool completed;
 
+
+    public Tooltip startTooltip;
+    public string startTtText;
+    public Sprite startTtSprite;
+
+
+    public Tooltip helpTooltip;
+    public string helpTtText;
+    public Sprite helpTtSprite;
+
+
+    public int startTooltipTime;
+    public int timeToHelpTooltip;
+    protected Transform toolTipTarget;
+    
+    void Update()
+    {
+        if (active && !started)
+        {
+
+            if (startTooltip != null)
+            {
+                startTooltip.gameObject.SetActive(true);
+                startTooltip.SetTTVisibility(true, true);
+                startTooltip.SetTTArrowTarget(null);
+                startTooltip.Show(startTtText, startTtSprite);
+            }
+
+            startingTime = Time.time;
+            started = true;
+        }
+
+        if (Time.time - startingTime > startTooltipTime)
+        {
+            startTooltip.gameObject.SetActive(false);
+        }
+
+        if (Time.time - startingTime > timeToHelpTooltip)
+        {
+            helpTooltip.gameObject.SetActive(true);
+            helpTooltip.SetTTVisibility(true, true);
+            helpTooltip.SetTTArrowTarget(null);
+            helpTooltip.Show(helpTtText, helpTtSprite);
+        }
+    }
 
     protected void Start()
     {
@@ -75,6 +123,7 @@ public class Objective : MonoBehaviour
         {
             prerequisiteDone = false;
             descriptionObject.GetComponent<Text>().color = new Color(0.5f, 0.5f, 0.5f);
+            active = false;
 
             
         }
@@ -131,7 +180,7 @@ public class Objective : MonoBehaviour
 
     public void OnCompletion()
     {
-
+        active = false;
 
         if (backgroundPanel != null)
         {
@@ -149,6 +198,7 @@ public class Objective : MonoBehaviour
             {
                 o.prerequisiteDone = true;
                 o.descriptionObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+                o.active = true;
 
                 if (o is MultiObjective)
                 {
@@ -158,6 +208,7 @@ public class Objective : MonoBehaviour
                     foreach (Objective sO in mO.subObjectives)
                     {
                         sO.descriptionObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+                        sO.active = true;
                     }
                 }
             }

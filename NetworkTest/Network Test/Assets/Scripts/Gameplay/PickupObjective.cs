@@ -9,6 +9,8 @@ public class PickupObjective : Objective {
 
     public int nCurrent;
 
+    public float timeLastPickup;
+
     //public ResourcePickup[] pickups;
 
 
@@ -34,6 +36,12 @@ public class PickupObjective : Objective {
         }
         else
         {
+            timeLastPickup = Time.time;
+
+            if (helpTooltip != null)
+            {
+                helpTooltip.Hide();
+            }
             return false;
         }
     }
@@ -45,7 +53,66 @@ public class PickupObjective : Objective {
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update()
+    {
+        if (!completed && parentObjective == null)
+        {
+            ShowStartTooltip();
+            ShowPickupHelpTooltip();
+        }
+    }
+
+    new public void ShowStartTooltip()
+    {
+        if (active && !started)
+        {
+            timeLastPickup = Time.time;
+        }
+
+        base.ShowStartTooltip();
+       
+    }
+
+    public void ShowPickupHelpTooltip()
+    {
+        if (helpTooltip != null)
+        {
+            if (Time.time - timeLastPickup > timeToHelpTooltip && !helpTooltip.gameObject.activeInHierarchy)
+            {
+                helpTooltip.gameObject.SetActive(true);
+                helpTooltip.SetTTVisibility(true, true);
+                helpTooltip.SetTTArrowTarget(GetNearestPickup());
+                helpTooltip.Show(helpTtText, helpTtSprite);
+            }
+
+        }
+    }
+
+    public Transform GetNearestPickup()
+    {
+        float d = float.MaxValue;
+        Transform closestPickup = null;
+
+
+        foreach (ResourcePickup p in PickupManager.Instance.resourcePickups)
+        {
+            float dNew = Vector3.Distance(p.gameObject.transform.position, SpaceshipGameplay.Instance.transform.position);
+
+            if (dNew < d && !p.pickedUp)
+            {
+                d = dNew;
+                closestPickup = p.transform;
+            }
+        }
+
+        return closestPickup;
+    }
+
+    public void HideHelpPickup()
+    {
+        if (helpTooltip != null)
+        {
+            helpTooltip.gameObject.SetActive(false);
+        }
+    }
 }

@@ -58,7 +58,7 @@ public class Objective : MonoBehaviour
 
 
 
-    public Objective parentObjective;
+    public MultiObjective parentObjective;
 
     public GameObject backgroundPanel;
     public GameObject descriptionObject;
@@ -84,18 +84,58 @@ public class Objective : MonoBehaviour
 
     public int startTooltipTime;
     public int timeToHelpTooltip;
-    protected Transform toolTipTarget;
+    public Transform toolTipTarget;
     
     void Update()
     {
+        if (!completed && parentObjective == null)
+        {
+            ShowStartTooltip();
+
+
+            ShowHelpTooltip();
+        }
+
+    }
+
+    public Transform GetTarget()
+    {
+        return toolTipTarget;
+    }
+
+    //returns priority of Ojective. The lower the more important
+    public int GetPriority()
+    {
+        return 100;
+    }
+
+    public void ShowHelpTooltip()
+    {
+        if (helpTooltip != null)
+        {
+            if (Time.time - startingTime > timeToHelpTooltip && !helpTooltip.gameObject.activeInHierarchy)
+            {
+                helpTooltip.gameObject.SetActive(true);
+                helpTooltip.SetTTVisibility(true, true);
+                helpTooltip.SetTTArrowTarget(toolTipTarget);
+                helpTooltip.Show(helpTtText, helpTtSprite);
+            }
+        }
+    }
+    
+
+    public void ShowStartTooltip()
+    {
         if (active && !started)
         {
+
+            
 
             if (startTooltip != null)
             {
                 startTooltip.gameObject.SetActive(true);
                 startTooltip.SetTTVisibility(true, true);
-                startTooltip.SetTTArrowTarget(null);
+                startTooltip.SetTTArrowTarget(toolTipTarget);
                 startTooltip.Show(startTtText, startTtSprite);
             }
 
@@ -103,19 +143,19 @@ public class Objective : MonoBehaviour
             started = true;
         }
 
-        if (Time.time - startingTime > startTooltipTime)
+        if (startTooltip != null)
         {
-            startTooltip.gameObject.SetActive(false);
-        }
-
-        if (Time.time - startingTime > timeToHelpTooltip)
-        {
-            helpTooltip.gameObject.SetActive(true);
-            helpTooltip.SetTTVisibility(true, true);
-            helpTooltip.SetTTArrowTarget(null);
-            helpTooltip.Show(helpTtText, helpTtSprite);
+            if (startTooltipTime != 0f)
+            {
+                if (Time.time - startingTime > startTooltipTime)
+                {
+                    startTooltip.gameObject.SetActive(false);
+                }
+            }
         }
     }
+
+    
 
     protected void Start()
     {
@@ -126,6 +166,9 @@ public class Objective : MonoBehaviour
             active = false;
 
             
+        } else
+        {
+            active = true;
         }
 
         if (descriptionObject != null)
@@ -162,6 +205,7 @@ public class Objective : MonoBehaviour
 
             if (parentObjective == null || (!parentObjective.HasPrerequisite() || parentObjective.prerequisiteDone))
             {
+                Debug.Log("Call OnCompletion");
                 completed = true;
                 OnCompletion();
                 return true;
@@ -178,9 +222,25 @@ public class Objective : MonoBehaviour
         return completed;
     }
 
+    public void DeactivateTooltips()
+    {
+        if (startTooltip != null)
+        {
+            startTooltip.Hide();
+        }
+
+        if (helpTooltip != null)
+        {
+            helpTooltip.Hide();
+        }
+    }
+
     public void OnCompletion()
     {
         active = false;
+
+        DeactivateTooltips();
+        
 
         if (backgroundPanel != null)
         {
@@ -217,9 +277,11 @@ public class Objective : MonoBehaviour
 
         if (parentObjective != null)
         {
-            MultiObjective parent = (MultiObjective)parentObjective;
+            //MultiObjective parent = (MultiObjective)parentObjective;
 
-            parent.Complete();
+            //parent.Complete();
+            Debug.Log("Try to complete parent Objective");
+            parentObjective.Complete();
         }
 
         if (finalObjective)

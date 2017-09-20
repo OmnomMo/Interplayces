@@ -26,7 +26,7 @@ public class EnterPlanetSOI : MonoBehaviour {
                 GoalObjective gO = (GoalObjective)LevelProgress.Instance.objectives[i];
 
 
-                if (gO.goal == other)
+                if (gO.goal == other && !gO.completed)
                 {
                     gO.Complete();
                 }
@@ -44,7 +44,7 @@ public class EnterPlanetSOI : MonoBehaviour {
                         GoalObjective gO = (GoalObjective)mO.subObjectives[u];
 
 
-                        if (gO.goal == other)
+                        if (gO.goal == other && !gO.completed)
                         {
                             gO.Complete();
                         }

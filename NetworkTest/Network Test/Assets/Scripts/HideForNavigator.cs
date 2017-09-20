@@ -45,7 +45,7 @@ public class HideForNavigator : MonoBehaviour {
 
             if (GameState.Instance != null && GameState.Instance.isPlayerCaptain())
             {
-                Debug.Log("Hide " + gameObject.ToString() + "for Captain.");
+               // Debug.Log("Hide " + gameObject.ToString() + "for Captain.");
                 if (GetComponent<MeshRenderer>() != null)
                 {
                     GetComponent<MeshRenderer>().enabled = false;

@@ -10,36 +10,36 @@ public class PlanetInfo : MonoBehaviour {
 
     public string planetName;
     public string planetInfo;
-    public Text infoTextObject;
-    public Text nameTextObject;
+
+    public Tooltip planetTooltip;
+    public Sprite planetImage;
+
     public Collider sphereOfInfluence;
-    public Canvas planetCanvas;
 
     public bool playerStay;
 
 	// Use this for initialization
 	void Start () {
-        if (infoTextObject != null)
-        {
-            infoTextObject.text = planetInfo;
-        }
-        if (nameTextObject != null)
-        {
-            nameTextObject.text = planetName;
-        }
+
 	}
 
     public void ShowInfo()
     {
-        if (GameState.Instance.isPlayerCaptain())
+
+        if (!planetTooltip.isActiveAndEnabled)
         {
-            planetCanvas.gameObject.SetActive(true);
+            planetTooltip.gameObject.SetActive(true);
+            planetTooltip.SetTTVisibility(true, true);
+            planetTooltip.SetTTArrowTarget(null);
+            planetTooltip.Show(planetInfo, planetImage);
         }
+
     }
 
     public void HideInfo()
     {
-        planetCanvas.gameObject.SetActive(false);
+        Debug.Log("hidePlanet info");
+        planetTooltip.Hide();
     }
 	
 	// Update is called once per frame

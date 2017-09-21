@@ -7,7 +7,7 @@ public class GoalObjective : Objective {
     public Collider goal;
 
 
-    new public int GetPriority()
+    public override int GetPriority()
     {
         return (int) Vector3.Distance(goal.transform.position, SpaceshipGameplay.Instance.transform.position);
     }

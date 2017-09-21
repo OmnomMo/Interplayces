@@ -104,7 +104,7 @@ public class Objective : MonoBehaviour
     }
 
     //returns priority of Ojective. The lower the more important
-    public int GetPriority()
+    public virtual int GetPriority()
     {
         return 100;
     }
@@ -149,7 +149,7 @@ public class Objective : MonoBehaviour
             {
                 if (Time.time - startingTime > startTooltipTime)
                 {
-                    startTooltip.gameObject.SetActive(false);
+                    startTooltip.Hide();
                 }
             }
         }

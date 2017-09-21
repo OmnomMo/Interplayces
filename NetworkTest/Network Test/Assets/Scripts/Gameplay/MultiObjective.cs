@@ -105,9 +105,11 @@ public class MultiObjective : Objective {
         Objective priorityObjective = null;
         foreach (Objective obj in subObjectives)
         {
+           // Debug.Log("Priority of Objective " + obj.ToString() + ": " + obj.GetPriority());
             if (obj.GetPriority() < lowestPriority & !obj.completed)
             {
                 priorityObjective = obj;
+                lowestPriority = obj.GetPriority();
             }
         }
 

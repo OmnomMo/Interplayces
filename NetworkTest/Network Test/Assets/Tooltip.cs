@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour {
 
-    string ttText;
+    public string ttText;
     public Text ttTextObject;
     public Text ttTextObjectWithImage;
     Sprite ttImage;
@@ -63,7 +63,7 @@ public class Tooltip : MonoBehaviour {
     public void SetTTArrowTarget(Transform arrowTarget)
     {
 
-        Debug.Log("Set Tooltiup Arrow Target");
+        //Debug.Log("Set Tooltiup Arrow Target");
         if (arrowTarget != null)
         {
             ttHasArrow = true;
@@ -96,11 +96,14 @@ public class Tooltip : MonoBehaviour {
         Show(text, null);
     }
 
-
+    void OnDisable()
+    {
+        Hide();
+    }
 
     public void Show(string text, Sprite newImage)
     {
-        Debug.Log("Show Tooltip: " + ttText);
+        //Debug.Log("Show Tooltip: " + ttText);
         ttText = text;
 
         ttTextObject.text = ttText;

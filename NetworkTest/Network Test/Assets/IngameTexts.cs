@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.IO;
 
 [System.Serializable]
@@ -136,7 +136,7 @@ public class IngameTexts : MonoBehaviour {
         StreamWriter writer = new StreamWriter(sourceTextPath, true);
         writer.Write(json);
         writer.Close();
-        AssetDatabase.ImportAsset(sourceTextPath);
+        //AssetDatabase.ImportAsset(sourceTextPath);
 
 
         

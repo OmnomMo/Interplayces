@@ -44,7 +44,7 @@ public class TooltipManager : MonoBehaviour {
     {
 
         Tooltip newTooltip = GameObject.Instantiate(tooltipPrefab);
-        newTooltip.GetComponent<RectTransform>().parent = this.GetComponent<RectTransform>();
+        newTooltip.GetComponent<RectTransform>().SetParent(this.GetComponent<RectTransform>(), false);
         newTooltip.GetComponent<RectTransform>().offsetMax = Vector2.zero;
         newTooltip.GetComponent<RectTransform>().offsetMin = Vector2.zero;
 
@@ -90,8 +90,14 @@ public class TooltipManager : MonoBehaviour {
         
         foreach (Tooltip tt in tooltipQueue)
         {
-            tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250 * (GetMainGameViewSize().x/1920f));
 
+            if (Application.isEditor)
+            {
+                tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250 * (GetMainGameViewSize().x / 1920f));
+            } else
+            {
+                tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250 );
+            }
             if (n< maxTooltipSlots)
             {
                 if (!tt.gameObject.activeInHierarchy)

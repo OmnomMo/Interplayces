@@ -9,7 +9,8 @@ public class PlanetInfo : MonoBehaviour {
 
 
     public string planetName;
-    public string planetInfo;
+
+    public string planetInfoKey;
 
     public Tooltip planetTooltip;
     public Sprite planetImage;
@@ -26,12 +27,11 @@ public class PlanetInfo : MonoBehaviour {
     public void ShowInfo()
     {
 
-        if (!planetTooltip.isActiveAndEnabled)
+        if (planetTooltip == null || (planetTooltip != null && !planetTooltip.isActiveAndEnabled))
         {
-            planetTooltip.gameObject.SetActive(true);
-            planetTooltip.SetTTVisibility(true, true);
-            planetTooltip.SetTTArrowTarget(null);
-            planetTooltip.Show(planetInfo, planetImage);
+
+                planetTooltip = TooltipManager.Instance.NewTooltip(planetInfoKey, planetImage);
+
         }
 
     }
@@ -39,7 +39,11 @@ public class PlanetInfo : MonoBehaviour {
     public void HideInfo()
     {
         Debug.Log("hidePlanet info");
-        planetTooltip.Hide();
+
+        if (planetTooltip != null)
+        {
+            planetTooltip.Hide();
+        }
     }
 	
 	// Update is called once per frame

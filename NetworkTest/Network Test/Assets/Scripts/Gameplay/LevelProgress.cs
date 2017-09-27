@@ -72,12 +72,12 @@ public class Objective : MonoBehaviour
     public bool completed;
 
 
-    public Tooltip startTooltip;
+    protected Tooltip startTooltip;
     public string startTtText;
     public Sprite startTtSprite;
 
 
-    public Tooltip helpTooltip;
+    protected Tooltip helpTooltip;
     public string helpTtText;
     public Sprite helpTtSprite;
 
@@ -111,16 +111,16 @@ public class Objective : MonoBehaviour
 
     public void ShowHelpTooltip()
     {
-        if (helpTooltip != null)
+        if (started)
         {
-            if (Time.time - startingTime > timeToHelpTooltip && !helpTooltip.gameObject.activeInHierarchy)
+            if (Time.time - startingTime > timeToHelpTooltip && (helpTooltip == null || !helpTooltip.gameObject.activeInHierarchy))
             {
-                helpTooltip.gameObject.SetActive(true);
-                helpTooltip.SetTTVisibility(true, true);
-                helpTooltip.SetTTArrowTarget(toolTipTarget);
-                helpTooltip.Show(helpTtText, helpTtSprite);
+
+                helpTooltip = TooltipManager.Instance.NewTooltip(helpTtText, helpTtSprite, 0, toolTipTarget);
+
             }
         }
+        
     }
     
 
@@ -131,28 +131,18 @@ public class Objective : MonoBehaviour
 
             
 
-            if (startTooltip != null)
-            {
-                startTooltip.gameObject.SetActive(true);
-                startTooltip.SetTTVisibility(true, true);
-                startTooltip.SetTTArrowTarget(toolTipTarget);
-                startTooltip.Show(startTtText, startTtSprite);
-            }
+            
+
+            startTooltip = TooltipManager.Instance.NewTooltip(startTtText, startTtSprite, startTooltipTime, toolTipTarget);
+
+                
+            
 
             startingTime = Time.time;
             started = true;
         }
 
-        if (startTooltip != null)
-        {
-            if (startTooltipTime != 0f)
-            {
-                if (Time.time - startingTime > startTooltipTime)
-                {
-                    startTooltip.Hide();
-                }
-            }
-        }
+        
     }
 
     

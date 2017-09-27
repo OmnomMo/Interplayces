@@ -21,9 +21,14 @@ public class Tooltip : MonoBehaviour {
     public GameObject ttArrowObject;
 
 
+    public bool timed;
+    public float startTime;
+    public float duration;
+
+
 	// Use this for initialization
 	void Start () {
-        TooltipManager.Instance.AddTooltip(this);
+        
 	}
 	
 	// Update is called once per frame
@@ -86,40 +91,43 @@ public class Tooltip : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    public void Show()
-    {
-        Show(ttText, ttImage);
-    }
 
-    public void Show(string text)
-    {
-        Show(text, null);
-    }
 
     void OnDisable()
     {
         Hide();
     }
 
-    public void Show(string text, Sprite newImage)
+    public void SetContent(string text, Sprite newImage)
     {
-        //Debug.Log("Show Tooltip: " + ttText);
         ttText = text;
 
         ttTextObject.text = ttText;
         ttTextObjectWithImage.text = ttText;
+
 
         ttImage = newImage;
 
         if (ttImage == null)
         {
             ttHasImage = false;
-        } else
+        }
+        else
         {
             ttHasImage = true;
             ttImageObject.sprite = ttImage;
             ttImageObject.preserveAspect = true;
         }
+    }
+
+    public void Show()
+    {
+        //Debug.Log("Show Tooltip: " + ttText);
+        
+
+
+
+       
 
         if ((GameState.Instance.isPlayerCaptain() && ttShowCaptain) || (GameState.Instance.isPlayerNavigator() && ttShowNavigator))
         {
@@ -153,6 +161,5 @@ public class Tooltip : MonoBehaviour {
         }
 
 
-        TooltipManager.Instance.AddTooltipToQueue(this);
     }
 }

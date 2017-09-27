@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class InfoTooltipManager : MonoBehaviour {
     
-    public Tooltip lowHealthTooltip;
+     Tooltip lowHealthTooltip;
     public Sprite lowHealthTtSprite;
-    public Tooltip lowEnergyTooltip;
+    bool lowHealthInfoGiven;
+     Tooltip lowEnergyTooltip;
     public Sprite lowEnergyTtSprite;
 
-    public Tooltip highscoreTooltip;
+     Tooltip highscoreTooltip;
     public Sprite highscoreTtSprite;
+    bool highscoreInfoGiven;
 
     public Sprite congratulationsSprite;
-    public string congratulationsString;
 
     public int levelMaxScore;
 
@@ -35,41 +36,30 @@ public class InfoTooltipManager : MonoBehaviour {
 
     public void ShowLowEnergyTooltip()
     {
-        if (lowEnergyTooltip != null && !lowEnergyTooltip.isActiveAndEnabled)
+        if (lowEnergyTooltip == null || !lowEnergyTooltip.isActiveAndEnabled)
         {
 
-
-            lowEnergyTooltip.gameObject.SetActive(true);
-            lowEnergyTooltip.SetTTVisibility(true, true);
-            lowEnergyTooltip.SetTTArrowTarget(null);
-            lowEnergyTooltip.Show("Achtung, eure Energie ist niedrig! Sammelt sobald wie möglich einen Energiebehälter auf!", lowEnergyTtSprite);
+            lowEnergyTooltip = TooltipManager.Instance.NewTooltip("lowEnergyTooltipText", lowEnergyTtSprite);
         } 
     }
 
      public void ShowLowHealthTooltip()
     {
-        if (lowHealthTooltip != null && !lowHealthTooltip.isActiveAndEnabled)
+        if (lowHealthTooltip == null || !lowHealthTooltip.isActiveAndEnabled)
         {
 
-            
-                lowHealthTooltip.gameObject.SetActive(true);
-                lowHealthTooltip.SetTTVisibility(true, true);
-                lowHealthTooltip.SetTTArrowTarget(null);
-                lowHealthTooltip.Show("Achtung, euer Raumschff hält nicht mehr viel aus! Vermeidet Zusammenstöße mit Asteroiden oder aktiviert eure Schilde!", lowHealthTtSprite);
+            lowHealthTooltip = TooltipManager.Instance.NewTooltip("lowHealthTooltipText", lowHealthTtSprite, 30);
             
         }
     }
 
     public void ShowLevelHighScoreTooltip()
     {
-        if (highscoreTooltip != null && !highscoreTooltip.isActiveAndEnabled)
+        if (highscoreTooltip == null || !highscoreTooltip.isActiveAndEnabled)
         {
 
 
-            highscoreTooltip.gameObject.SetActive(true);
-            highscoreTooltip.SetTTVisibility(true, true);
-            highscoreTooltip.SetTTArrowTarget(null);
-            highscoreTooltip.Show("Glückwunsch, ihr habt alle Himmelskörper in diesem Level entdeckt!");
+            highscoreTooltip = TooltipManager.Instance.NewTooltip("allPlanetsFountTooltipText", null, 30);
 
         }
     }
@@ -86,24 +76,25 @@ public class InfoTooltipManager : MonoBehaviour {
             ShowLowEnergyTooltip();
         } else
         {
-            lowEnergyTooltip.Hide();
+            if (lowEnergyTooltip != null)
+            {
+                lowEnergyTooltip.Hide();
+            }
         }
 
-        if (SpaceshipGameplay.Instance.hitPoints / (float)SpaceshipGameplay.Instance.maxHitpoints < 0.2f)
+        if (Time.time - Time.timeSinceLevelLoad > 1 && !lowHealthInfoGiven && SpaceshipGameplay.Instance.hitPoints / (float)SpaceshipGameplay.Instance.maxHitpoints < 0.2f)
         {
             Debug.Log("Show Health Tooltip");
             ShowLowHealthTooltip();
-        }
-        else
-        {
-            lowHealthTooltip.Hide();
+            lowHealthInfoGiven = true;
         }
 
 
-        if (Score.Instance.currentScore >= levelMaxScore)
+
+        if (!highscoreInfoGiven && Score.Instance.currentScore >= levelMaxScore)
         {
 
-            
+            highscoreInfoGiven = true;
             ShowLevelHighScoreTooltip();
         }
     }

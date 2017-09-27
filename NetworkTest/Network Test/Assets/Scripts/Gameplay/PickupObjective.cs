@@ -75,17 +75,15 @@ public class PickupObjective : Objective {
 
     public void ShowPickupHelpTooltip()
     {
-        if (helpTooltip != null)
-        {
-            if (Time.time - timeLastPickup > timeToHelpTooltip && !helpTooltip.gameObject.activeInHierarchy)
+        
+            if (Time.time - timeLastPickup > timeToHelpTooltip && (helpTooltip == null ||!helpTooltip.gameObject.activeInHierarchy))
             {
-                helpTooltip.gameObject.SetActive(true);
-                helpTooltip.SetTTVisibility(true, true);
-                helpTooltip.SetTTArrowTarget(GetNearestPickup());
-                helpTooltip.Show(helpTtText, helpTtSprite);
+
+            helpTooltip = TooltipManager.Instance.NewTooltip(helpTtText, helpTtSprite, 0, GetNearestPickup());
+
             }
 
-        }
+        
     }
 
     public Transform GetNearestPickup()
@@ -112,7 +110,7 @@ public class PickupObjective : Objective {
     {
         if (helpTooltip != null)
         {
-            helpTooltip.gameObject.SetActive(false);
+            helpTooltip.Hide();
         }
     }
 }

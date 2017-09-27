@@ -84,19 +84,15 @@ public class MultiObjective : Objective {
 
     new public void ShowHelpTooltip()
     {
-        if (helpTooltip != null)
+      
+        if (Time.time - timeCompleteLastSubObj > timeToHelpTooltip && (helpTooltip == null || !helpTooltip.gameObject.activeInHierarchy))
         {
-            if (Time.time - timeCompleteLastSubObj > timeToHelpTooltip && !helpTooltip.gameObject.activeInHierarchy)
-            {
-                Objective priorityObjective = GetPriorityObjective();
+            Objective priorityObjective = GetPriorityObjective();
 
+           helpTooltip = TooltipManager.Instance.NewTooltip(priorityObjective.helpTtText, priorityObjective.helpTtSprite, 0, priorityObjective.toolTipTarget);
 
-                helpTooltip.gameObject.SetActive(true);
-                helpTooltip.SetTTVisibility(true, true);
-                helpTooltip.SetTTArrowTarget(priorityObjective.toolTipTarget);
-                helpTooltip.Show(priorityObjective.helpTtText, priorityObjective.helpTtSprite);
-            }
         }
+        
     }
 
     public Objective GetPriorityObjective()

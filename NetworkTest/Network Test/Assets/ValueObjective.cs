@@ -22,6 +22,16 @@ public class ValueObjective :  Objective{
 	
 	// Update is called once per frame
 	void Update () {
+
+
+        if (!completed && parentObjective == null)
+        {
+            ShowStartTooltip();
+
+
+            ShowHelpTooltip();
+        }
+
         if (!completed)
         {
             switch (checkedStat)

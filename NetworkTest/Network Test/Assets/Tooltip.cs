@@ -150,7 +150,10 @@ public class Tooltip : MonoBehaviour {
             }
             else
             {
-                ttArrowObject.gameObject.SetActive(false);
+                if (ttArrowObject != null)
+                {
+                    ttArrowObject.gameObject.SetActive(false);
+                }
             }
         } else
         {

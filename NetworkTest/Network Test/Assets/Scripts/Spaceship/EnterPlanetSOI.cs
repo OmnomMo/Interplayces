@@ -54,20 +54,20 @@ public class EnterPlanetSOI : MonoBehaviour {
             }
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("HelpSOI"))
-        {
+        //if (other.gameObject.layer == LayerMask.NameToLayer("HelpSOI"))
+        //{
 
-            if (planet != null)
-            {
-                planet.GetComponent<PlanetInfo>().HideInfo();
-                planet.GetComponent<PlanetInfo>().playerStay = false;
-            }
+        //    if (planet != null)
+        //    {
+        //        planet.GetComponent<PlanetInfo>().HideInfo();
+        //        planet.GetComponent<PlanetInfo>().playerStay = false;
+        //    }
 
-            playerInSOI = true;
-            planet = other.gameObject;
-            planet.GetComponent<PlanetInfo>().ShowInfo();
-            planet.GetComponent<PlanetInfo>().playerStay = true;
-        }
+        //    playerInSOI = true;
+        //    planet = other.gameObject;
+        //    planet.GetComponent<PlanetInfo>().ShowInfo();
+        //    planet.GetComponent<PlanetInfo>().playerStay = true;
+        //}
 
 
 
@@ -162,7 +162,21 @@ public class EnterPlanetSOI : MonoBehaviour {
                 planet = other.gameObject.transform.parent.gameObject;
                 planet.GetComponent<PlanetInfo>().ShowInfo();
                 planet.GetComponent<PlanetInfo>().playerStay = true;
-                Score.Instance.AddScanToPoints(planet);
+               Score.Instance.AddScanToPoints(planet);
+   
+            }
+        }
+
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("HelpSOI"))
+        {
+            if (!playerInSOI)
+            {
+                playerInSOI = true;
+                planet = other.gameObject.transform.parent.gameObject;
+                planet.GetComponent<PlanetInfo>().ShowInfo();
+                planet.GetComponent<PlanetInfo>().playerStay = true;
+
             }
         }
     }

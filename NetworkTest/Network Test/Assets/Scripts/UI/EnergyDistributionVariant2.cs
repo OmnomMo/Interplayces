@@ -36,12 +36,11 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
         {
             Debug.Log("SceneManager Not Set!");
         }
-        if (MainSceneManager.Instance.activeInterface == 2)
-        {
+
             NetworkActions.Instance.CmdSetThrust(thrustSlider.GetComponent<Slider>().value);
             NetworkActions.Instance.CmdSetShield(shieldSlider.GetComponent<Slider>().value);
             SpaceshipGameplay.Instance.scanPower = scanSlider.GetComponent<Slider>().value;
-        }
+       
 
         healthDisplay.GetComponent<Image>().fillAmount = (SpaceshipGameplay.Instance.hitPoints / (float)SpaceshipGameplay.Instance.maxHitpoints);
 

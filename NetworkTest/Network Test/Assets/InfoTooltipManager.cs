@@ -72,7 +72,7 @@ public class InfoTooltipManager : MonoBehaviour {
 
 		if (SpaceshipGameplay.Instance.energy / (float) SpaceshipGameplay.Instance.energyCapacity < 0.2f)
         {
-            Debug.Log("Show Energy Tooltip");
+           // Debug.Log("Show Energy Tooltip");
             ShowLowEnergyTooltip();
         } else
         {
@@ -82,9 +82,9 @@ public class InfoTooltipManager : MonoBehaviour {
             }
         }
 
-        if (Time.time - Time.timeSinceLevelLoad > 1 && !lowHealthInfoGiven && SpaceshipGameplay.Instance.hitPoints / (float)SpaceshipGameplay.Instance.maxHitpoints < 0.2f)
+        if (Time.timeSinceLevelLoad > 1 && !lowHealthInfoGiven && SpaceshipGameplay.Instance.hitPoints / (float)SpaceshipGameplay.Instance.maxHitpoints < 0.2f)
         {
-            Debug.Log("Show Health Tooltip");
+           // Debug.Log("Show Health Tooltip");
             ShowLowHealthTooltip();
             lowHealthInfoGiven = true;
         }

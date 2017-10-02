@@ -7,12 +7,14 @@ using UnityEngine.Networking;
 
 public class MainSceneManager : MonoBehaviour {
 
-    public GameObject navInterfaceV01;
-    public GameObject navInterfaceV02;
 
-    public GameObject navInterfaceV03;
+    public GameObject navInterface;
+    //public GameObject navInterfaceV01;
+    //public GameObject navInterfaceV02;
 
-    public int activeInterface;
+    //public GameObject navInterfaceV03;
+
+    //public int activeInterface;
 
 
 
@@ -47,35 +49,14 @@ public class MainSceneManager : MonoBehaviour {
         {
 
 
-            navInterfaceV01.SetActive(false);
-            navInterfaceV02.SetActive(false);
-            navInterfaceV03.SetActive(false);
+            navInterface.SetActive(false);
 
 
             //  DontDestroyOnLoad(gameObject);
             if (GameState.Instance.isPlayerNavigator())
             {
+                navInterface.SetActive(true);
 
-                switch (activeInterface)
-                {
-                    case 1: navInterfaceV01.SetActive(true);
-                        break;
-                    case 2: navInterfaceV02.SetActive(true);
-                        break;
-                    case 3:
-                        navInterfaceV03.SetActive(true);
-                        break;
-                    default:
-                        Debug.Log("ERROR: No interface set to active");
-                        break;
-                }
-
-
-              //  Debug.Log("I'm da Navigataa");
-                //Camera.main.gameObject.GetComponent<CameraBehaviour>().ChangeCameraToNavigator();
-
-               // Camera.main.GetComponent<References>().navigatorInterface.SetActive(true);
-                //Camera.main.GetComponent<References>().energyBar.GetComponent<EnergyBar>().Initialize();
             }
         }
 
@@ -85,22 +66,8 @@ public class MainSceneManager : MonoBehaviour {
     {
         if (GameState.Instance.isPlayerNavigator())
         {
-            switch (activeInterface)
-            {
-                case 1:
-                    navInterfaceV01.SetActive(true);
-                    break;
-                case 2:
-                    navInterfaceV02.SetActive(true);
-                    break;
-                case 3:
-                    navInterfaceV03.SetActive(true);
-                    break;
-                default:
-                    Debug.Log("ERROR: No interface set to active");
-                    break;
-            }
 
+            navInterface.SetActive(true);
         }
     }
 
@@ -111,26 +78,7 @@ public class MainSceneManager : MonoBehaviour {
 
         if (GameState.Instance.isPlayerNavigator())
         {
-            switch (activeInterface)
-            {
-                case 1:
-                    navInterfaceV01.SetActive(false);
-                    break;
-                case 2:
-                    if (navInterfaceV02 == null)
-                    {
-                        navInterfaceV02 = GameObject.Find("Interface Navigator Version_02");
-                    }
-                    navInterfaceV02.SetActive(false);
-                    break;
-                case 3:
-                    navInterfaceV03.SetActive(false);
-                    break;
-                default:
-                    Debug.Log("ERROR: No interface set to active");
-                    break;
-            }
-
+            navInterface.SetActive(false);
         }
     }
     

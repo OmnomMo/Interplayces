@@ -7,6 +7,7 @@ public class TooltipManager : MonoBehaviour {
     LinkedList<Tooltip> tooltipQueue;
 
     public Tooltip tooltipPrefab;
+    public Tooltip objectiveTooltipPrefab;
 
 
     public int maxTooltipSlots;
@@ -29,7 +30,7 @@ public class TooltipManager : MonoBehaviour {
         tooltipQueue.AddLast(newTt);
         UpdateTooltips();
 
-        Debug.Log("Addd Tooltip: " + newTt.ttText + " Queue length: " + tooltipQueue.Count);
+//Debug.Log("Addd Tooltip: " + newTt.ttText + " Queue length: " + tooltipQueue.Count);
 
 
 
@@ -37,11 +38,43 @@ public class TooltipManager : MonoBehaviour {
     }
 
 
+    public Tooltip NewConfirmTooltip(Objective objective, string text, Sprite image = null, bool visibleCaptain = true, bool visibleNavigator = true)
+    {
+        Tooltip newTooltip = GameObject.Instantiate(objectiveTooltipPrefab);
+        newTooltip.GetComponent<RectTransform>().SetParent(this.GetComponent<RectTransform>(), false);
+        newTooltip.GetComponent<RectTransform>().offsetMax = Vector2.zero;
+        newTooltip.GetComponent<RectTransform>().offsetMin = Vector2.zero;
 
-    
+
+
+        newTooltip.timed = false;
+
+
+
+        newTooltip.gameObject.SetActive(false);
+        newTooltip.SetTTVisibility(visibleCaptain, visibleNavigator);
+        newTooltip.GetComponent<Tooltip_ConfirmButton>().confirmObjective = objective;
+        //newTooltip.SetTTArrowTarget(target);
+
+        if (IngameTexts.Instance.textHashtable[text] != null)
+        {
+            newTooltip.SetContent(IngameTexts.Instance.textHashtable[text].ToString(), image);
+        }
+        else
+        {
+            newTooltip.SetContent(text, image);
+        }
+
+        AddTooltipToQueue(newTooltip);
+
+        return newTooltip;
+    }
+
 
     public Tooltip NewTooltip(string text, Sprite image = null, float ttDuration = 0, Transform target = null, bool visibleCaptain = true, bool visibleNavigator = true)
     {
+
+        //Debug.Log("Create new Tooltip " + text + "|" + ttDuration);
 
         Tooltip newTooltip = GameObject.Instantiate(tooltipPrefab);
         newTooltip.GetComponent<RectTransform>().SetParent(this.GetComponent<RectTransform>(), false);

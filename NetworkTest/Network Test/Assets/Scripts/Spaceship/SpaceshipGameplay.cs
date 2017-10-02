@@ -33,6 +33,9 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public Material shieldMaterial;
     public GameObject shieldObject;
 
+    public GameObject particleExplosion;
+    bool died = false;
+
     [SyncVar]
     public float shieldCooldown;
     [SyncVar]
@@ -275,7 +278,87 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
 
             Debug.Log("Zero Hitpoints remaining. To End screen.");
+            OnDeath();
            ToEndScreen.Instance.EndZeroHP();
+        }
+    }
+
+
+    public void OnDeath()
+    {
+        if (!died)
+        {
+            GameObject newExplosion = GameObject.Instantiate(particleExplosion);
+            newExplosion.transform.SetParent(this.transform);
+            newExplosion.transform.localPosition = Vector3.zero;
+            newExplosion.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
+
+            
+
+
+            died = true;
+
+            foreach (GameObject p in SpaceshipParts.Instance.allScanners)
+            {
+               
+                float randTime = Random.Range(0.5f, 3);
+
+                Debug.Log(p.ToString());
+
+                StartCoroutine(DelayedExplosion(randTime, p.transform, 0.5f));
+            }
+
+
+            foreach (GameObject p in SpaceshipParts.Instance.allThrusters)
+            {
+
+                float randTime = Random.Range(0.2f, 2);
+
+                Debug.Log(p.ToString());
+
+                StartCoroutine(DelayedExplosion(randTime, p.transform, 0.5f));
+            }
+
+            foreach (GameObject p in SpaceshipParts.Instance.allBatteries)
+            {
+
+                float randTime = Random.Range(0.2f, 2);
+
+                Debug.Log(p.ToString());
+
+                StartCoroutine(DelayedExplosion(randTime, p.transform, 0.5f));
+            }
+
+            foreach (GameObject p in SpaceshipParts.Instance.allShields)
+            {
+
+                float randTime = Random.Range(0.2f, 2);
+
+                Debug.Log(p.ToString());
+
+                StartCoroutine(DelayedExplosion(randTime, p.transform, 0.5f));
+            }
+        }
+    }
+
+    public IEnumerator DelayedExplosion(float dTime, Transform partPos, float chance)
+    {
+
+
+
+        yield return new WaitForSeconds(dTime);
+        float randSize = Random.Range(0.2f, 1);
+
+
+        float randChance = Random.Range(0, 1);
+
+
+        if (randChance < chance)
+        {
+            GameObject delayedExplosion = GameObject.Instantiate(particleExplosion);
+            delayedExplosion.transform.SetParent(partPos);
+            delayedExplosion.transform.localPosition = Vector3.zero;
+            delayedExplosion.transform.localScale = new Vector3(randSize, randSize, randSize);
         }
     }
 

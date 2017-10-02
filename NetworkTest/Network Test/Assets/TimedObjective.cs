@@ -13,7 +13,16 @@ public class TimedObjective : Objective {
 	
 	// Update is called once per frame
 	void Update () {
-		if (started && Time.time - timeToCompletion >= startingTime)
+
+        if (!completed && parentObjective == null)
+        {
+            ShowStartTooltip();
+
+
+            ShowHelpTooltip();
+        }
+
+        if (started && Time.time - timeToCompletion >= startingTime)
         {
             Complete();
         }

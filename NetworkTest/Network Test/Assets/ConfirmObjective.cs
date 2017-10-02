@@ -2,15 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConfirmObjective : MonoBehaviour {
+public class ConfirmObjective : Objective {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+
+    public override void ShowStartTooltip()
+    {
+        if (active && !started)
+        {
+
+
+
+
+
+            startTooltip = TooltipManager.Instance.NewConfirmTooltip(this, startTtText);
+
+
+
+
+            startingTime = Time.time;
+            started = true;
+        }
+    }
+
+
 }

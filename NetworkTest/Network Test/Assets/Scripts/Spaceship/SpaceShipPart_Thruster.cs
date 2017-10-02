@@ -16,15 +16,17 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
 
     // Use this for initialization
     void Start () {
-        fireEffect.SetActive(isFiring);
-	}
+        //fireEffect.SetActive(isFiring);
+        fireEffect.GetComponent<ParticleSystem>().emissionRate = 0;
+    }
 
     public void Fire()
     {
         if (!isFiring)
         {
             isFiring = true;
-            fireEffect.SetActive(true);
+            fireEffect.GetComponent<ParticleSystem>().emissionRate = 200;
+            //fireEffect.SetActive(true);
         }
     }
 
@@ -33,7 +35,8 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
         if (isFiring)
         {
             isFiring = false;
-            fireEffect.SetActive(false);
+            fireEffect.GetComponent<ParticleSystem>().emissionRate = 0;
+            //fireEffect.SetActive(false);
         }
     }
 	

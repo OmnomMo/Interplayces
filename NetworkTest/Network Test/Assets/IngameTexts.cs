@@ -46,7 +46,7 @@ public class IngameTexts : MonoBehaviour {
             JsonUtility.FromJsonOverwrite(json, allTexts);
             reader.Close();
 
-            Debug.Log(json);
+           // Debug.Log(json);
         }
         //this = JsonUtility.FromJsonOverwrite()
         //Debug.Log(sourceText.ToString());
@@ -57,6 +57,7 @@ public class IngameTexts : MonoBehaviour {
         textHashtable.Add("lowEnergyTooltipText", allTexts.lowEnergyTooltipText);
         textHashtable.Add("lowHealthTooltipText", allTexts.lowHealthTooltipText);
         textHashtable.Add("allPlanetsFountTooltipText", allTexts.allPlanetsFountTooltipText);
+        textHashtable.Add("energyPickupInfoText", allTexts.energyPickupInfoText);
         textHashtable.Add("buildingHelp1", allTexts.buildingHelp1);
         textHashtable.Add("tutorial1_CheckBoxExplanation", allTexts.tutorial1_CheckBoxExplanation);
         textHashtable.Add("tutorial2_Welcome", allTexts.tutorial2_Welcome);
@@ -189,6 +190,9 @@ public class TextContainer
 
     [Multiline]
     public string allPlanetsFountTooltipText;
+
+    [Multiline]
+    public string energyPickupInfoText;
 
 
     [Header("Tooltips Building Phase")]

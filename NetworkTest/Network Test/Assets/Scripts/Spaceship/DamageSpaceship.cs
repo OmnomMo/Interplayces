@@ -7,6 +7,7 @@ public class DamageSpaceship : MonoBehaviour
 
     public float damage;
     public float maxDamage;
+    public GameObject impactParticleEffect;
 
     // Use this for initialization
     void Start()
@@ -36,6 +37,13 @@ public class DamageSpaceship : MonoBehaviour
                     damageDealt = maxDamage;
                 }
                 SpaceshipGameplay.Instance.DealShieldDamage(damageDealt);
+
+
+
+                GameObject delayedExplosion = GameObject.Instantiate(impactParticleEffect);
+                delayedExplosion.transform.SetParent(SpaceshipGameplay.Instance.transform);
+                delayedExplosion.transform.localPosition = Vector3.zero;
+
             }
         }
 

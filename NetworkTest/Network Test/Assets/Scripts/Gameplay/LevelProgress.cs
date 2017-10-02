@@ -109,9 +109,9 @@ public class Objective : MonoBehaviour
         return 100;
     }
 
-    public void ShowHelpTooltip()
+    public virtual void ShowHelpTooltip()
     {
-        if (started)
+        if (started && timeToHelpTooltip != 0)
         {
             if (Time.time - startingTime > timeToHelpTooltip && (helpTooltip == null || !helpTooltip.gameObject.activeInHierarchy))
             {
@@ -124,12 +124,12 @@ public class Objective : MonoBehaviour
     }
     
 
-    public void ShowStartTooltip()
+    public virtual void ShowStartTooltip()
     {
         if (active && !started)
         {
 
-            
+            Debug.Log("Show start Tooltip for " + gameObject.ToString());
 
             
 
@@ -152,7 +152,11 @@ public class Objective : MonoBehaviour
         if (HasPrerequisite() || ((parentObjective != null) && (parentObjective.HasPrerequisite())) )
         {
             prerequisiteDone = false;
-            descriptionObject.GetComponent<Text>().color = new Color(0.5f, 0.5f, 0.5f);
+
+            if (descriptionObject != null)
+            {
+                descriptionObject.GetComponent<Text>().color = new Color(0.5f, 0.5f, 0.5f);
+            }
             active = false;
 
             
@@ -247,7 +251,10 @@ public class Objective : MonoBehaviour
             foreach (Objective o in followingObjectives)
             {
                 o.prerequisiteDone = true;
-                o.descriptionObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+                if (descriptionObject != null)
+                {
+                    o.descriptionObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+                }
                 o.active = true;
 
                 if (o is MultiObjective)
@@ -257,7 +264,10 @@ public class Objective : MonoBehaviour
 
                     foreach (Objective sO in mO.subObjectives)
                     {
-                        sO.descriptionObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+                        if (descriptionObject != null)
+                        {
+                            sO.descriptionObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+                        }
                         sO.active = true;
                     }
                 }

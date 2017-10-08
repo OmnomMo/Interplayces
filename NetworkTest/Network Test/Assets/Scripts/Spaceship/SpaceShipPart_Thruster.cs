@@ -25,7 +25,7 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
         if (!isFiring)
         {
             isFiring = true;
-            fireEffect.GetComponent<ParticleSystem>().emissionRate = 200;
+            fireEffect.GetComponent<ParticleSystem>().emissionRate = 300;
             //fireEffect.SetActive(true);
         }
     }

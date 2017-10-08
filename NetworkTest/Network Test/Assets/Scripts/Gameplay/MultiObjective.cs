@@ -32,6 +32,7 @@ public class MultiObjective : Objective {
             {
                 Debug.Log("Not all objectives are completed!");
                 allCompleted = false;
+                helpShown = false;
             }
         }
 
@@ -85,8 +86,9 @@ public class MultiObjective : Objective {
     new public void ShowHelpTooltip()
     {
       
-        if (Time.time - timeCompleteLastSubObj > timeToHelpTooltip && (helpTooltip == null || !helpTooltip.gameObject.activeInHierarchy))
+        if (Time.time - timeCompleteLastSubObj > timeToHelpTooltip && !helpShown) //(helpTooltip == null || !helpTooltip.gameObject.activeInHierarchy))
         {
+            helpShown = true;
             Objective priorityObjective = GetPriorityObjective();
 
            helpTooltip = TooltipManager.Instance.NewTooltip(priorityObjective.helpTtText, priorityObjective.helpTtSprite, 0, priorityObjective.toolTipTarget);

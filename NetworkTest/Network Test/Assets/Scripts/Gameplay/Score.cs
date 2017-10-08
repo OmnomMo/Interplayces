@@ -11,6 +11,12 @@ public class Score : MonoBehaviour {
     public Text scoreDisplay;
     public int scorePerScan;
 
+    public int alienShipsInLevel;
+    public int alienShipsCaught;
+
+    public Sprite alienShipImage;
+    
+
     public List<GameObject> scannedObjects;
     public List<string> scannedObjectStrings;
 
@@ -66,8 +72,24 @@ public class Score : MonoBehaviour {
         instance = this;
         scannedObjects = new List<GameObject>();
         scannedObjectStrings = new List<string>();
-	}
 
+        alienShipsInLevel  = GameObject.FindGameObjectsWithTag("AlienShip").Length;
+    }
+
+
+    public void CatchAlien()
+    {
+        alienShipsCaught++;
+
+        if (alienShipsCaught<alienShipsInLevel)
+        {
+            TooltipManager.Instance.NewTooltip(IngameTexts.Instance.allTexts.alienShipCaughtText + " (" + alienShipsCaught + "/" + alienShipsInLevel + ")", alienShipImage, 20);
+
+        } else
+        {
+            TooltipManager.Instance.NewTooltip(IngameTexts.Instance.allTexts.allAlienShipsCaughtText, alienShipImage, 20);
+        }
+    }
 
 
     public int GetScore()

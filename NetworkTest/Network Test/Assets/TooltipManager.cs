@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TooltipManager : MonoBehaviour {
     
-    LinkedList<Tooltip> tooltipQueue;
+    public LinkedList<Tooltip> tooltipQueue;
 
     public Tooltip tooltipPrefab;
     public Tooltip objectiveTooltipPrefab;
@@ -28,7 +28,7 @@ public class TooltipManager : MonoBehaviour {
     {
 
         tooltipQueue.AddLast(newTt);
-        UpdateTooltips();
+      //  UpdateTooltips();
 
 //Debug.Log("Addd Tooltip: " + newTt.ttText + " Queue length: " + tooltipQueue.Count);
 
@@ -113,47 +113,75 @@ public class TooltipManager : MonoBehaviour {
     public void RemoveToolTipFromQueue(Tooltip removedTt)
     {
         tooltipQueue.Remove(removedTt);
-        UpdateTooltips();
+       // UpdateTooltips();
+
+
+       Destroy(removedTt.gameObject);
        // removedTt.GetComponent<RectTransform>().localPosition = Vector3.zero;
     }
+
+    
+    IEnumerator DelayedUpdateTooltips()
+    {
+        yield return null;
+        UpdateTooltips();
+    }
+
 
     public void UpdateTooltips()
     {
         int n = 0;
-        
+
+
         foreach (Tooltip tt in tooltipQueue)
         {
-
-            if (Application.isEditor)
+            if (tt == null)
             {
-                tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250 * (GetMainGameViewSize().x / 1920f));
-            } else
-            {
-                tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250 );
+                tooltipQueue.Remove(tt);
             }
-            if (n< maxTooltipSlots)
-            {
-                if (!tt.gameObject.activeInHierarchy)
-                {
-                    //initialize Tooltip
-                    tt.gameObject.SetActive(true);
-                    tt.Show();
+        }
 
-                    if (tt.timed)
+        foreach (Tooltip tt in tooltipQueue)
+        {
+            if (tt != null)
+            {
+                if (Application.isEditor)
+                {
+                    tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250 * (GetMainGameViewSize().x / 1920f));
+                }
+                else
+                {
+                    tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250);
+                }
+                if (n < maxTooltipSlots)
+                {
+                    if (!tt.gameObject.activeInHierarchy)
                     {
-                        tt.startTime = Time.time;
+                        //initialize Tooltip
+                        tt.gameObject.SetActive(true);
+                        tt.Show();
+
+                        if (tt.timed)
+                        {
+                            tt.startTime = Time.time;
+                        }
+
                     }
 
+                   // Debug.Log("TooltipText " + n + ": " + tt.ttText);
+
+
+
+
+                    n++;
+
                 }
-
-
-
-                
-
+            } else
+            {
+                Debug.Log("Destroyed Tooltip in queue!");
             }
 
-            n++;
-
+            //Debug.Log("Number of Tooltips: " + n + "\nNumber of Tooltips In queue: " + tooltipQueue.Count);
 
             
         }
@@ -175,7 +203,7 @@ public class TooltipManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        InvokeRepeating("UpdateTooltips", 0.5f, 0.1f);
 	}
 	
 	// Update is called once per frame

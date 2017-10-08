@@ -38,10 +38,14 @@ public class PickupObjective : Objective {
         {
             timeLastPickup = Time.time;
 
+
+
             if (helpTooltip != null)
             {
                 helpTooltip.Hide();
             }
+
+            helpShown = false;
             return false;
         }
     }
@@ -76,9 +80,10 @@ public class PickupObjective : Objective {
     public void ShowPickupHelpTooltip()
     {
         
-            if (Time.time - timeLastPickup > timeToHelpTooltip && (helpTooltip == null ||!helpTooltip.gameObject.activeInHierarchy))
+            if (Time.time - timeLastPickup > timeToHelpTooltip && !helpShown) //(helpTooltip == null ||!helpTooltip.gameObject.activeInHierarchy))
             {
 
+            helpShown = true;
             helpTooltip = TooltipManager.Instance.NewTooltip(helpTtText, helpTtSprite, 0, GetNearestPickup());
 
             }

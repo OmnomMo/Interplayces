@@ -78,6 +78,7 @@ public class Objective : MonoBehaviour
 
 
     protected Tooltip helpTooltip;
+    public bool helpShown;
     public string helpTtText;
     public Sprite helpTtSprite;
 
@@ -113,9 +114,9 @@ public class Objective : MonoBehaviour
     {
         if (started && timeToHelpTooltip != 0)
         {
-            if (Time.time - startingTime > timeToHelpTooltip && (helpTooltip == null || !helpTooltip.gameObject.activeInHierarchy))
+            if (Time.time - startingTime > timeToHelpTooltip && !helpShown) // (helpTooltip == null || !helpTooltip.gameObject.activeInHierarchy))
             {
-
+                helpShown = true;
                 helpTooltip = TooltipManager.Instance.NewTooltip(helpTtText, helpTtSprite, 0, toolTipTarget);
 
             }

@@ -1,6 +1,8 @@
 {"lowEnergyTooltipText":"Achtung, eure Energie ist niedrig! Sammelt sobald wie m&ouml;glich einen Energiebeh&auml;lter auf!",
 "lowHealthTooltipText":"Achtung, euer Raumschff h&auml;lt nicht mehr viel aus! Vermeidet Zusammenst&ouml;&szlig;e mit Asteroiden oder aktiviert eure Schilde!",
 "allPlanetsFountTooltipText":"Gl&uuml;ckwunsch, ihr habt alle Himmelsk&ouml;rper in diesem Level entdeckt!",
+"alienShipCaughtText" : "Raumschiff gefangen: ",
+"allAlienShipsCaughtText" : "Gl&uuml;ckwunsch, ihr habt alle Raumschiffe in diesem Level gefangen!",
 "buildingHelp1":"",
 "energyPickupInfoText":"Energiekapseln f&uuml;llen eure energiereserven wieder auf. Ihr k&ouml;nnt einfach dr&uumlberfliegen um sie aufzusammeln.",
 "tutorial1_CheckBoxExplanation":"Hier oben findet ihr Infos und Hilfen zum Spiel. Dr&uuml;ckt auf den Gr&uuml;nen Knopf um zu beginnen!",

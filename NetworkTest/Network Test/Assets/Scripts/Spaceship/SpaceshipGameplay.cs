@@ -252,6 +252,8 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public void DealHullDamage(float d)
     {
 
+        Debug.Log("Deal " + d + " hull damage");
+
         if (GameState.Instance.holoLensConnected)
         {
 
@@ -272,7 +274,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         hitPoints -= (int)d;
 
-        if (hitPoints <= 0)
+        if (hitPoints <= 0.1f)
         {
             hitPoints = 0;
 

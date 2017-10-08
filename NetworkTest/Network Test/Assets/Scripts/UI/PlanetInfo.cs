@@ -38,7 +38,7 @@ public class PlanetInfo : MonoBehaviour {
 
     public void HideInfo()
     {
-        Debug.Log("hidePlanet info");
+       // Debug.Log("hidePlanet info");
 
         if (planetTooltip != null)
         {

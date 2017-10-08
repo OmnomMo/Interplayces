@@ -58,6 +58,8 @@ public class IngameTexts : MonoBehaviour {
         textHashtable.Add("lowHealthTooltipText", allTexts.lowHealthTooltipText);
         textHashtable.Add("allPlanetsFountTooltipText", allTexts.allPlanetsFountTooltipText);
         textHashtable.Add("energyPickupInfoText", allTexts.energyPickupInfoText);
+        textHashtable.Add("alienShipCaughtText", allTexts.alienShipCaughtText);
+        textHashtable.Add("allAlienShipsCaughtText", allTexts.allAlienShipsCaughtText);
         textHashtable.Add("buildingHelp1", allTexts.buildingHelp1);
         textHashtable.Add("tutorial1_CheckBoxExplanation", allTexts.tutorial1_CheckBoxExplanation);
         textHashtable.Add("tutorial2_Welcome", allTexts.tutorial2_Welcome);
@@ -193,6 +195,12 @@ public class TextContainer
 
     [Multiline]
     public string energyPickupInfoText;
+
+    [Multiline]
+    public string alienShipCaughtText;
+
+    [Multiline]
+    public string allAlienShipsCaughtText;
 
 
     [Header("Tooltips Building Phase")]

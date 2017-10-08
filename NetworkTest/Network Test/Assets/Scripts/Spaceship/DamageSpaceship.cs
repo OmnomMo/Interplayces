@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,10 +40,32 @@ public class DamageSpaceship : MonoBehaviour
                 SpaceshipGameplay.Instance.DealShieldDamage(damageDealt);
 
 
+                if (damageDealt > 0.5f)
+                {
+                    GameObject delayedExplosion = GameObject.Instantiate(impactParticleEffect);
+                    delayedExplosion.transform.SetParent(SpaceshipGameplay.Instance.transform);
+                    delayedExplosion.transform.localPosition = Vector3.zero;
 
-                GameObject delayedExplosion = GameObject.Instantiate(impactParticleEffect);
-                delayedExplosion.transform.SetParent(SpaceshipGameplay.Instance.transform);
-                delayedExplosion.transform.localPosition = Vector3.zero;
+                    ParticleSystem.MainModule impactMain = delayedExplosion.GetComponent<ParticleSystem>().main;
+
+                    impactMain.startSpeed = damageDealt * 25;
+
+                    ParticleSystem.EmissionModule impactEmission = delayedExplosion.GetComponent<ParticleSystem>().emission;
+
+                    short nBursts = Convert.ToInt16(damageDealt * 3);
+
+                    if (nBursts > 12)
+                    {
+                        nBursts = 12;
+                    }
+
+                    impactEmission.SetBursts(
+                        new ParticleSystem.Burst[] { new ParticleSystem.Burst(0.0f, nBursts) }
+                        );
+
+                    //delayedExplosion.GetComponent<ParticleSystem>().main = impactMain;
+
+                }
 
             }
         }

@@ -31,6 +31,11 @@ public class Tooltip : MonoBehaviour {
         
 	}
 	
+    void OnDestroy()
+    {
+        Debug.Log("Destroyed Tooltip " + ttText);
+    }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -83,6 +88,8 @@ public class Tooltip : MonoBehaviour {
     public void Hide()
     {
 
+        Debug.Log("Remove Tooltip: " + ToString() +  ttText);
+
         TooltipManager.Instance.RemoveToolTipFromQueue(this);
 
         ttTextObject.gameObject.SetActive(false);
@@ -95,7 +102,7 @@ public class Tooltip : MonoBehaviour {
 
     void OnDisable()
     {
-        Hide();
+       // Hide();
     }
 
     public void SetContent(string text, Sprite newImage)

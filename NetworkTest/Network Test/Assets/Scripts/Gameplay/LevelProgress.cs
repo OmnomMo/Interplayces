@@ -132,8 +132,8 @@ public class Objective : MonoBehaviour
 
             Debug.Log("Show start Tooltip for " + gameObject.ToString());
 
-            
 
+            //startTooltip = TooltipManager.Instance.NewConfirmTooltip(this, startTtText);
             startTooltip = TooltipManager.Instance.NewTooltip(startTtText, startTtSprite, startTooltipTime, toolTipTarget);
 
                 
@@ -219,6 +219,9 @@ public class Objective : MonoBehaviour
 
     public void DeactivateTooltips()
     {
+
+        Debug.Log("Deactivate Tooltips of Quest");
+
         if (startTooltip != null)
         {
             startTooltip.Hide();

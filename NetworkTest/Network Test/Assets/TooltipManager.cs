@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+
 
 public class TooltipManager : MonoBehaviour {
     
@@ -27,8 +29,16 @@ public class TooltipManager : MonoBehaviour {
     public void AddTooltipToQueue(Tooltip newTt)
     {
 
+        if (newTt == null)
+        {
+            Debug.Log("NullTooltip Added");
+        } else
+        {
+            Debug.Log("Added tt to queue: " + newTt.ttText);
+        }
+
         tooltipQueue.AddLast(newTt);
-      //  UpdateTooltips();
+     //   UpdateTooltips();
 
 //Debug.Log("Addd Tooltip: " + newTt.ttText + " Queue length: " + tooltipQueue.Count);
 
@@ -46,7 +56,7 @@ public class TooltipManager : MonoBehaviour {
         newTooltip.GetComponent<RectTransform>().offsetMin = Vector2.zero;
 
 
-
+       // EditorApplication.isPaused = true;
         newTooltip.timed = false;
 
 
@@ -64,6 +74,9 @@ public class TooltipManager : MonoBehaviour {
         {
             newTooltip.SetContent(text, image);
         }
+
+        
+
 
         AddTooltipToQueue(newTooltip);
 
@@ -113,8 +126,9 @@ public class TooltipManager : MonoBehaviour {
     public void RemoveToolTipFromQueue(Tooltip removedTt)
     {
         tooltipQueue.Remove(removedTt);
-       // UpdateTooltips();
+        // UpdateTooltips();
 
+        Debug.Log("Remove Tooltip from queue: " + removedTt.ttText);
 
        Destroy(removedTt.gameObject);
        // removedTt.GetComponent<RectTransform>().localPosition = Vector3.zero;
@@ -130,14 +144,25 @@ public class TooltipManager : MonoBehaviour {
 
     public void UpdateTooltips()
     {
+
+        Debug.Log("updateTooltips");
+        Debug.Log("\nNumber of Tooltips In queue: " + tooltipQueue.Count);
+
+        //EditorApplication.isPaused = true;
+
         int n = 0;
+
+        bool removedTooltip = false;
 
 
         foreach (Tooltip tt in tooltipQueue)
         {
             if (tt == null)
             {
+                Debug.Log("Tooltip is null");
                 tooltipQueue.Remove(tt);
+                removedTooltip = true;
+                break;
             }
         }
 
@@ -181,7 +206,12 @@ public class TooltipManager : MonoBehaviour {
                 Debug.Log("Destroyed Tooltip in queue!");
             }
 
-            //Debug.Log("Number of Tooltips: " + n + "\nNumber of Tooltips In queue: " + tooltipQueue.Count);
+            if (removedTooltip)
+            {
+                UpdateTooltips();
+            }
+
+            
 
             
         }

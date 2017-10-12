@@ -109,8 +109,11 @@ public class SpaceShipPlans : MonoBehaviour {
     }
 }
 
+
+[System.Serializable]
 public class StoredShipPart
 {
+    
     public int id;
     public int posX;
     public int posY;

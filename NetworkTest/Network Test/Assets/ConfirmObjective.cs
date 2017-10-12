@@ -14,10 +14,10 @@ public class ConfirmObjective : Objective {
 
 
 
+           // startTooltip = TooltipManager.Instance.NewTooltip(startTtText, startTtSprite, startTooltipTime, toolTipTarget);
+           startTooltip = TooltipManager.Instance.NewConfirmTooltip(this, startTtText);
 
-            startTooltip = TooltipManager.Instance.NewConfirmTooltip(this, startTtText);
-
-
+           // Debug.Log("Show Tooltip: " + startTooltip.ttText);
 
 
             startingTime = Time.time;

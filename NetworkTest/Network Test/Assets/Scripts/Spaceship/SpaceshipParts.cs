@@ -314,9 +314,24 @@ public class SpaceshipParts : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        SpaceShipPlans.Instance.BuildSpaceShip();
-        Debug.Log("BuildSpaceship!");
 
+        if (!GetComponent<CustomSpaceshipPlans>().buildCustomSpaceship)
+        {
+
+
+            if (SpaceShipPlans.Instance != null)
+            {
+
+                SpaceShipPlans.Instance.BuildSpaceShip();
+                Debug.Log("BuildSpaceship!");
+
+            }
+
+        } else
+        {
+            GetComponent<CustomSpaceshipPlans>().BuildSpaceShip();
+            Debug.Log("BuildLevelSpecificSpaceship");
+        }
         
       
     }

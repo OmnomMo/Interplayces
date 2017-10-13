@@ -11,7 +11,10 @@ public class SpaceshipMovement : NetworkBehaviour {
     //[Range(0.0f, 10.0f)]
     public GameObject mapCenter;
     public float thrustMultiplier;
-     float boostMultiplier;
+
+
+    [SyncVar]
+    public float boostMultiplier;
     public float boostFactor;
     public float DEBUGThrustBonus;
 
@@ -207,18 +210,12 @@ public class SpaceshipMovement : NetworkBehaviour {
                     {
                         GetComponent<Rigidbody>().AddForce(transform.forward * thrusters.Length * thrustMultiplier * boostMultiplier * DEBUGThrustBonus);
 
-                        foreach (GameObject thruster in thrusters)
-                        {
-                            thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
-                        }
+                        NetworkActions.Instance.CmdFireThrusters();
                     }
                 } else
                 {
-                        foreach (GameObject thruster in thrusters)
-                        {
-                            thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
-                        }
-                  
+                    NetworkActions.Instance.CmdStopThrusters();
+
                 }
             }
             else
@@ -238,17 +235,14 @@ public class SpaceshipMovement : NetworkBehaviour {
 
                         SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame * boostMultiplier);
 
-                        foreach (GameObject thruster in thrusters)
-                        {
-                            thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
-                        }
+                        NetworkActions.Instance.CmdFireThrusters();
                     }
                 }
                 else
                 {
-                    foreach (GameObject thruster in thrusters)
+                    if (GameState.Instance.isPlayerCaptain())
                     {
-                        thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
+                        NetworkActions.Instance.CmdStopThrusters();
                     }
                 }
             }
@@ -263,6 +257,28 @@ public class SpaceshipMovement : NetworkBehaviour {
         } else
         {
             GetComponent<Rigidbody>().drag = dragNormal;
+        }
+    }
+
+    [ClientRpc]
+    public void RpcFireThrusters()
+    {
+
+        Debug.Log("Startthrusters");
+        foreach (GameObject thruster in thrusters)
+        {
+            thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
+        }
+    }
+
+    [ClientRpc]
+    public void RpcStopThrusters()
+    {
+        Debug.Log("Stopthrusters");
+
+        foreach (GameObject thruster in thrusters)
+        {
+            thruster.GetComponent<SpaceShipPart_Thruster>().StopFire();
         }
     }
 

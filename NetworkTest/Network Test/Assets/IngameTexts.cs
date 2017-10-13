@@ -37,7 +37,7 @@ public class IngameTexts : MonoBehaviour {
     public void ReadFromFile()
     {
 
-        StreamReader reader = new StreamReader(sourceTextPath);
+        StreamReader reader = new StreamReader(Application.streamingAssetsPath + sourceTextPath);
 
         string json = UnEscapeChars(reader.ReadToEnd());
 
@@ -136,7 +136,7 @@ public class IngameTexts : MonoBehaviour {
     {
         string json = JsonUtility.ToJson(allTexts);
         Debug.Log(json);
-        StreamWriter writer = new StreamWriter(sourceTextPath, true);
+        StreamWriter writer = new StreamWriter(Application.streamingAssetsPath + sourceTextPath, true);
         writer.Write(json);
         writer.Close();
         //AssetDatabase.ImportAsset(sourceTextPath);

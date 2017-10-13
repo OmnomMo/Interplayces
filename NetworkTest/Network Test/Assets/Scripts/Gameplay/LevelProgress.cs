@@ -29,6 +29,22 @@ public class LevelProgress : MonoBehaviour {
 		
 	}
 
+
+    public Objective GetCurrentObjective ()
+    {
+        foreach (Objective obj in objectives)
+        {
+            if (obj.active)
+            {
+                return obj;
+            }
+
+            
+        }
+
+        return null;
+    }
+
     public void HideObjectivesForNavigator()
     {
         //if (GameState.Instance.isPlayerNavigator())
@@ -200,7 +216,7 @@ public class Objective : MonoBehaviour
 
             if (parentObjective == null || (!parentObjective.HasPrerequisite() || parentObjective.prerequisiteDone))
             {
-                Debug.Log("Call OnCompletion");
+                //Debug.Log("Call OnCompletion");
                 completed = true;
                 OnCompletion();
                 return true;
@@ -220,7 +236,7 @@ public class Objective : MonoBehaviour
     public void DeactivateTooltips()
     {
 
-        Debug.Log("Deactivate Tooltips of Quest");
+       // Debug.Log("Deactivate Tooltips of Quest");
 
         if (startTooltip != null)
         {

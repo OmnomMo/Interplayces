@@ -11,15 +11,26 @@ public class EndSceneDisplay : MonoBehaviour {
     public Text reasonText;
     public Text scoreText;
     public Text foundObjectsText;
-    
 
-	// Use this for initialization
-	void Start () {
+    private static EndSceneDisplay instance;
+    public static EndSceneDisplay Instance
+    {
+        get { return instance; }
+    }
+
+    // Use this for initialization
+    void Start () {
 
         if (GameState.Instance == null)
         {
             Application.LoadLevel(0);
         }
+
+        if (EndSceneDisplay.Instance == null)
+        {
+            instance = this;
+        }
+
 
         StartCoroutine(GetScore());
 	}

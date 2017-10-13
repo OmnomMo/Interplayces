@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 
 public class MultiplayerSetup : NetworkLobbyManager{
 
+    public string levelSelect_Scene;
+
     public bool isCaptainReady;
     public bool isNavigatorReady;
 
@@ -50,7 +52,14 @@ public class MultiplayerSetup : NetworkLobbyManager{
             {
                 networkPort = 1755;
             }
+
+            if (GameState.Instance.skipBuildingPhase)
+            {
+                playScene = levelSelect_Scene;
+            }
         }
+
+        
             
             if (MultiplayerSetup.Instance == null)
         {

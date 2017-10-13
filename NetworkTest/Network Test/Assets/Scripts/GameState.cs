@@ -9,6 +9,8 @@ public class GameState : MonoBehaviour {
 
     public bool holoLensConnected;
 
+    public bool skipBuildingPhase;
+
     public bool singlePlayer;
 
     public bool settingsFound = true;

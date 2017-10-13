@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 
@@ -29,13 +31,13 @@ public class TooltipManager : MonoBehaviour {
     public void AddTooltipToQueue(Tooltip newTt)
     {
 
-        if (newTt == null)
-        {
-            Debug.Log("NullTooltip Added");
-        } else
-        {
-            Debug.Log("Added tt to queue: " + newTt.ttText);
-        }
+        //if (newTt == null)
+        //{
+        //   // Debug.Log("NullTooltip Added");
+        //} else
+        //{
+        //   // Debug.Log("Added tt to queue: " + newTt.ttText);
+        //}
 
         tooltipQueue.AddLast(newTt);
      //   UpdateTooltips();
@@ -128,7 +130,7 @@ public class TooltipManager : MonoBehaviour {
         tooltipQueue.Remove(removedTt);
         // UpdateTooltips();
 
-        Debug.Log("Remove Tooltip from queue: " + removedTt.ttText);
+       // Debug.Log("Remove Tooltip from queue: " + removedTt.ttText);
 
        Destroy(removedTt.gameObject);
        // removedTt.GetComponent<RectTransform>().localPosition = Vector3.zero;
@@ -145,8 +147,8 @@ public class TooltipManager : MonoBehaviour {
     public void UpdateTooltips()
     {
 
-        Debug.Log("updateTooltips");
-        Debug.Log("\nNumber of Tooltips In queue: " + tooltipQueue.Count);
+        //Debug.Log("updateTooltips");
+        //Debug.Log("\nNumber of Tooltips In queue: " + tooltipQueue.Count);
 
         //EditorApplication.isPaused = true;
 
@@ -159,7 +161,7 @@ public class TooltipManager : MonoBehaviour {
         {
             if (tt == null)
             {
-                Debug.Log("Tooltip is null");
+                //Debug.Log("Tooltip is null");
                 tooltipQueue.Remove(tt);
                 removedTooltip = true;
                 break;
@@ -170,9 +172,13 @@ public class TooltipManager : MonoBehaviour {
         {
             if (tt != null)
             {
+
+
                 if (Application.isEditor)
                 {
+#if UNITY_EDITOR
                     tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250 * (GetMainGameViewSize().x / 1920f));
+#endif
                 }
                 else
                 {

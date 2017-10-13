@@ -98,6 +98,18 @@ public class NetworkActions : NetworkBehaviour {
     }
 
     [Command]
+    public void CmdFireThrusters()
+    {
+        SpaceshipGameplay.Instance.gameObject.GetComponent<SpaceshipMovement>().RpcFireThrusters();
+    }
+
+    [Command]
+    public void CmdStopThrusters()
+    {
+        SpaceshipGameplay.Instance.gameObject.GetComponent<SpaceshipMovement>().RpcStopThrusters();
+    }
+
+    [Command]
     public void CmdSetShield(float energy)
     {
         if (SpaceshipGameplay.Instance != null)
@@ -156,6 +168,12 @@ public class NetworkActions : NetworkBehaviour {
     {
         //Debug.Log(n);
         PickupManager.Instance.RpcDestroyResourcePickup(n);
+    }
+
+    [Command]
+    public void CmdCatchNPC(int id)
+    {
+        NPCManager.Instance.RpcCatchNPC(id);
     }
 
     [Command]

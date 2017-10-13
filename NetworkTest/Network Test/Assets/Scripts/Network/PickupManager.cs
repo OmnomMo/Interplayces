@@ -83,6 +83,8 @@ public class PickupManager : NetworkBehaviour {
         }
     }
 
+    
+
     public void PickupEnergy (EnergyPickup p)
     {
 

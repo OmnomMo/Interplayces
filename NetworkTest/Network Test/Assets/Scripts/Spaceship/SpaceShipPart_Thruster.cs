@@ -10,6 +10,10 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
     public bool partEnabled;
     public GameObject fireEffect;
 
+
+    Gradient normalGrad;
+    Gradient boostGrad;
+
     public int ID;
     public int posX;
     public int posY;
@@ -18,6 +22,14 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
     void Start () {
         //fireEffect.SetActive(isFiring);
         fireEffect.GetComponent<ParticleSystem>().emissionRate = 0;
+
+        normalGrad = new Gradient();
+        normalGrad.SetKeys(new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.25f), new GradientColorKey(new Color(0.25f, 0.1f, 0.1f), 0.4f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) });
+
+
+        boostGrad = new Gradient();
+        boostGrad.SetKeys(new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.25f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.4f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) });
+
     }
 
     public void Fire()
@@ -25,6 +37,7 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
         if (!isFiring)
         {
             isFiring = true;
+
             fireEffect.GetComponent<ParticleSystem>().emissionRate = 300;
             //fireEffect.SetActive(true);
         }
@@ -42,8 +55,40 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (isFiring)
+        {
+
+           
+
+            if (SpaceshipGameplay.Instance.gameObject.GetComponent<SpaceshipMovement>().boostMultiplier == 1)
+            {
+                fireEffect.GetComponent<ParticleSystem>().startSize = 15 * SpaceshipGameplay.Instance.thrustPower;
+
+                ParticleSystem ps = fireEffect.GetComponent<ParticleSystem>();
+                var col = ps.colorOverLifetime;
+               
+                col.color = normalGrad;
+
+
+
+            }
+            else
+            {
+
+
+                ParticleSystem ps = fireEffect.GetComponent<ParticleSystem>();
+                var col = ps.colorOverLifetime;
+
+
+                col.color = boostGrad;
+
+
+
+                fireEffect.GetComponent<ParticleSystem>().startSize = 30 * SpaceshipGameplay.Instance.thrustPower;
+
+            }
+        }
+    }
 
     public void SetID(int newID)
     {
@@ -87,6 +132,8 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
 
     public bool RemoveFromGrid()
     {
+
+
         return PlayingGrid.Instance.RemovePiece(this.gameObject);
         
     }

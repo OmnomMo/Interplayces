@@ -73,7 +73,25 @@ public class Score : MonoBehaviour {
         scannedObjects = new List<GameObject>();
         scannedObjectStrings = new List<string>();
 
-        alienShipsInLevel  = GameObject.FindGameObjectsWithTag("AlienShip").Length;
+        alienShipsInLevel = 100;
+
+        StartCoroutine(CountNPCSpaceships());
+    }
+
+    IEnumerator CountNPCSpaceships()
+    {
+        yield return null;
+
+        int tempCount = GameObject.FindGameObjectsWithTag("AlienShip").Length;
+
+        if (tempCount == 0)
+        {
+            StartCoroutine(CountNPCSpaceships());
+        } else
+        {
+            alienShipsInLevel = tempCount;
+        }
+
     }
 
 

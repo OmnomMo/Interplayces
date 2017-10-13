@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NPC_RandomMovement : MonoBehaviour {
 
+    public int NPC_ID;
+
     public bool movingRandomly;
 
     public bool isActive;
@@ -27,7 +29,14 @@ public class NPC_RandomMovement : MonoBehaviour {
 
     public float SetDistanceToPlayer()
     {
-        return currentDistance = Vector3.Distance(transform.position, SpaceshipGameplay.Instance.gameObject.transform.position);
+        if (SpaceshipGameplay.Instance != null)
+        {
+            return currentDistance = Vector3.Distance(transform.position, SpaceshipGameplay.Instance.gameObject.transform.position);
+        } 
+        else
+        {
+            return float.MaxValue;
+        }
     }
 
 	// Update is called once per frame
@@ -35,7 +44,11 @@ public class NPC_RandomMovement : MonoBehaviour {
 		if (!isActive && movingRandomly)
         {
             isActive = true;
-            AccelerateRandomly();
+
+            if (GameState.Instance.isPlayerCaptain())
+            {
+                AccelerateRandomly();
+            }
         }
 
         if (isActive && !movingRandomly)
@@ -48,9 +61,12 @@ public class NPC_RandomMovement : MonoBehaviour {
             movingRandomly = true;
         }
 
-        if (currentDistance < maxDistanceCatch)
+        if (currentDistance < maxDistanceCatch && !isCaught)
         {
-            isCaught = true;
+            if (GameState.Instance.isPlayerCaptain())
+            {
+                NetworkActions.Instance.CmdCatchNPC(NPC_ID);
+            }
         }
 
 

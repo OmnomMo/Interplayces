@@ -10,7 +10,8 @@ public class SelectLevel : NetworkBehaviour {
     public string level3Name;
     public string level4Name;
     public string level5Name;
-    
+
+    public ConfirmAudio confirmAudio;
 
 
 	// Use this for initialization
@@ -30,6 +31,7 @@ public class SelectLevel : NetworkBehaviour {
             Debug.Log("Selecting Level " + nLevel);
             //NetworkActions.Instance.CmdEnterLevel(nLevel);
 
+            confirmAudio.startPlaying();
 
             //Sends info to Hololens if connected
             if (GameState.Instance.holoLensConnected)

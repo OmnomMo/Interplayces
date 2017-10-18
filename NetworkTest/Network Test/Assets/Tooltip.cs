@@ -33,7 +33,7 @@ public class Tooltip : MonoBehaviour {
 	
     void OnDestroy()
     {
-        Debug.Log("Destroyed Tooltip " + ttText);
+       // Debug.Log("Destroyed Tooltip " + ttText);
     }
 
 	// Update is called once per frame

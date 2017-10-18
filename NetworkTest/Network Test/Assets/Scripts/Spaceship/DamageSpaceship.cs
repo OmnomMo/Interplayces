@@ -33,6 +33,9 @@ public class DamageSpaceship : MonoBehaviour
 
                 //Debug.Log("Damage Dealt: " + damageDealt);
 
+
+              
+
                 if (damageDealt > maxDamage)
                 {
                     damageDealt = maxDamage;
@@ -64,6 +67,10 @@ public class DamageSpaceship : MonoBehaviour
                         );
 
                     //delayedExplosion.GetComponent<ParticleSystem>().main = impactMain;
+
+                    GetComponent<AudioSource>().volume = 0.5f * (damageDealt / maxDamage);
+                    GetComponent<AudioSource>().pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                    GetComponent<AudioSource>().Play();
 
                 }
 

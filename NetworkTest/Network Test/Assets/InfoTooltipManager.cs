@@ -39,7 +39,7 @@ public class InfoTooltipManager : MonoBehaviour {
         {
             StartCoroutine(GetScore());
         }
-        Debug.Log("Total Possible score: " + levelMaxScore);
+      //  Debug.Log("Total Possible score: " + levelMaxScore);
     }
 
 

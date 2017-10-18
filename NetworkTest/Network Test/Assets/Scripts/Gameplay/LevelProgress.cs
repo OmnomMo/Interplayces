@@ -146,7 +146,7 @@ public class Objective : MonoBehaviour
         if (active && !started)
         {
 
-            Debug.Log("Show start Tooltip for " + gameObject.ToString());
+            //Debug.Log("Show start Tooltip for " + gameObject.ToString());
 
 
             //startTooltip = TooltipManager.Instance.NewConfirmTooltip(this, startTtText);

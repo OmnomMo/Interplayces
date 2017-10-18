@@ -182,6 +182,7 @@ public class NPC_RandomMovement : MonoBehaviour {
 
     void AccelerateRandomly()
     {
+        GetComponent<AudioSource>().Play();
         float duration = Random.Range(1f, 2f);
         GetComponent<NPC_Movement>().StartAccelerating();
         StartCoroutine(StopAccelerating(duration));
@@ -189,6 +190,7 @@ public class NPC_RandomMovement : MonoBehaviour {
 
     IEnumerator StopAccelerating(float t)
     {
+        GetComponent < AudioSource > ().Stop();
         yield return new WaitForSeconds(t);
         GetComponent<NPC_Movement>().StopAccelerating();
         RandomMovement();

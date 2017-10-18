@@ -10,7 +10,8 @@ public class LoadStartLevel : MonoBehaviour {
 	void Start () {
         if (GameState.Instance == null)
         {
-            Application.LoadLevel(0);
+            Debug.Break();
+            //Application.LoadLevel(0);
         }
     }
 	

@@ -85,7 +85,7 @@ public class DataCollection : MonoBehaviour {
     void OnEndScene(Scene scene)
     {
 
-        Debug.Log("EndScene " + scene.name);
+        //Debug.Log("EndScene " + scene.name);
 
         currentScene.SetEndTime(System.DateTime.Now);
         currentScene.duration = currentScene.endTimeObj.Subtract(currentScene.startTimeObj).ToString();
@@ -134,7 +134,7 @@ public class DataCollection : MonoBehaviour {
 
     void OnStartScene(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Start newScene " + scene.name);
+        //Debug.Log("Start newScene " + scene.name);
 
     
 

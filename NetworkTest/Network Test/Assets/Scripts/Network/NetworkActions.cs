@@ -101,6 +101,14 @@ public class NetworkActions : NetworkBehaviour {
     public void CmdFireThrusters()
     {
         SpaceshipGameplay.Instance.gameObject.GetComponent<SpaceshipMovement>().RpcFireThrusters();
+
+        if (MainSceneManager.Instance.navInterface != null)
+        {
+            if (MainSceneManager.Instance.navInterface.GetComponent<SpaceshipMovement>() != null)
+            {
+                MainSceneManager.Instance.navInterface.GetComponent<AnimateInterface>().RpcWobbleSliders();
+            }
+        }
     }
 
     [Command]

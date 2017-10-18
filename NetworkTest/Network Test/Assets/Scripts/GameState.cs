@@ -45,7 +45,7 @@ public class GameState : MonoBehaviour {
 
 
         Object.DontDestroyOnLoad(gameObject);
-        Object.DontDestroyOnLoad(GameObject.Find("HololensParent"));
+        //Object.DontDestroyOnLoad(GameObject.Find("HololensParent"));
         playerType = PlayerTypes.None;
     }
 

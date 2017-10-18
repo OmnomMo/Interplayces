@@ -48,10 +48,10 @@ public class MultiplayerSetup : NetworkLobbyManager{
 
         if (GameState.Instance != null)
         {
-            if (GameState.Instance.holoLensConnected)
-            {
-                networkPort = 1755;
-            }
+            //if (GameState.Instance.holoLensConnected)
+            //{
+            //    networkPort = 1755;
+            //}
 
             if (GameState.Instance.skipBuildingPhase)
             {

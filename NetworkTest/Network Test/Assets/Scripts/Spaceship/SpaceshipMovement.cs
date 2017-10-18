@@ -43,6 +43,8 @@ public class SpaceshipMovement : NetworkBehaviour {
 
     public float timeLastSent;
 
+    public bool thrustersFired;
+
     // Use this for initialization
     void Start () {
         allParts = new GameObject[0];
@@ -210,11 +212,22 @@ public class SpaceshipMovement : NetworkBehaviour {
                     {
                         GetComponent<Rigidbody>().AddForce(transform.forward * thrusters.Length * thrustMultiplier * boostMultiplier * DEBUGThrustBonus);
 
-                        NetworkActions.Instance.CmdFireThrusters();
+                        if (!thrustersFired)
+                        {
+                            gameObject.GetComponent<SpaceshipAudio>().thrustStart_s.Play();
+                            gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Play();
+                            NetworkActions.Instance.CmdFireThrusters();
+                            thrustersFired = true;
+                        }
                     }
                 } else
                 {
-                    NetworkActions.Instance.CmdStopThrusters();
+                    if (thrustersFired)
+                    {
+                        gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Stop();
+                        NetworkActions.Instance.CmdStopThrusters();
+                        thrustersFired = false;
+                    }
 
                 }
             }
@@ -235,14 +248,26 @@ public class SpaceshipMovement : NetworkBehaviour {
 
                         SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame * boostMultiplier);
 
-                        NetworkActions.Instance.CmdFireThrusters();
+                        if (!thrustersFired)
+                        {
+
+                            gameObject.GetComponent<SpaceshipAudio>().thrustStart_s.Play();
+                            gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Play();
+                            NetworkActions.Instance.CmdFireThrusters();
+                            thrustersFired = true;
+                        }
                     }
                 }
                 else
                 {
                     if (GameState.Instance.isPlayerCaptain())
                     {
-                        NetworkActions.Instance.CmdStopThrusters();
+                        if (thrustersFired)
+                        {
+                            gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Stop();
+                            NetworkActions.Instance.CmdStopThrusters();
+                            thrustersFired = false;
+                        }
                     }
                 }
             }
@@ -264,7 +289,7 @@ public class SpaceshipMovement : NetworkBehaviour {
     public void RpcFireThrusters()
     {
 
-        Debug.Log("Startthrusters");
+      //  Debug.Log("Startthrusters");
         foreach (GameObject thruster in thrusters)
         {
             thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
@@ -274,7 +299,7 @@ public class SpaceshipMovement : NetworkBehaviour {
     [ClientRpc]
     public void RpcStopThrusters()
     {
-        Debug.Log("Stopthrusters");
+     //   Debug.Log("Stopthrusters");
 
         foreach (GameObject thruster in thrusters)
         {

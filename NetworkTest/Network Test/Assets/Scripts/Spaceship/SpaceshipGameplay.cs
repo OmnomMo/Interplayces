@@ -118,18 +118,21 @@ public class SpaceshipGameplay : NetworkBehaviour {
     internal void RpcSetThrust(float energy)
     {
         thrustPower = energy;
+        Sessionmanagement.Instance.GetNewInput();
     }
 
     [ClientRpc]
     internal void RpcSetShield(float energy)
     {
         shieldPower = energy;
+        Sessionmanagement.Instance.GetNewInput();
     }
 
     [ClientRpc]
     internal void RpcSetScan(float energy)
     {
         scanPower = energy;
+        Sessionmanagement.Instance.GetNewInput();
     }
 
     [ClientRpc]

@@ -190,8 +190,9 @@ public class NPC_RandomMovement : MonoBehaviour {
 
     IEnumerator StopAccelerating(float t)
     {
-        GetComponent < AudioSource > ().Stop();
+        
         yield return new WaitForSeconds(t);
+        GetComponent<AudioSource>().Stop();
         GetComponent<NPC_Movement>().StopAccelerating();
         RandomMovement();
     }

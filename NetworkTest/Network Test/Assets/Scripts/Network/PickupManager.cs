@@ -127,6 +127,7 @@ public class PickupManager : NetworkBehaviour {
             }
         }
 
+        pickup.GetComponent<AudioSource>().Play();
 
         pickup.pickedUp = true;
         pickup.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = false;
@@ -149,7 +150,7 @@ public class PickupManager : NetworkBehaviour {
                 break;
             }
         }
-
+        pickup.GetComponent<AudioSource>().Play();
 
         pickup.pickedUp = true;
         pickup.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = false;

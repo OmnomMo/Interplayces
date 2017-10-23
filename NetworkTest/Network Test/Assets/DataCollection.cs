@@ -8,6 +8,16 @@ using System.IO;
 public class DataCollection : MonoBehaviour {
 
 
+
+    private static DataCollection instance;
+
+    public static DataCollection Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public PlaySession currentSession;
     public SceneSession currentScene;
 
@@ -61,6 +71,14 @@ public class DataCollection : MonoBehaviour {
         sessionActive = false;
         WriteToFile();
         //Serialize Session to file
+    }
+
+    public void EndSession(System.DateTime endTime)
+    {
+        currentSession.SetEndTime(endTime);
+        currentSession.duration = currentSession.endTimeObj.Subtract(currentSession.startTimeObj).ToString();
+        sessionActive = false;
+        WriteToFile();
     }
 
 

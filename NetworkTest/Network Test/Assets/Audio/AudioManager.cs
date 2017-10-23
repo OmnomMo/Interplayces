@@ -25,6 +25,7 @@ public class AudioManager : MonoBehaviour {
 
     void OnDisable()
     {
+        Debug.Log("WTF2");
         SceneManager.sceneLoaded -= OnEnterScene;
     }
 

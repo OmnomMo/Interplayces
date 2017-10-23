@@ -12,7 +12,7 @@ public class ConfirmObjective : Objective {
         {
 
 
-
+            TooltipManager.Instance.infoSource.Play();
 
            // startTooltip = TooltipManager.Instance.NewTooltip(startTtText, startTtSprite, startTooltipTime, toolTipTarget);
            startTooltip = TooltipManager.Instance.NewConfirmTooltip(this, startTtText);

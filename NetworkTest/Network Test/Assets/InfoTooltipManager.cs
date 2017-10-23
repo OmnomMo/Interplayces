@@ -48,6 +48,7 @@ public class InfoTooltipManager : MonoBehaviour {
         if (lowEnergyTooltip == null) // || !lowEnergyTooltip.isActiveAndEnabled)
         {
             showLowEnergyTooltip = true;
+            TooltipManager.Instance.warningSource.Play();
             lowEnergyTooltip = TooltipManager.Instance.NewTooltip("lowEnergyTooltipText", lowEnergyTtSprite);
         } 
     }
@@ -56,7 +57,7 @@ public class InfoTooltipManager : MonoBehaviour {
     {
         if (lowHealthTooltip == null || !lowHealthTooltip.isActiveAndEnabled)
         {
-
+            TooltipManager.Instance.warningSource.Play();
             lowHealthTooltip = TooltipManager.Instance.NewTooltip("lowHealthTooltipText", lowHealthTtSprite, 30);
             
         }
@@ -67,7 +68,7 @@ public class InfoTooltipManager : MonoBehaviour {
         if (highscoreTooltip == null || !highscoreTooltip.isActiveAndEnabled)
         {
 
-
+            TooltipManager.Instance.successSource.Play();
             highscoreTooltip = TooltipManager.Instance.NewTooltip("allPlanetsFountTooltipText", null, 30);
 
         }

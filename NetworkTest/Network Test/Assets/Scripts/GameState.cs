@@ -34,9 +34,10 @@ public class GameState : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        
+        Debug.Log("WTF");
 
         if (GameState.Instance == null) {
+            Debug.Log("Create GameStateManager Instance");
             instance = this;
         } else
         {

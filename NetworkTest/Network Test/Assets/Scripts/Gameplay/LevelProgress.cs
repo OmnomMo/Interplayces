@@ -147,7 +147,7 @@ public class Objective : MonoBehaviour
         {
 
             //Debug.Log("Show start Tooltip for " + gameObject.ToString());
-
+            TooltipManager.Instance.infoSource.Play();
 
             //startTooltip = TooltipManager.Instance.NewConfirmTooltip(this, startTtText);
             startTooltip = TooltipManager.Instance.NewTooltip(startTtText, startTtSprite, startTooltipTime, toolTipTarget);

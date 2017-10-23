@@ -30,6 +30,8 @@ public class PlanetInfo : MonoBehaviour {
         if (planetTooltip == null || (planetTooltip != null && !planetTooltip.isActiveAndEnabled))
         {
 
+            
+            
                 planetTooltip = TooltipManager.Instance.NewTooltip(planetInfoKey, planetImage);
 
         }

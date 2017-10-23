@@ -104,7 +104,7 @@ public class NetworkActions : NetworkBehaviour {
 
         if (MainSceneManager.Instance.navInterface != null)
         {
-            if (MainSceneManager.Instance.navInterface.GetComponent<SpaceshipMovement>() != null)
+            if (MainSceneManager.Instance.navInterface.GetComponent<AnimateInterface>() != null)
             {
                 MainSceneManager.Instance.navInterface.GetComponent<AnimateInterface>().RpcWobbleSliders();
             }

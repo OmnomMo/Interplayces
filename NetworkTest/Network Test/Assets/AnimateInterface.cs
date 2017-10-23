@@ -15,6 +15,8 @@ public class AnimateInterface : NetworkBehaviour {
     [ClientRpc]
     public void RpcWobbleSliders()
     {
+
+        Debug.Log("Wobblewoblle");
         if (GameState.Instance.isPlayerNavigator() && SpaceshipGameplay.Instance.thrustPower == 0 && !animatedSlider1.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Wobbling"))
         {
             animatedSlider1.GetComponent<Animator>().SetTrigger("WobbleTrigger");

@@ -99,6 +99,10 @@ public class SpaceshipMovement : NetworkBehaviour {
                 bool noHorizontalInput = Input.GetAxis("HorizontalKeyboard") < deadZone && Input.GetAxis("HorizontalKeyboard") > deadZone * -1;
                 bool noVerticalInput = Input.GetAxis("VerticalKeyboard") < deadZone && Input.GetAxis("VerticalKeyboard") > deadZone * -1;
 
+                if (!noHorizontalInput || !noVerticalInput)
+                {
+                    Sessionmanagement.Instance.GetNewInput();
+                }
 
                 if (!rotateVersion02)
                 {
@@ -106,6 +110,7 @@ public class SpaceshipMovement : NetworkBehaviour {
                     if (!(noHorizontalInput && noVerticalInput) && controllable)
                     {
              
+
                         //rotates spaceship towards joystick direction
 
 
@@ -148,7 +153,9 @@ public class SpaceshipMovement : NetworkBehaviour {
                         if (Mathf.Abs(targetAngle - transform.eulerAngles.y) < 10 || Mathf.Abs(targetAngle - transform.eulerAngles.y) >350)
                         {
                             isAccelerating = true;
-                        }else
+                            Sessionmanagement.Instance.GetNewInput();
+                        }
+                        else
                         {
                             isAccelerating = false;
                         }

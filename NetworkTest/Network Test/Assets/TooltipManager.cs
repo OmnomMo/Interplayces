@@ -14,6 +14,16 @@ public class TooltipManager : MonoBehaviour {
     public Tooltip objectiveTooltipPrefab;
 
 
+    public AudioClip infoClip;
+    public AudioClip scanClip;
+    public AudioClip warningClip;
+    public AudioClip successClip;
+
+    public AudioSource infoSource;
+    public AudioSource scanSource;
+    public AudioSource warningSource;
+    public AudioSource successSource;
+
     public int maxTooltipSlots;
 
     public int GetFreeTooltipSpaces;
@@ -26,7 +36,28 @@ public class TooltipManager : MonoBehaviour {
     }
 
 
-    
+    // Use this for initialization
+    void Start()
+    {
+        InvokeRepeating("UpdateTooltips", 0.5f, 0.1f);
+
+        infoSource = AddAudioAudioSource(infoClip, false, false, 0.3f);
+        scanSource = AddAudioAudioSource(scanClip, false, false, 0.3f);
+        warningSource = AddAudioAudioSource(warningClip, false, false, 0.3f);
+        successSource = AddAudioAudioSource(successClip, false, false, 0.3f);
+
+    }
+
+    public AudioSource AddAudioAudioSource(AudioClip clip, bool loop, bool playAwake, float vol, float pitch = 1)
+    {
+        AudioSource newAudio = this.gameObject.AddComponent<AudioSource>();
+        newAudio.clip = clip;
+        newAudio.loop = loop;
+        newAudio.pitch = pitch;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+        return newAudio;
+    }
 
     public void AddTooltipToQueue(Tooltip newTt)
     {
@@ -237,10 +268,7 @@ public class TooltipManager : MonoBehaviour {
         instance = this;
     }
 
-	// Use this for initialization
-	void Start () {
-        InvokeRepeating("UpdateTooltips", 0.5f, 0.1f);
-	}
+
 	
 	// Update is called once per frame
 	void Update () {

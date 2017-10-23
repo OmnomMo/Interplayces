@@ -38,6 +38,7 @@ public class Score : MonoBehaviour {
             currentScore += scorePerScan;
             scannedObjects.Add(newScan);
 
+            TooltipManager.Instance.scanSource.Play();
 
             string newScanName;
 
@@ -101,10 +102,12 @@ public class Score : MonoBehaviour {
 
         if (alienShipsCaught<alienShipsInLevel)
         {
+            TooltipManager.Instance.infoSource.Play();
             TooltipManager.Instance.NewTooltip(IngameTexts.Instance.allTexts.alienShipCaughtText + " (" + alienShipsCaught + "/" + alienShipsInLevel + ")", alienShipImage, 20);
 
         } else
         {
+            TooltipManager.Instance.successSource.Play();
             TooltipManager.Instance.NewTooltip(IngameTexts.Instance.allTexts.allAlienShipsCaughtText, alienShipImage, 20);
         }
     }

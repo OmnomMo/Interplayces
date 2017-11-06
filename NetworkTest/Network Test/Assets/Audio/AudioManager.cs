@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour {
 
     public AudioSource musicSource;
 
-    public AudioClip[] music;
+    //public AudioClip[] music;
 
     private static AudioManager instance;
     public static AudioManager Instance
@@ -30,12 +30,12 @@ public class AudioManager : MonoBehaviour {
     }
 
 
-    public void SwitchSong(int n)
-    {
-        musicSource.Stop();
-        musicSource.clip = music[n];
-        musicSource.Play();
-    }
+    //public void SwitchSong(int n)
+    //{
+    //    musicSource.Stop();
+    //    musicSource.clip = music[n];
+    //    musicSource.Play();
+    //}
 
 	// Use this for initialization
 	void Start () {
@@ -60,16 +60,28 @@ public class AudioManager : MonoBehaviour {
     {
         Debug.Log("Scene loaded!");
 
+        AudioClip newMusic = GetLevelMusic();
+        if (newMusic != GetComponent<AudioSource>().clip)
+        {
+            GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().clip = newMusic;
+            GetComponent<AudioSource>().Play();
+        }
+
         followSpaceship = false;
         StartCoroutine(DelayedGetSpaceShip());
 
     }
 
+    public AudioClip GetLevelMusic()
+    {
+        return Camera.main.GetComponent<LevelMusic>().levelMusic;
+    }
 
     public IEnumerator DelayedGetSpaceShip()
     {
 
-        SwitchSong((int)Random.Range(0, 2f));
+        //SwitchSong((int)Random.Range(0, 2f));
         yield return null;
         if (SpaceshipGameplay.Instance != null)
         {

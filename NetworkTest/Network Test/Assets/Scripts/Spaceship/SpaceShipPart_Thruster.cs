@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
 
@@ -21,15 +22,18 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
     // Use this for initialization
     void Start () {
         //fireEffect.SetActive(isFiring);
-        fireEffect.GetComponent<ParticleSystem>().emissionRate = 0;
 
-        normalGrad = new Gradient();
-        normalGrad.SetKeys(new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.25f), new GradientColorKey(new Color(0.25f, 0.1f, 0.1f), 0.4f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) });
+        if (SceneManager.GetActiveScene().name != "02_SpaceShipEditor_Tracking")
+        {
+            fireEffect.GetComponent<ParticleSystem>().emissionRate = 0;
+
+            normalGrad = new Gradient();
+            normalGrad.SetKeys(new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.25f), new GradientColorKey(new Color(0.25f, 0.1f, 0.1f), 0.4f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) });
 
 
-        boostGrad = new Gradient();
-        boostGrad.SetKeys(new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.25f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.4f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) });
-
+            boostGrad = new Gradient();
+            boostGrad.SetKeys(new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.25f), new GradientColorKey(new Color(0.03f, 0.2f, 0.2f), 0.4f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) });
+        }
     }
 
     public void Fire()

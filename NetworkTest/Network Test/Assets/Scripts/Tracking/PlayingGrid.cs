@@ -102,7 +102,7 @@ public class PlayingGrid : MonoBehaviour {
                     grid[x, y] = null;
                     // grid[x, y].SetActive(false);
                     //Parts.Instance.ResetConnections();
-                    Debug.Log("Removepiece" + oldPiece.ToString());
+                    //Debug.Log("Removepiece" + oldPiece.ToString());
                     return oldPiece;
                 }
             }

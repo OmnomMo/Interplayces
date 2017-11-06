@@ -42,8 +42,8 @@ public class Sessionmanagement : MonoBehaviour {
 
         DataCollection.Instance.EndSession(endTime);
 
-
-        MultiplayerSetup.Instance.ServerChangeScene("03_Level_Select");
+        
+        MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
 
 
     }

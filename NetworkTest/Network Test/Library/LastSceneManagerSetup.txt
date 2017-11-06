@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/00_MultiplayerSetup.unity
+- path: Assets/Scenes/04_EndScene.unity
   isLoaded: 1
   isActive: 1

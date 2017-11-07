@@ -25,6 +25,27 @@ public class HideForNavigator : MonoBehaviour {
                     GetComponent<MeshRenderer>().enabled = false;
                 }
 
+                if (GetComponent<RectTransform>() != null)
+                {
+                    foreach (RectTransform child in GetComponentsInChildren<RectTransform>())
+                    {
+                        if (child.gameObject.GetComponent<Text>() != null)
+                        {
+                            child.gameObject.GetComponent<Text>().enabled = false;
+                        }
+
+                        if (child.gameObject.GetComponent<Canvas>() != null)
+                        {
+                            child.gameObject.GetComponent<Canvas>().enabled = false;
+                        }
+
+                        if (child.gameObject.GetComponent<Image>() != null)
+                        {
+                            child.gameObject.GetComponent<Image>().enabled = false;
+                        }
+                    }
+                }
+
                 if (GetComponent<Text>() != null)
                 {
                     GetComponent<Text>().enabled = false;
@@ -49,6 +70,27 @@ public class HideForNavigator : MonoBehaviour {
                 if (GetComponent<MeshRenderer>() != null)
                 {
                     GetComponent<MeshRenderer>().enabled = false;
+                }
+
+                if (GetComponent<RectTransform>() != null)
+                {
+                    foreach (RectTransform child in GetComponentsInChildren<RectTransform>())
+                    {
+                        if (child.gameObject.GetComponent<Text>() != null)
+                        {
+                            child.gameObject.GetComponent<Text>().enabled = false;
+                        }
+
+                        if (child.gameObject.GetComponent<Canvas>() != null)
+                        {
+                            child.gameObject.GetComponent<Canvas>().enabled = false;
+                        }
+
+                        if (child.gameObject.GetComponent<Image>() != null)
+                        {
+                            child.gameObject.GetComponent<Image>().enabled = false;
+                        }
+                    }
                 }
 
                 if (GetComponent<Canvas>() != null)

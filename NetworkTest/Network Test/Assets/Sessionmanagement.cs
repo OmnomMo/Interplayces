@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sessionmanagement : MonoBehaviour {
 
-
+    
 
     public bool waitForInput;
 
@@ -33,7 +33,14 @@ public class Sessionmanagement : MonoBehaviour {
 
         DataCollection.Instance.StartSession();
 
-       
+        if (!GameState.Instance.skipBuildingPhase)
+        {
+            MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
+        }
+        else
+        {
+            MultiplayerSetup.Instance.ServerChangeScene("03_Level_Select");
+        }
     }
 
     public void EndSession(System.DateTime endTime)
@@ -43,7 +50,7 @@ public class Sessionmanagement : MonoBehaviour {
         DataCollection.Instance.EndSession(endTime);
 
 
-        MultiplayerSetup.Instance.ServerChangeScene("03_Level_Select");
+        MultiplayerSetup.Instance.ServerChangeScene("01b_LandingScreen");
 
 
     }
@@ -64,7 +71,10 @@ public class Sessionmanagement : MonoBehaviour {
 
         timeLastInput = Time.time;
         dateTimeLastInput = System.DateTime.Now;
-        
+
+
+
+
     }
 
 	// Update is called once per frame
@@ -80,7 +90,7 @@ public class Sessionmanagement : MonoBehaviour {
             {
                 if (TooltipManager.Instance != null && warningTooltip == null) {
                     int timeLeft = (int)timeToRestart - (int)timeToTooltip;
-                    warningTooltip = TooltipManager.Instance.NewTooltip("Achtung! Das Spiel wird in " + timeLeft + " Sekunden neu gestartet. Wenn ihr wieterspielen möchtet drückt bitte irgendeinen Knopf!", null, timeLeft);
+                    warningTooltip = TooltipManager.Instance.NewTooltip("Achtung! Das Spiel wird in " + timeLeft + " Sekunden neu gestartet. Wenn ihr weiterspielen möchtet drückt bitte irgendeinen Knopf!", null, timeLeft);
                     TooltipManager.Instance.warningSource.Play();
                         }
             }

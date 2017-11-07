@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class GameState : MonoBehaviour {
 
-
+    public GameObject touchScriptHolder;
 
     public bool holoLensConnected;
 
@@ -46,6 +46,7 @@ public class GameState : MonoBehaviour {
 
 
         Object.DontDestroyOnLoad(gameObject);
+       // Object.DontDestroyOnLoad(touchScriptHolder);
         //Object.DontDestroyOnLoad(GameObject.Find("HololensParent"));
         playerType = PlayerTypes.None;
     }

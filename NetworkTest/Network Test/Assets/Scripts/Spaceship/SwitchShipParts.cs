@@ -135,7 +135,7 @@ public class SwitchShipParts : NetworkBehaviour {
     {
         if (GameState.Instance.isPlayerCaptain())
         {
-            Debug.Log("Recheck Part " + checkX + "/" + checkY);
+           // Debug.Log("Recheck Part " + checkX + "/" + checkY);
             //update Part on x/y;
             NetworkActions.Instance.CmdSetPartTypes(checkX, checkY, parts[checkX, checkY].transform.GetChild(0).GetComponent<ShipPart>().getID());
 
@@ -222,7 +222,7 @@ public class SwitchShipParts : NetworkBehaviour {
     {
         
 
-        Debug.Log("SetNewPart");
+        //Debug.Log("SetNewPart");
 
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;

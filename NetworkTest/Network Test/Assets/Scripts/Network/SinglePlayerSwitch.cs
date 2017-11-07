@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SinglePlayerSwitch : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class SinglePlayerSwitch : MonoBehaviour {
 	void Start () {
         multiplayerSetup = GameObject.Find("MultiplayerSetup");
         MultiplayerSetup.Instance.minPlayers = 2;
+
+        ToggleSinglePlayer(GetComponent<Toggle>().isOn);
     }
 	
 	// Update is called once per frame

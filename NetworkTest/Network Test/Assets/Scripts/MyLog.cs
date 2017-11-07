@@ -14,6 +14,22 @@ public class MyLog : MonoBehaviour
     private Vector2 scrollPos;
     public int maxLines = 30;
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (!hidden)
+            {
+                hide(true);
+            }
+            else
+            {
+                hide(false);
+            }
+        }
+    }
+
+
     void OnEnable()
     {
         Application.RegisterLogCallback(HandleLog);

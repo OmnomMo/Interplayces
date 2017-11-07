@@ -74,8 +74,9 @@ public class SwitchShipParts : NetworkBehaviour {
         if (trackColor)
         {
             SetPartTypes();
+            CheckAllPartTypes();
         }
-        CheckAllPartTypes();
+    
 
         // Debug.Log()
         
@@ -111,24 +112,7 @@ public class SwitchShipParts : NetworkBehaviour {
         }
     }
 
-    [ClientRpc]
-    internal void RpcDebug()
-    {
-        Debug.Log("text");
-    }
 
-    public static void StaticDebug()
-    {
-        Debug.Log("debug");
-    }
-
-    [ClientRpc]
-    internal void RpcCreateContainers()
-    {
-       
-
-
-    } 
 
     //Periodically updates all parts to mitigate errors
     public void CheckAllPartTypes()
@@ -153,6 +137,7 @@ public class SwitchShipParts : NetworkBehaviour {
         }
     }
 
+    //Colortracking
     public void SetPartTypes()
     {
 

@@ -37,7 +37,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
     void OnDestroy()
     {
    
-        print("MultiplayerSetup was destroyed");
+      //  print("MultiplayerSetup was destroyed");
     }
 
     // Use this for initialization

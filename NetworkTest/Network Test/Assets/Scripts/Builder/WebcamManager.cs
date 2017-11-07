@@ -33,7 +33,7 @@ public class WebcamManager : MonoBehaviour {
 
         } catch (System.Exception e)
         {
-            Debug.Log("No Webcam found");
+            //Debug.Log("No Webcam found");
             hasWebcam = false;
         }
     

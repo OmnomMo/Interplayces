@@ -94,6 +94,7 @@ public class JoinGameButtons : MonoBehaviour {
 
         
         navButton.interactable = false;
+        captainButton.interactable = false;
 
         ColorCaptainGreen();
 

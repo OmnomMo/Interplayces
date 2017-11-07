@@ -129,26 +129,31 @@ public class SpaceshipParts : MonoBehaviour {
 
         int nThrusters = 0;
 
-        foreach (GameObject part in allParts)
+        if (allParts != null)
         {
-            if (part.GetComponent<SpaceShipPart_Thruster>() != null)
+            foreach (GameObject part in allParts)
             {
-                nThrusters++;
+                if (part.GetComponent<SpaceShipPart_Thruster>() != null)
+                {
+                    nThrusters++;
+                }
             }
-        }
 
-        GameObject[] thrusters = new GameObject[nThrusters];
-        int i = 0;
+            GameObject[] thrusters = new GameObject[nThrusters];
+            int i = 0;
 
-        foreach (GameObject part in allParts)
-        {
-            if (part.GetComponent<SpaceShipPart_Thruster>() != null)
+            foreach (GameObject part in allParts)
             {
-                thrusters[i++] = part;
+                if (part.GetComponent<SpaceShipPart_Thruster>() != null)
+                {
+                    thrusters[i++] = part;
+                }
             }
-        }
 
-        return thrusters;
+            return thrusters;
+        } else {
+            return new GameObject[0];
+        }
 
     }
 
@@ -160,28 +165,34 @@ public class SpaceshipParts : MonoBehaviour {
 
         int nThrusters = 0;
 
-        foreach (GameObject part in allParts)
+        if (allParts != null)
         {
-            //Debug.Log("IS part enabled thruster?");
-            if (part.GetComponent<SpaceShipPart_Thruster>() != null && part.GetComponent<SpaceShipPart_Thruster>().partEnabled)
+            foreach (GameObject part in allParts)
             {
-                //Debug.Log("Yes!");
-                nThrusters++;
-            } 
-        }
-
-        GameObject[] thrusters = new GameObject[nThrusters];
-        int i = 0;
-
-        foreach (GameObject part in allParts)
-        {
-            if (part.GetComponent<SpaceShipPart_Thruster>() != null && part.GetComponent<SpaceShipPart_Thruster>().partEnabled)
-            {
-                thrusters[i++] = part;
+                //Debug.Log("IS part enabled thruster?");
+                if (part.GetComponent<SpaceShipPart_Thruster>() != null && part.GetComponent<SpaceShipPart_Thruster>().partEnabled)
+                {
+                    //Debug.Log("Yes!");
+                    nThrusters++;
+                }
             }
-        }
 
-        return thrusters;
+            GameObject[] thrusters = new GameObject[nThrusters];
+            int i = 0;
+
+            foreach (GameObject part in allParts)
+            {
+                if (part.GetComponent<SpaceShipPart_Thruster>() != null && part.GetComponent<SpaceShipPart_Thruster>().partEnabled)
+                {
+                    thrusters[i++] = part;
+                }
+            }
+
+            return thrusters;
+        } else
+        {
+            return new GameObject[0];
+        }
     }
 
     public GameObject[] GetBatteries()
@@ -192,26 +203,36 @@ public class SpaceshipParts : MonoBehaviour {
 
         int nBatteries = 0;
 
-        foreach (GameObject part in allParts)
+        if (allParts != null)
         {
-            if (part.GetComponent<SpaceshipBatteryPart>() != null)
+            foreach (GameObject part in allParts)
             {
-                nBatteries++;
+                if (part.GetComponent<SpaceshipBatteryPart>() != null)
+                {
+                    nBatteries++;
+                }
             }
+
+
+            GameObject[] batteries = new GameObject[nBatteries];
+            int i = 0;
+
+            foreach (GameObject part in allParts)
+            {
+                if (part.GetComponent<SpaceshipBatteryPart>() != null)
+                {
+                    batteries[i++] = part;
+                }
+            }
+
+
+            return batteries;
+        } else
+        {
+            return new GameObject[0];
+
         }
 
-        GameObject[] batteries = new GameObject[nBatteries];
-        int i = 0;
-
-        foreach (GameObject part in allParts)
-        {
-            if (part.GetComponent<SpaceshipBatteryPart>() != null)
-            {
-                batteries[i++] = part;
-            }
-        }
-
-        return batteries;
 
     }
 
@@ -224,26 +245,32 @@ public class SpaceshipParts : MonoBehaviour {
 
         int nShields = 0;
 
-        foreach (GameObject part in allParts)
+        if (allParts != null)
         {
-            if (part.GetComponent<SpaceShipShieldPart>() != null)
+            foreach (GameObject part in allParts)
             {
-                nShields++;
+                if (part.GetComponent<SpaceShipShieldPart>() != null)
+                {
+                    nShields++;
+                }
             }
-        }
 
-        GameObject[] shields = new GameObject[nShields];
-        int i = 0;
+            GameObject[] shields = new GameObject[nShields];
+            int i = 0;
 
-        foreach (GameObject part in allParts)
+            foreach (GameObject part in allParts)
+            {
+                if (part.GetComponent<SpaceShipShieldPart>() != null)
+                {
+                    shields[i++] = part;
+                }
+            }
+
+            return shields;
+        } else
         {
-            if (part.GetComponent<SpaceShipShieldPart>() != null)
-            {
-                shields[i++] = part;
-            }
+            return new GameObject[0];
         }
-
-        return shields;
 
     }
 

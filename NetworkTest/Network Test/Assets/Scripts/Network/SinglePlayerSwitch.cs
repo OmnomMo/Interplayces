@@ -13,7 +13,13 @@ public class SinglePlayerSwitch : MonoBehaviour {
         multiplayerSetup = GameObject.Find("MultiplayerSetup");
         MultiplayerSetup.Instance.minPlayers = 2;
 
-        ToggleSinglePlayer(GetComponent<Toggle>().isOn);
+        StartCoroutine(DelayedToggle(GetComponent<Toggle>().isOn));
+    }
+
+    public IEnumerator DelayedToggle(bool toggleState)
+    {
+        yield return null;
+        ToggleSinglePlayer(toggleState);
     }
 	
 	// Update is called once per frame
@@ -25,13 +31,13 @@ public class SinglePlayerSwitch : MonoBehaviour {
     {
         if (single)
         {
-            Debug.Log("SwitchSinglePlayer");
+            //Debug.Log("SwitchSinglePlayer");
             multiplayerSetup.GetComponent<MultiplayerSetup>().minPlayers = 1;
             GameState.Instance.singlePlayer = true;
         }
         else
         {
-            Debug.Log("SwitchMultiPlayer");
+            //Debug.Log("SwitchMultiPlayer");
             multiplayerSetup.GetComponent<MultiplayerSetup>().minPlayers = 2;
             GameState.Instance.singlePlayer = false;
         }

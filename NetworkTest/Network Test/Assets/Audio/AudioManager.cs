@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour {
 
     void OnDisable()
     {
-        Debug.Log("WTF2");
+        //Debug.Log("WTF2");
         SceneManager.sceneLoaded -= OnEnterScene;
     }
 
@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour {
 
     void OnEnterScene(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene loaded!");
+        //Debug.Log("Scene loaded!");
 
         AudioClip newMusic = GetLevelMusic();
         if (newMusic != GetComponent<AudioSource>().clip)

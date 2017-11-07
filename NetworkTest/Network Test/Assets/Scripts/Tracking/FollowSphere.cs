@@ -48,6 +48,8 @@ public class FollowSphere : MonoBehaviour {
                 
                // Debug.Log("Stop Follow delayed");
             }
+
+            
             //PlayingGrid.Instance.RemovePiece(gameObject);
         }
 

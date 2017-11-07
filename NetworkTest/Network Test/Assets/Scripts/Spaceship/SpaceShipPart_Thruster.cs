@@ -137,8 +137,8 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
     public bool RemoveFromGrid()
     {
 
-
-        return PlayingGrid.Instance.RemovePiece(this.gameObject);
+        Debug.Log("You tried to remove a Part from grid. This is not working atm. Please contact the aothorities.");
+        return false;
         
     }
 }

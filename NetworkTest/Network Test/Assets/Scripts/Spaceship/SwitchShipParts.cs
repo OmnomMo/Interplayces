@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class SwitchShipParts : NetworkBehaviour {
 
-    public GameObject[,] parts;
+
     public GameObject spaceshipContainer;
     public GameObject colorTracker;
     public GameObject playingField;
@@ -15,8 +16,7 @@ public class SwitchShipParts : NetworkBehaviour {
     public GameObject shieldPrefab;
     public GameObject thrusterPrefab;
     public GameObject noPartPrefab;
-
-    public GameObject[,] shipContainers;
+    
 
     int checkX;
     int checkY;
@@ -39,11 +39,10 @@ public class SwitchShipParts : NetworkBehaviour {
 
     private void Awake()
     {
-        
+
         //Debug.Log("Set instance of SwitchParts");
 
-        nRows = colorTracker.GetComponent<ColorPickerNew>().nCols;
-        nCols = colorTracker.GetComponent<ColorPickerNew>().nRows;
+
 
         if (SwitchShipParts.Instance != null)
         {
@@ -54,18 +53,18 @@ public class SwitchShipParts : NetworkBehaviour {
         {
             instance = this;
         }
+        
 
-        parts = new GameObject[nCols, nRows];
-
-        CreateContainers();
 
     }
 
     // Use this for initialization
     void Start () {
+        nRows = PlayingGrid.Instance.gridRows;
+        nCols = PlayingGrid.Instance.gridColumns;
 
-      
-	}
+        CreateContainers();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -86,8 +85,7 @@ public class SwitchShipParts : NetworkBehaviour {
     {
 
         Vector3 newPos = new Vector3();
-
-        shipContainers = new GameObject[nCols , nRows];
+        
 
 
         for (int x = 0; x < nCols; x++)
@@ -99,12 +97,12 @@ public class SwitchShipParts : NetworkBehaviour {
 
                 
 
-                shipContainers[x, y] = newPart;
+                PlayingGrid.Instance.containerGrid[x, y] = newPart;
 
                 newPos.x = x * 1.1f;
                 newPos.y = y * 1.1f;
                 newPart.transform.localPosition = newPos;
-                parts[x, y] = newPart;
+
                 newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
                 newPart.GetComponentInChildren<ShipPart>().SetPosY(y);
 
@@ -121,7 +119,7 @@ public class SwitchShipParts : NetworkBehaviour {
         {
            // Debug.Log("Recheck Part " + checkX + "/" + checkY);
             //update Part on x/y;
-            NetworkActions.Instance.CmdSetPartTypes(checkX, checkY, parts[checkX, checkY].transform.GetChild(0).GetComponent<ShipPart>().getID());
+            NetworkActions.Instance.CmdSetPartTypes(checkX, checkY, PlayingGrid.Instance.containerGrid[checkX, checkY].GetComponentInChildren<ShipPart>().getID());
 
 
             //increase x, if x is max, increase y
@@ -166,7 +164,7 @@ public class SwitchShipParts : NetworkBehaviour {
                         
                         
 
-                        GameObject oldPart = parts[nCols - 1 -x,y].transform.GetChild(0).gameObject;
+                        GameObject oldPart = PlayingGrid.Instance.containerGrid[nCols - 1 -x,y].transform.GetChild(0).gameObject;
 
 
                        // If the color inside the rect changed, instantiate new ship part of new type.
@@ -210,16 +208,23 @@ public class SwitchShipParts : NetworkBehaviour {
         //Debug.Log("SetNewPart");
 
         GameObject newPart = IDToPart(newID);
-        GameObject oldPart = parts[x, y].transform.GetChild(0).gameObject;
+        GameObject oldPart = PlayingGrid.Instance.containerGrid[x, y].transform.GetChild(0).gameObject;
+
+        if (oldPart == null)
+        {
+            throw new Exception("test");
+        }
 
         var oldPartType = oldPart.GetComponent<ShipPart>().GetType();
 
-       // if (newPart.GetComponent<ShipPart>() is typeof(oldPart.GetComponent<ShipPart>().GetType()))
+        // if (newPart.GetComponent<ShipPart>() is typeof(oldPart.GetComponent<ShipPart>().GetType()))
 
-        playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
+        //playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
 
-        playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
-        newPart.transform.parent = parts[x, y].transform;
+        //playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
+
+        PlayingGrid.Instance.ClearChildren(x, y);
+        newPart.transform.parent = PlayingGrid.Instance.containerGrid[x, y].transform;
         newPart.transform.localPosition = Vector3.zero;
         newPart.transform.Rotate(new Vector3(-90, 0, 0));
         newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);

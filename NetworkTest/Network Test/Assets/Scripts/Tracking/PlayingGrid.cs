@@ -7,7 +7,7 @@ public class PlayingGrid : MonoBehaviour
 
     //Twodimensional Array in which the GameObject on that position is stored;
 
-    public GameObject[,] grid;
+    public GameObject[,] containerGrid;
 
     public int gridColumns;
     public int gridRows;
@@ -38,9 +38,9 @@ public class PlayingGrid : MonoBehaviour
         {
             for (int y = 0; y < gridRows; y++)
             {
-                if (grid[x, y] != null)
+                if (containerGrid[x, y].GetComponentInChildren<ShipPart>().getID() != 4)
                 {
-                    partList.AddLast(grid[x, y]);
+                    partList.AddLast(containerGrid[x, y].transform.GetChild(0).gameObject);
                 }
             }
         }
@@ -51,7 +51,7 @@ public class PlayingGrid : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        grid = new GameObject[gridColumns, gridRows];
+        containerGrid = new GameObject[gridColumns, gridRows];
         //CreateDebugGrid();
     }
 
@@ -69,25 +69,38 @@ public class PlayingGrid : MonoBehaviour
         }
     }
 
-    //Add piece to grid. If There is already a piece there do nothing and return existing piece
-    public GameObject AddPiece(GameObject newPiece, int posX, int posY)
+    ////Add piece to grid. If There is already a piece there do nothing and return existing piece
+    //public GameObject AddPiece(GameObject newPiece, int posX, int posY)
+    //{
+
+    //    if (containerGrid[posX, posY] == null || containerGrid[posX, posY].GetComponentInChildren<ShipPart>().getID() == 4)
+    //    {
+
+
+    //        containerGrid[posX, posY] = newPiece;
+    //        // newPiece.SetActive(true);
+    //        //Parts.Instance.ResetConnections();
+    //        return newPiece;
+    //    }
+    //    else
+    //    {
+    //        //Parts.Instance.ResetConnections();
+    //        return containerGrid[posX, posY];
+    //    }
+
+
+    //}
+
+    public void ClearChildren(int posX, int posY)
     {
+        int n = 0;
 
-        if (grid[posX, posY] == null || grid[posX, posY].GetComponentInChildren<ShipPart>().getID() == 4)
+        foreach (Transform child in transform)
         {
-
-
-            grid[posX, posY] = newPiece;
-            // newPiece.SetActive(true);
-            //Parts.Instance.ResetConnections();
-            return newPiece;
+            Debug.Log("Clear Child " + n++ + " at position " + posX + "/" + posY + "!");
+            child.parent = null;
+            Destroy(child.gameObject);
         }
-        else
-        {
-            //Parts.Instance.ResetConnections();
-            return grid[posX, posY];
-        }
-
 
     }
 
@@ -98,49 +111,47 @@ public class PlayingGrid : MonoBehaviour
         NetworkActions.Instance.CmdSetPartTypes(x, y, 4);
     }
 
-    public void RemovePiece(int x, int y)
-    {
+    //public void RemovePiece(int x, int y)
+    //{
 
-        if (grid[x, y] != null)
-        {
+    //    if (containerGrid[x, y] != null)
+    //    {
 
-            GameObject oldPiece = grid[x, y];
-            oldPiece.SetActive(false);
-            GameObject.Destroy(oldPiece);
-            grid[x, y] = null;
-        }
-    }
+    //        GameObject oldPiece = containerGrid[x, y];
+    //        oldPiece.SetActive(false);
+    //        GameObject.Destroy(oldPiece);
+    //        containerGrid[x, y] = null;
+    //    }
+    //}
 
-    public void RemovePieceNonDestructive(int x, int y)
-    {
-        if (grid[x, y] != null)
-        {
+    //public void RemovePieceNonDestructive(int x, int y)
+    //{
+    //    if (containerGrid[x, y] != null)
+    //    {
 
-            GameObject oldPiece = grid[x, y];
-            // oldPiece.SetActive(false);
-            // GameObject.Destroy(oldPiece);
-            grid[x, y] = null;
-        }
-    }
+    //        GameObject oldPiece = containerGrid[x, y];
+    //        // oldPiece.SetActive(false);
+    //        // GameObject.Destroy(oldPiece);
+    //        containerGrid[x, y] = null;
+    //    }
+    //}
 
-    public bool RemovePieceNonDestructive(GameObject oldPiece)
-    {
-        grid[oldPiece.GetComponentInChildren<ShipPart>().GetPosX(), oldPiece.GetComponentInChildren<ShipPart>().GetPosY()] = null;
-        //oldPiece.SetActive(false);
-        //GameObject.Destroy(oldPiece);
+    //public bool RemovePieceNonDestructive(GameObject oldPiece)
+    //{
+    //    containerGrid[oldPiece.GetComponentInChildren<ShipPart>().GetPosX(), oldPiece.GetComponentInChildren<ShipPart>().GetPosY()] = null;
+    //    //oldPiece.SetActive(false);
+    //    //GameObject.Destroy(oldPiece);
 
-        return true;
+    //    return true;
 
-    }
+    //}
 
     //Remove Piece. Return piece when found, return null when not
     public GameObject RemovePiece(GameObject oldPiece)
     {
 
         //NetworkActions.Instance.CmdSetPartTypes(oldPiece.GetComponentInChildren<ShipPart>().GetPosX(), oldPiece.GetComponentInChildren<ShipPart>().GetPosY(), 4);
-        grid[oldPiece.GetComponentInChildren<ShipPart>().GetPosX(), oldPiece.GetComponentInChildren<ShipPart>().GetPosY()] = null;
-        oldPiece.SetActive(false);
-        GameObject.Destroy(oldPiece);
+        NetworkActions.Instance.CmdSetPartTypes(oldPiece.GetComponentInChildren<ShipPart>().GetPosX(), oldPiece.GetComponentInChildren<ShipPart>().GetPosY(), 4);
 
 
         //return oldPiece;
@@ -181,7 +192,7 @@ public class PlayingGrid : MonoBehaviour
         {
             for (int y = 0; y < gridRows; y++)
             {
-                if (grid[x, y] != null && grid[x, y].Equals(piece))
+                if (containerGrid[x, y] != null && containerGrid[x, y].Equals(piece))
                 {
                     return true;
                 }
@@ -197,7 +208,7 @@ public class PlayingGrid : MonoBehaviour
     {
         //Debug.Log("posX: " + posX + "    posY: " + posY);
 
-        if (grid[posX, posY] == null)  // || grid[posX,posY].GetComponent<ShipPart>().getID() == 4)
+        if (containerGrid[posX, posY].GetComponentInChildren<ShipPart>().getID() == 4)  // || grid[posX,posY].GetComponent<ShipPart>().getID() == 4)
         {
             return true;
         }
@@ -209,15 +220,17 @@ public class PlayingGrid : MonoBehaviour
 
     public bool IsEmptyOrSame(int posX, int posY, GameObject comparator)
     {
-        if (grid[posX, posY] == null || grid[posX, posY].GetComponent<ShipPart>().getID() == 4)
+        if (containerGrid[posX, posY].GetComponentInChildren<ShipPart>().getID() == 4)
         {
             return true;
         }
         else
         {
 
-            Debug.Log(grid[posX, posY].GetComponent<ShipPart>().GetPosX() + " " + comparator.GetComponent<ShipPart>().GetPosX() + " " + grid[posX, posY].GetComponent<ShipPart>().GetPosY() + " " + comparator.GetComponent<ShipPart>().GetPosY());
-            if (grid[posX, posY].GetComponent<ShipPart>().GetPosX() == comparator.GetComponent<ShipPart>().GetPosX() && grid[posX, posY].GetComponent<ShipPart>().GetPosY() == comparator.GetComponent<ShipPart>().GetPosY())
+            //Debug.Log(containerGrid[posX, posY].GetComponentInChildren<ShipPart>().GetPosX() + " " + comparator.GetComponent<ShipPart>().GetPosX() + 
+            //    " " + containerGrid[posX, posY].GetComponentInChildren<ShipPart>().GetPosY() + " " + comparator.GetComponent<ShipPart>().GetPosY());
+            if (containerGrid[posX, posY].GetComponentInChildren<ShipPart>().GetPosX() == comparator.GetComponent<ShipPart>().GetPosX()
+                && containerGrid[posX, posY].GetComponentInChildren<ShipPart>().GetPosY() == comparator.GetComponent<ShipPart>().GetPosY())
             {
                 return true;
             }
@@ -238,7 +251,7 @@ public class PlayingGrid : MonoBehaviour
         {
             for (int y = 0; y < gridRows; y++)
             {
-                if (grid[x, y] != null)
+                if (containerGrid[x, y] != null)
                 {
                     return true;
                 }
@@ -250,7 +263,7 @@ public class PlayingGrid : MonoBehaviour
 
     public GameObject GetPiece(int posX, int posY)
     {
-        return grid[posX, posY];
+        return containerGrid[posX, posY].transform.GetChild(0).gameObject;
     }
 
 
@@ -268,7 +281,7 @@ public class PlayingGrid : MonoBehaviour
         //int OldPosX = piece.GetComponentInChildren<ShipPart>().GetPosX();
         //int OldPosY = piece.GetComponentInChildren<ShipPart>().GetPosY();
 
-        foreach (GameObject gridPiece in SwitchShipParts.Instance.shipContainers)
+        foreach (GameObject gridPiece in containerGrid)
         {
 
             //Debug.Log((gridPiece.transform.position.x - piece.transform.position.x) + "/" + (gridPiece.transform.position.y - piece.transform.position.y) + "/" + (gridPiece.transform.position.z - piece.transform.position.z));
@@ -303,7 +316,7 @@ public class PlayingGrid : MonoBehaviour
 
                         nearest = distanceSq;
 
-                        Debug.Log("FIELD NOT EMPTY LOOSER");
+                       // Debug.Log("FIELD NOT EMPTY LOOSER");
 
                         pos = new Vector3(gridPiece.transform.position.x, gridPiece.transform.position.y, gridPiece.transform.position.z);
 
@@ -358,10 +371,10 @@ public class PlayingGrid : MonoBehaviour
                 // Debug.Log(grid[x, y].GetComponentInChildren<ShipPart>().GetPosX() + "   " + grid[x, y].GetComponentInChildren<ShipPart>().GetPosY() + "   " + grid[x, y].GetComponentInChildren<ShipPart>().getID());
 
 
-                if (grid[x, y] != null)
+                if (containerGrid[x, y] != null)
                 {
-                    NetworkActions.Instance.CmdSetPartTypes(x, y, grid[x, y].GetComponentInChildren<ShipPart>().getID());
-                    Debug.Log("Ahoi - " + x + "/" + y + " - " + grid[x, y].GetComponentInChildren<ShipPart>().getID());
+                    NetworkActions.Instance.CmdSetPartTypes(x, y, containerGrid[x, y].GetComponentInChildren<ShipPart>().getID());
+                    Debug.Log("Ahoi - " + x + "/" + y + " - " + containerGrid[x, y].GetComponentInChildren<ShipPart>().getID());
                 }
                 else
                 {
@@ -388,15 +401,23 @@ public class PlayingGrid : MonoBehaviour
         //RemovePiece(piece);
 
         // Debug.Log(grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().GetPosX() + "   " + grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().GetPosY() + "   " + grid[GetComponentInChildren<ShipPart>().GetPosX(), GetComponentInChildren<ShipPart>().GetPosY()].GetComponentInChildren<ShipPart>().getID());
+        int oldPosX = piece.GetComponentInChildren<ShipPart>().GetPosX();
+        int oldPosY = piece.GetComponentInChildren<ShipPart>().GetPosY();
 
-
-        NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), 4);
+       
 
         // StartCoroutine(delayedSwitch(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), 4));
 
         SnapTranslationToNearest(piece);
 
-        NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), piece.GetComponentInChildren<ShipPart>().getID());
+        //If piece moved
+        if (piece.GetComponentInChildren<ShipPart>().GetPosX() != oldPosX || piece.GetComponentInChildren<ShipPart>().GetPosY() != oldPosY)
+        {
+
+            NetworkActions.Instance.CmdSetPartTypes(oldPosX, oldPosY, 4);
+
+            NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), piece.GetComponentInChildren<ShipPart>().getID());
+        }
         // Debug.Log(piece.GetComponentInChildren<ShipPart>().getID());
 
     }
@@ -431,14 +452,14 @@ public class PlayingGrid : MonoBehaviour
                     break;
                 }
 
-                if (grid[x, y] != null)
+                if (containerGrid[x, y] != null)
                 {
-                    if (grid[x, y].GetComponentInChildren<ShipPart>().getID() == 0)
+                    if (containerGrid[x, y].GetComponentInChildren<ShipPart>().getID() == 0)
                     {
                         hasBatteries = true;
                     }
 
-                    if (grid[x, y].GetComponentInChildren<ShipPart>().getID() == 1)
+                    if (containerGrid[x, y].GetComponentInChildren<ShipPart>().getID() == 1)
                     {
                         hasThruster = true;
                     }
@@ -479,49 +500,49 @@ public class PlayingGrid : MonoBehaviour
         return newPosition;
     }
 
-    public void IncludePiece(GameObject piece)
-    {
+    //public void IncludePiece(GameObject piece)
+    //{
 
 
-        Debug.Log("Try to include " + piece.ToString());
-        //Check if piece is already in Play
+    //    Debug.Log("Try to include " + piece.ToString());
+    //    //Check if piece is already in Play
 
 
-        RemovePiece(piece);
+    //    RemovePiece(piece);
 
 
-        //Update Position if necessary
-        Vector3 tempPosition = SnapTranslation(piece.transform.localPosition);
+    //    //Update Position if necessary
+    //    Vector3 tempPosition = SnapTranslation(piece.transform.localPosition);
 
-        //Set GridCoordinates of Piece
-        Vector2 gridPos = ConvertToGridCoordinates(tempPosition);
+    //    //Set GridCoordinates of Piece
+    //    Vector2 gridPos = ConvertToGridCoordinates(tempPosition);
 
-        //Debug.Log(gridPos);
+    //    //Debug.Log(gridPos);
 
-        //If position is already occupied, stay in current position
+    //    //If position is already occupied, stay in current position
 
-        if (!IsEmpty(gridPos))
-        {
-            gridPos = new Vector2(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
-        }
-
-
-
-        piece.GetComponentInChildren<ShipPart>().SetPosX((int)gridPos.x);
-        piece.GetComponentInChildren<ShipPart>().SetPosY((int)gridPos.y);
-
-        piece.transform.localPosition = ConvertToLocalCoordinates(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
-        piece.transform.Translate(0, 0, -1);
+    //    if (!IsEmpty(gridPos))
+    //    {
+    //        gridPos = new Vector2(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
+    //    }
 
 
 
-        AddPiece(piece, piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
-        // Debug.Log(GetPiece(5, 2));
+    //    piece.GetComponentInChildren<ShipPart>().SetPosX((int)gridPos.x);
+    //    piece.GetComponentInChildren<ShipPart>().SetPosY((int)gridPos.y);
+
+    //    piece.transform.localPosition = ConvertToLocalCoordinates(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
+    //    piece.transform.Translate(0, 0, -1);
 
 
 
-        //Include if not already here
-    }
+    //    AddPiece(piece, piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY());
+    //    // Debug.Log(GetPiece(5, 2));
+
+
+
+    //    //Include if not already here
+    //}
 
     public Vector2 ConvertToGridCoordinates(Vector3 pos)
     {

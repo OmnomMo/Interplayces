@@ -64,6 +64,31 @@ public class SwitchShipParts : NetworkBehaviour {
         nCols = PlayingGrid.Instance.gridColumns;
 
         CreateContainers();
+
+
+        PuzzlePartPositions.Instance.CollectParts();
+
+        //If positions where changed before
+
+        StartCoroutine(DelayedRestoreParts());
+
+    }
+
+    public IEnumerator DelayedRestoreParts()
+    {
+        yield return null;
+        if (PuzzlePartPositions.Instance.allPositions != null)
+        {
+            PuzzlePartPositions.Instance.RestorePartPositions();
+
+            StartCoroutine(DelayedIncludeParts());
+        }
+    }
+
+    public IEnumerator DelayedIncludeParts()
+    {
+        yield return null;
+        PuzzlePartPositions.Instance.IncludeParts();
     }
 	
 	// Update is called once per frame
@@ -203,7 +228,8 @@ public class SwitchShipParts : NetworkBehaviour {
     [ClientRpc]
     internal void RpcSetPT(int x, int y, int newID)
     {
-        
+
+
 
         //Debug.Log("SetNewPart");
 
@@ -216,12 +242,7 @@ public class SwitchShipParts : NetworkBehaviour {
         }
 
         var oldPartType = oldPart.GetComponent<ShipPart>().GetType();
-
-        // if (newPart.GetComponent<ShipPart>() is typeof(oldPart.GetComponent<ShipPart>().GetType()))
-
-        //playingField.GetComponent<PlayingGrid>().RemovePiece(oldPart);
-
-        //playingField.GetComponent<PlayingGrid>().AddPiece(newPart, x, y);
+        
 
         PlayingGrid.Instance.ClearChildren(x, y);
         newPart.transform.parent = PlayingGrid.Instance.containerGrid[x, y].transform;
@@ -229,6 +250,8 @@ public class SwitchShipParts : NetworkBehaviour {
         newPart.transform.Rotate(new Vector3(-90, 0, 0));
         newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
         newPart.GetComponentInChildren<ShipPart>().SetPosY(y);// colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);
+
+        
 
         GameObject.Destroy(oldPart);
 

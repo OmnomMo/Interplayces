@@ -8,6 +8,8 @@ public class FollowSphere : MonoBehaviour {
     public GameObject playingField;
     public bool isOnField;
 
+    public int UID;
+
     bool followDelayed;
 
 	// Use this for initialization
@@ -27,12 +29,15 @@ public class FollowSphere : MonoBehaviour {
         }
 
 
+        //If the object is on the playing field and is being dragged at the moment
         if ( /*sphere.GetComponent<DragAround>().dragged &&*/ isOnField && sphere.GetComponent<TouchScript.Gestures.TransformGesture>().State == TouchScript.Gestures.Gesture.GestureState.Changed)
         {
             PlayingGrid.Instance.IncludePieceV02(gameObject);
             followDelayed = true;
         } else
         {
+
+            //Update Field one frame after object is dragged as well
             //Follow one frmae longer
             if (followDelayed)
             {

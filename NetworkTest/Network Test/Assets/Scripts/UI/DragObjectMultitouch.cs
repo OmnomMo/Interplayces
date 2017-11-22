@@ -21,7 +21,7 @@ public class DragObjectMultitouch : MonoBehaviour {
             followingObject.gameObject.GetComponent<FollowSphere>().isOnField = false;
           
 
-           // Debug.Log("Trying to remove " + followingObject.GetComponentInChildren<ShipPart>().ToString() + " - " + removed);
+            //Debug.Log("Trying to remove " + followingObject.GetComponentInChildren<ShipPart>().ToString() );
             //Debug.Log("Cube is on field!");
         }
     }
@@ -31,7 +31,7 @@ public class DragObjectMultitouch : MonoBehaviour {
         if (other.gameObject.tag == "PlayingField")
         {
             followingObject.gameObject.GetComponent<FollowSphere>().isOnField = true;
-            //Debug.Log("Cube is on field!");
+            //Debug.Log(followingObject.GetComponentInChildren<ShipPart>().ToString() + " is on field!");
         }
     }
 

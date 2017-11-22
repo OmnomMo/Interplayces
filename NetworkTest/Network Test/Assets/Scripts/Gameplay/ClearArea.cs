@@ -6,6 +6,8 @@ public class ClearArea : MonoBehaviour {
 
     public bool clear;
     public int nObjects;
+
+    public GameObject spaceStation;
     
 
 	// Use this for initialization
@@ -34,6 +36,10 @@ public class ClearArea : MonoBehaviour {
             if (nObjects <= 0)
             {
                 clear = true;
+                if (spaceStation != null)
+                {
+                    spaceStation.GetComponent<PopUp>().StartPopup();
+                }
             }
         }
     }

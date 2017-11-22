@@ -18,6 +18,9 @@ public class EndBuilding : NetworkBehaviour {
     [ClientRpc]
     public void RpcEndPhase()
     {
+
+        PuzzlePartPositions.Instance.SavePartPositions(); 
+
         SpaceShipPlans.Instance.ClearAllParts();
 
 

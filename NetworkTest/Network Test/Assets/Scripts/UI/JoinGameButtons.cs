@@ -86,7 +86,7 @@ public class JoinGameButtons : MonoBehaviour {
        
             MultiplayerSetup.Instance.StartHost();
 
-            if (!GameState.Instance.holoLensConnected)
+            if (!GameState.Instance.holoLensConnected && !MultiplayerSetup.Instance.GetComponent<ServerUDP>().directConnect)
             {
                 MultiplayerSetup.Instance.gameObject.GetComponent<ServerUDP>().StartSendingIP();
             }
@@ -107,7 +107,15 @@ public class JoinGameButtons : MonoBehaviour {
 
     public void JoinAsNavigator()
     {
-        MultiplayerSetup.Instance.gameObject.GetComponent<ServerUDP>().StartListener();
+        if (!MultiplayerSetup.Instance.GetComponent<ServerUDP>().directConnect)
+        {
+            MultiplayerSetup.Instance.gameObject.GetComponent<ServerUDP>().StartListener();
+        } else
+        {
+            MultiplayerSetup.Instance.gameObject.GetComponent<ServerUDP>().DirectConnect();
+        }
+
+
         MultiplayerSetup.Instance.StartAsNavigator();
 
         captainButton.interactable = false;

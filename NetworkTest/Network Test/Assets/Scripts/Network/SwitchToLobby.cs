@@ -11,7 +11,7 @@ public class SwitchToLobby : MonoBehaviour {
 
     public  IEnumerator ToLobby()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         Application.LoadLevel(1);
     }
 	

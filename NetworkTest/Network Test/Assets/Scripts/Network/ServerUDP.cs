@@ -13,7 +13,10 @@ public class ServerUDP : MonoBehaviour {
     bool receivedIP;
     string receivedStringIP;
     bool connected;
-	//public NetworkLobbyManager networkManager;
+    //public NetworkLobbyManager networkManager;
+
+    public bool directConnect;
+    public string serverIP;
 
 	// Update is called once per frame
 	void Update () {
@@ -96,6 +99,21 @@ public class ServerUDP : MonoBehaviour {
         receivedStringIP = receivedString;
         receivedIP = true;
         
+    }
+
+    public void DirectConnect()
+    {
+        try
+        {
+            GetComponent<NetworkLobbyManager>().networkAddress = serverIP;
+            GetComponent<NetworkLobbyManager>().networkPort = 7777;
+            GetComponent<NetworkLobbyManager>().StartClient();
+            connected = true;
+        }
+        catch
+        {
+            Debug.Log("No connection possible");
+        }
     }
 
     private void SetupConnection(string IPString)

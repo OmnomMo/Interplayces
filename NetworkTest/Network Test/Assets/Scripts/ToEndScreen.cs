@@ -27,7 +27,16 @@ public class ToEndScreen : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        instance = this;
+        if (ToEndScreen.Instance == null)
+        {
+            instance = this;
+
+        } else
+        {
+            ToEndScreen.Instance.hasEnded = false;
+            Destroy(gameObject);
+        }
+
         hasEnded = false;
         
 	}
@@ -101,6 +110,11 @@ public class ToEndScreen : NetworkBehaviour {
     public void showEndMessage(int message)
     {
         endingMessage.SetActive(true);
+
+        if (GameState.Instance.isPlayerCaptain())
+        {
+            endingMessage.GetComponent<Canvas>().targetDisplay = 1;
+        }
 
         reason = (reasonForTermination)message;
 

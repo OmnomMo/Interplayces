@@ -12,7 +12,15 @@ public class EndBuilding : NetworkBehaviour {
 
     // Use this for initialization
     void Start () {
-        instance = this;
+        if (Instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
 	}
 
     [ClientRpc]

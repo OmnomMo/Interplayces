@@ -65,7 +65,7 @@ public class SwitchShipParts : NetworkBehaviour {
 
         CreateContainers();
 
-
+        Debug.Log("Created Containers!");
         PuzzlePartPositions.Instance.CollectParts();
 
         //If positions where changed before

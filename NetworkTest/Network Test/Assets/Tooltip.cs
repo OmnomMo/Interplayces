@@ -19,6 +19,7 @@ public class Tooltip : MonoBehaviour {
     bool ttHasArrow;
     Transform ttArrowTarget;
     public GameObject ttArrowObject;
+    public GameObject ttArrowBackdrop;
 
 
     public bool timed;
@@ -154,12 +155,14 @@ public class Tooltip : MonoBehaviour {
             if (ttHasArrow)
             {
                 ttArrowObject.gameObject.SetActive(true);
+                ttArrowBackdrop.gameObject.SetActive(true);
             }
             else
             {
                 if (ttArrowObject != null)
                 {
                     ttArrowObject.gameObject.SetActive(false);
+                    ttArrowBackdrop.gameObject.SetActive(false);
                 }
             }
         } else
@@ -168,6 +171,7 @@ public class Tooltip : MonoBehaviour {
             ttTextObjectWithImage.gameObject.SetActive(false);
             ttImageObject.gameObject.SetActive(false);
             ttArrowObject.gameObject.SetActive(false);
+            ttArrowBackdrop.gameObject.SetActive(false);
         }
 
 

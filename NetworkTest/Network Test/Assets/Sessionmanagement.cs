@@ -48,6 +48,7 @@ public class Sessionmanagement : MonoBehaviour {
         waitForInput = true;
 
         DataCollection.Instance.EndSession(endTime);
+        PuzzlePartPositions.Instance.resetShip = true;
 
 
         MultiplayerSetup.Instance.ServerChangeScene("01b_LandingScreen");

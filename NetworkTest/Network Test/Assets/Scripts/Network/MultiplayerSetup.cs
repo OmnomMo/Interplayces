@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.IO;
 
 public class MultiplayerSetup : NetworkLobbyManager{
 
@@ -13,6 +14,12 @@ public class MultiplayerSetup : NetworkLobbyManager{
 
     public bool singlePlayerAble;
 
+    public bool instantConnect;
+    public string roleFilePath;
+
+    public GameObject waitForCaptainPanel;
+    public GameObject waitForNavigatorPanel;
+
 
 
     private static MultiplayerSetup instance;
@@ -20,6 +27,8 @@ public class MultiplayerSetup : NetworkLobbyManager{
     {
         get { return instance; }
     }
+
+
 
 
     void OnApplicationQuit()
@@ -74,7 +83,40 @@ public class MultiplayerSetup : NetworkLobbyManager{
 
         isCaptainReady = false;
         isNavigatorReady = false;
+
+        if (instantConnect)
+        {
+            StartCoroutine(InstantConnectDelayed());
+        }
 	}
+
+    public IEnumerator InstantConnectDelayed()
+    {
+        yield return null;
+
+        string role = ReadRoleFromFile();
+
+        if (role == "captain")
+        {
+            Debug.Log("Its a captain!");
+            JoinGameButtons.Instance.JoinAsCaptain();
+            waitForNavigatorPanel.SetActive(true);
+
+            Debug.Log("displays connected: " + Display.displays.Length);
+            // Display.displays[0] is the primary, default display and is always ON.
+            // Check if additional displays are available and activate each.
+            if (Display.displays.Length > 1)
+                Display.displays[1].Activate();
+            //if (Display.displays.Length > 2)
+            //    Display.displays[2].Activate();
+        }
+        else
+        {
+            JoinGameButtons.Instance.JoinAsNavigator();
+            waitForCaptainPanel.SetActive(true);
+        }
+
+    }
 
     public void StartAsCaptain()
     {
@@ -134,5 +176,18 @@ public class MultiplayerSetup : NetworkLobbyManager{
     public void StartGame()
     {
        // ServerChangeScene(playScene);
+    }
+
+    public string ReadRoleFromFile()
+    {
+
+        StreamReader reader = new StreamReader(Application.streamingAssetsPath + roleFilePath);
+
+        string json = reader.ReadToEnd();
+
+        return json;
+        
+        //this = JsonUtility.FromJsonOverwrite()
+        //Debug.Log(sourceText.ToString());
     }
 }

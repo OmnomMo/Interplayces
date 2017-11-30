@@ -45,14 +45,18 @@ public class AudioManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (followSpaceship)
+        if (SpaceshipGameplay.Instance != null)
         {
-            transform.position = SpaceshipGameplay.Instance.gameObject.transform.position;
-            //transform.rotation = SpaceshipGameplay.Instance.gameObject.transform.rotation;
-        } else
-        {
-            transform.position = Camera.main.gameObject.transform.position;
-            //transform.rotation = SpaceshipGameplay.Instance.gameObject.transform.rotation;
+            if (followSpaceship)
+            {
+                transform.position = SpaceshipGameplay.Instance.gameObject.transform.position;
+                //transform.rotation = SpaceshipGameplay.Instance.gameObject.transform.rotation;
+            }
+            else
+            {
+                transform.position = Camera.main.gameObject.transform.position;
+                //transform.rotation = SpaceshipGameplay.Instance.gameObject.transform.rotation;
+            }
         }
 	}
 

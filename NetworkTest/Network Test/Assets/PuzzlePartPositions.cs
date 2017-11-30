@@ -7,6 +7,7 @@ public class PuzzlePartPositions : MonoBehaviour {
     public Vector3[] allPositions;
     public GameObject[] allPuzzleParts;
 
+    public bool resetShip;
 
 
     private static PuzzlePartPositions instance;
@@ -93,11 +94,18 @@ public class PuzzlePartPositions : MonoBehaviour {
     //Restores positions of all puzzleParts from Array
     public void RestorePartPositions()
     {
-        if (allPuzzleParts.Length > 0 && allPositions.Length >0) {
-            for (int i = 0; i < allPuzzleParts.Length; i++)
+        if (!resetShip)
+        {
+            if (allPuzzleParts.Length > 0 && allPositions.Length > 0)
             {
-                allPuzzleParts[i].GetComponent<FollowSphere>().sphere.transform.position = allPositions[i];
+                for (int i = 0; i < allPuzzleParts.Length; i++)
+                {
+                    allPuzzleParts[i].GetComponent<FollowSphere>().sphere.transform.position = allPositions[i];
+                }
             }
+        } else
+        {
+            resetShip = false;
         }
     }
 	

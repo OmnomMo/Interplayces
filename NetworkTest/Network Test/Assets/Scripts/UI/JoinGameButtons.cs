@@ -92,9 +92,15 @@ public class JoinGameButtons : MonoBehaviour {
             }
             MultiplayerSetup.Instance.StartAsCaptain();
 
-        
-        navButton.interactable = false;
-        captainButton.interactable = false;
+        if (navButton != null)
+        {
+            navButton.interactable = false;
+        }
+
+        if (captainButton != null)
+        {
+            captainButton.interactable = false;
+        }
 
         ColorCaptainGreen();
 

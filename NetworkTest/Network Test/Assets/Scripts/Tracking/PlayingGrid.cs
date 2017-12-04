@@ -237,14 +237,24 @@ public class PlayingGrid : MonoBehaviour
                 piece.GetComponentInChildren<ShipPart>().SetPosY(nearestGridPeace.GetComponentInChildren<ShipPart>().GetPosY());
 
                 piece.transform.position = pos;
+                piece.GetComponent<FollowSphere>().partIncluded = true;
             }
             else
             {
+
+                if (!piece.GetComponent<FollowSphere>().partIncluded)
+                {
+                    return null;
+                }
+
                 if (containerGrid[piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY()] != null)
                 {
 
                     GameObject oldGridPiece = containerGrid[piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY()];
                     piece.transform.position = new Vector3 (oldGridPiece.transform.position.x, oldGridPiece.transform.position.y, -2);
+
+                    piece.GetComponent<FollowSphere>().partIncluded = true;
+
                 } else
                 {
                     Debug.Log("ContainerGrid on " + piece.GetComponentInChildren<ShipPart>().GetPosX() + "/" + piece.GetComponentInChildren<ShipPart>().GetPosY() +  " is null!"); 
@@ -311,18 +321,20 @@ public class PlayingGrid : MonoBehaviour
 
 
 
-
-        SnapTranslationToNearest(piece);
-
-        //If piece moved
-        if (piece.GetComponentInChildren<ShipPart>().GetPosX() != oldPosX || piece.GetComponentInChildren<ShipPart>().GetPosY() != oldPosY)
+        //returns null if part has no place on field
+        if (SnapTranslationToNearest(piece) != null)
         {
 
-            NetworkActions.Instance.CmdSetPartTypes(oldPosX, oldPosY, 4);
+            //If piece moved
+            if (piece.GetComponentInChildren<ShipPart>().GetPosX() != oldPosX || piece.GetComponentInChildren<ShipPart>().GetPosY() != oldPosY)
+            {
 
-            NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), piece.GetComponentInChildren<ShipPart>().getID());
+                NetworkActions.Instance.CmdSetPartTypes(oldPosX, oldPosY, 4);
+
+                NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), piece.GetComponentInChildren<ShipPart>().getID());
+            }
+            // Debug.Log(piece.GetComponentInChildren<ShipPart>().getID());
         }
-        // Debug.Log(piece.GetComponentInChildren<ShipPart>().getID());
 
     }
 

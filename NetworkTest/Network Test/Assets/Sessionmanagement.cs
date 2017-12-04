@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Sessionmanagement : MonoBehaviour {
 
@@ -80,30 +81,37 @@ public class Sessionmanagement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.anyKey)
+        if (Input.anyKey) 
         {
-            GetNewInput();
-        }
-
-        if (Time.time - timeLastInput >= timeToTooltip)
-        {
-            if (!waitForInput)
+            Debug.Log("New input detected!");
+            if (NetworkActions.Instance != null)
             {
-                if (TooltipManager.Instance != null && warningTooltip == null) {
-                    int timeLeft = (int)timeToRestart - (int)timeToTooltip;
-                    warningTooltip = TooltipManager.Instance.NewTooltip("Achtung! Das Spiel wird in " + timeLeft + " Sekunden neu gestartet. Wenn ihr weiterspielen möchtet drückt bitte irgendeinen Knopf!", null, timeLeft);
-                    TooltipManager.Instance.warningSource.Play();
-                        }
+                NetworkActions.Instance.CmdRegisterInput();
             }
         }
 
+        if (SceneManager.GetActiveScene().name != "01b_LandingScreen" && SceneManager.GetActiveScene().name != "01_Lobby") {
 
-        if (Time.time - timeLastInput >= timeToRestart)
-        {
-            if (!waitForInput)
+            if (Time.time - timeLastInput >= timeToTooltip)
             {
-                EndSession(dateTimeLastInput);
-                waitForInput = true;
+                if (!waitForInput)
+                {
+                    if (TooltipManager.Instance != null && warningTooltip == null) {
+                        int timeLeft = (int)timeToRestart - (int)timeToTooltip;
+                        warningTooltip = TooltipManager.Instance.NewTooltip("Achtung! Das Spiel wird in " + timeLeft + " Sekunden neu gestartet. Wenn ihr weiterspielen möchtet drückt bitte irgendeinen Knopf!", null, timeLeft);
+                        TooltipManager.Instance.warningSource.Play();
+                    }
+                }
+            }
+
+
+            if (Time.time - timeLastInput >= timeToRestart)
+            {
+                if (!waitForInput)
+                {
+                    EndSession(dateTimeLastInput);
+                    waitForInput = true;
+                }
             }
         }
 

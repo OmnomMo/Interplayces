@@ -7,6 +7,7 @@ public class FollowSphere : MonoBehaviour {
     public GameObject sphere;
     public GameObject playingField;
     public bool isOnField;
+    public bool partIncluded;
 
     public int UID;
 

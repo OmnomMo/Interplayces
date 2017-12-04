@@ -31,6 +31,16 @@ public class NetworkActions : NetworkBehaviour {
     //Network-commands 
 
 
+    //MISC
+    //---------------------------------------------------------------
+
+    [Command]
+    public void CmdRegisterInput()
+    {
+        NetworkPlayer.Instance.RpcRegisterInput();
+    }
+
+
     //Scene Management
     //---------------------------------------------------------------
 

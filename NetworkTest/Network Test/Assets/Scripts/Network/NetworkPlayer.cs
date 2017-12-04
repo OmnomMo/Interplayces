@@ -50,6 +50,12 @@ public class NetworkPlayer : NetworkBehaviour
         MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
     }
 
+    [ClientRpc] 
+    public void RpcRegisterInput()
+    {
+        Sessionmanagement.Instance.GetNewInput();
+    }
+
     [ClientRpc]
     public void RpcReturnToLevelSelect()
     {

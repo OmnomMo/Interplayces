@@ -396,7 +396,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
             }
         } else
         {
-            Camera.main.GetComponent<FollowSpaceship>().camHeight = 120;
+            Camera.main.GetComponent<FollowSpaceship>().camHeight = 150;
         }
     }
 }

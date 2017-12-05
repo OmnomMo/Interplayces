@@ -45,6 +45,7 @@ public class DragObjectMultitouch : MonoBehaviour {
         if (GetComponent<TouchScript.Gestures.TransformGesture>().State == TouchScript.Gestures.Gesture.GestureState.Changed)
         {
             stoppedDrag = false;
+            NetworkActions.Instance.CmdRegisterInput();
         }
 
 

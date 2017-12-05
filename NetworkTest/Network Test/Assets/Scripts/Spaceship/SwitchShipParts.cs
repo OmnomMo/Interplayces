@@ -230,6 +230,10 @@ public class SwitchShipParts : NetworkBehaviour {
     {
 
 
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Set part.");
+        }
 
         //Debug.Log("SetNewPart");
 

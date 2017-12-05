@@ -46,6 +46,11 @@ public class NetworkPlayer : NetworkBehaviour
     public void RpcRestartGame()
     {
         //GameObject.Destroy(Score.Instance.gameObject);
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Restart Game.");
+        }
+
 
         MultiplayerSetup.Instance.ServerChangeScene("02_SpaceShipEditor_Tracking");
     }
@@ -53,12 +58,24 @@ public class NetworkPlayer : NetworkBehaviour
     [ClientRpc] 
     public void RpcRegisterInput()
     {
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Register Input.");
+        }
+
         Sessionmanagement.Instance.GetNewInput();
     }
 
     [ClientRpc]
     public void RpcReturnToLevelSelect()
     {
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Return to level select screen.");
+        }
+
         MultiplayerSetup.Instance.ServerChangeScene("03_Level_Select");
     }
 
@@ -67,12 +84,26 @@ public class NetworkPlayer : NetworkBehaviour
     {
         //GameObject.Destroy(Score.Instance.gameObject);
 
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Restart Level");
+        }
+
+
         MultiplayerSetup.Instance.ServerChangeScene(Application.loadedLevelName);
     }
 
     [ClientRpc]
     public void RpcPauseGame()
     {
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Pause Game.");
+        }
+
+
         GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().PauseGame();
         MainSceneManager.Instance.DeactivateGameInterface();
       
@@ -81,6 +112,12 @@ public class NetworkPlayer : NetworkBehaviour
     [ClientRpc]
     public void RpcUnpauseGame()
     {
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Unpause Game.");
+        }
+
         GameObject.Find("Pause Menu Manager").GetComponent<GreatArcStudios.PauseManager>().UnPauseGame();
         MainSceneManager.Instance.ActivateGameInterface();
     }
@@ -88,6 +125,13 @@ public class NetworkPlayer : NetworkBehaviour
     [ClientRpc]
     public void RpcShowEndMessage(int message)
     {
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Show ending message");
+        }
+
         ToEndScreen.Instance.showEndMessage(message);
     }
 }

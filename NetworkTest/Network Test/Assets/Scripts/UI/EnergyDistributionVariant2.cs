@@ -17,9 +17,13 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
     public GameObject scanSlider;
     public GameObject shieldIconGrey;
 
+    
+
+    
+
 	// Use this for initialization
 	void Start () {
-		
+        StartCoroutine(UpdateSliders());
 	}
 
 
@@ -37,9 +41,9 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
             Debug.Log("SceneManager Not Set!");
         }
 
-            NetworkActions.Instance.CmdSetThrust(thrustSlider.GetComponent<Slider>().value);
-            NetworkActions.Instance.CmdSetShield(shieldSlider.GetComponent<Slider>().value);
-            SpaceshipGameplay.Instance.scanPower = scanSlider.GetComponent<Slider>().value;
+           
+            
+            
        
 
         healthDisplay.GetComponent<Image>().fillAmount = (SpaceshipGameplay.Instance.hitPoints / (float)SpaceshipGameplay.Instance.maxHitpoints);
@@ -56,6 +60,33 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
             batteryPointer.GetComponent<RectTransform>().eulerAngles = new Vector3(0, 0, 90 - ((float)SpaceshipGameplay.Instance.energy / SpaceshipGameplay.Instance.energyCapacity * 150));
         }
     }
+
+    public void UpdateThrust()
+    {
+        NetworkActions.Instance.CmdSetThrust(thrustSlider.GetComponent<Slider>().value);
+    }
+     public void UpdateShield()
+    {
+        NetworkActions.Instance.CmdSetShield(shieldSlider.GetComponent<Slider>().value);
+    }
+
+    public void UpdateScanner()
+    {
+        SpaceshipGameplay.Instance.scanPower = scanSlider.GetComponent<Slider>().value;
+    }
+
+    public IEnumerator UpdateSliders()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.2f);
+            UpdateThrust();
+            UpdateShield();
+            UpdateScanner();
+
+        }
+    }
+
 
 
     public void BalanceSliders(int changedSlider)

@@ -116,6 +116,12 @@ public class PickupManager : NetworkBehaviour {
     {
         // Debug.Log(n);
 
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Destroy Pickup.");
+        }
+
         EnergyPickup pickup = null;
 
         foreach (EnergyPickup ep in energyPickups)
@@ -140,6 +146,13 @@ public class PickupManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcDestroyResourcePickup(int id)
     {
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ".Destroy resource pickup.");
+        }
+
         ResourcePickup pickup = null;
 
         foreach (ResourcePickup rp in resourcePickups)

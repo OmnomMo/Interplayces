@@ -33,6 +33,12 @@ public class NPCManager : NetworkBehaviour {
     [ClientRpc]
     public void RpcCatchNPC(int id)
     {
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Catch NPC.");
+        }
+
         GameObject[] allNPCs = GameObject.FindGameObjectsWithTag("AlienShip");
 
         if (allNPCs.Length != 0 )

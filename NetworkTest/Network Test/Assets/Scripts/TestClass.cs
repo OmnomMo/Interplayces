@@ -50,14 +50,14 @@ public class TestClass: MonoBehaviour {
         if (Input.GetButtonDown("DebugButton"))
         {
          //   Debug.Log("Debug!");
-            SpaceshipGameplay.Instance.DealShieldDamage(20);
+            //SpaceshipGameplay.Instance.DealShieldDamage(20);
             //EndBuilding.Instance.EndPhase();
         }
 
         if (Input.GetButtonDown("DebugButton2"))
         {
            // Debug.Log("Debug!");
-            SpaceshipGameplay.Instance.DrainEnergy(100);
+            //SpaceshipGameplay.Instance.DrainEnergy(100);
             //EndBuilding.Instance.EndPhase();
         }
     }

@@ -107,7 +107,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         ScanPower();
 
-        if (GameState.Instance.isPlayerCaptain())
+        if (shieldPower > 0.01f && GameState.Instance.isPlayerCaptain())
         {
             DrainEnergy(shieldPower * shieldEnergyDrain * SpaceshipParts.Instance.allShields.Length * Time.deltaTime);
         }
@@ -117,6 +117,14 @@ public class SpaceshipGameplay : NetworkBehaviour {
     [ClientRpc]
     internal void RpcSetThrust(float energy)
     {
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Set Thrust.");
+        }
+
+
         thrustPower = energy;
         Sessionmanagement.Instance.GetNewInput();
     }
@@ -124,6 +132,12 @@ public class SpaceshipGameplay : NetworkBehaviour {
     [ClientRpc]
     internal void RpcSetShield(float energy)
     {
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Set Shield.");
+        }
         shieldPower = energy;
         Sessionmanagement.Instance.GetNewInput();
     }
@@ -131,6 +145,11 @@ public class SpaceshipGameplay : NetworkBehaviour {
     [ClientRpc]
     internal void RpcSetScan(float energy)
     {
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Set Scan");
+        }
         scanPower = energy;
         Sessionmanagement.Instance.GetNewInput();
     }
@@ -138,6 +157,13 @@ public class SpaceshipGameplay : NetworkBehaviour {
     [ClientRpc]
     internal void RpcDrainPower(float amount)
     {
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Drain Power.");
+        }
+
         energy -= amount;
 
         if (energy < 0)
@@ -151,18 +177,46 @@ public class SpaceshipGameplay : NetworkBehaviour {
     [ClientRpc] 
     internal void RpcSetEnergy(int n)
     {
+
+
+  
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Set Energy.");
+        }
+
         energy = n;
     }
 
+    float tEnergyLastDrained;
+    float drainAmount;
+
+
     public bool DrainEnergy(float nEnergy)
     {
-        if (nEnergy > energy)
+
+        drainAmount += nEnergy;
+
+        if (Time.time - tEnergyLastDrained > 0.5f)
         {
-            return false;
-        }
-        else
+
+            if (drainAmount > energy)
+            {
+                drainAmount = 0;
+                return false;
+            }
+            else
+            {
+                drainAmount = 0;
+                tEnergyLastDrained = Time.time;
+                NetworkActions.Instance.CmdDrainPower(drainAmount);
+                return true;
+            }
+
+            
+        } else
         {
-            NetworkActions.Instance.CmdDrainPower(nEnergy);
             return true;
         }
 
@@ -200,6 +254,12 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public void RpcDealShieldDamage(float damage)
     {
 
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Deal Shield Damage.");
+        }
+
         if (!shieldOnCooldown)
         {
            // Debug.Log("Deal " + (int)damage + "shield damage!");
@@ -229,6 +289,12 @@ public class SpaceshipGameplay : NetworkBehaviour {
     public void RpcRechargeEnergy(float amount)
     {
 
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Recharge Energy.");
+        }
+
         energy += amount;
 
         if (energy > energyCapacity)
@@ -242,13 +308,17 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
     public void UpdateShieldOpacity()
     {
-        shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, (float) (0.5 * (shield / shieldCapacity)));
-        if (shield <= 0.01f)
+        if (shieldCapacity > 0f)
         {
-            shieldObject.GetComponent<CapsuleCollider>().enabled = false;
-        } else
-        {
-            shieldObject.GetComponent<CapsuleCollider>().enabled = true;
+            shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, (float)(0.5 * (shield / shieldCapacity)));
+            if (shield <= 0.01f)
+            {
+                shieldObject.GetComponent<CapsuleCollider>().enabled = false;
+            }
+            else
+            {
+                shieldObject.GetComponent<CapsuleCollider>().enabled = true;
+            }
         }
     }
 
@@ -346,6 +416,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
         }
     }
 
+
     public IEnumerator DelayedExplosion(float dTime, Transform partPos, float chance)
     {
 
@@ -386,17 +457,20 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         if (GameState.Instance.isPlayerNavigator())
         {
-            if (DrainEnergy(scanEnergyDrain * scanPower * SpaceshipParts.Instance.allScanners.Length * Time.deltaTime))
+            if (scanPower > 0.01f)
             {
-                Camera.main.GetComponent<FollowSpaceship>().camHeight = 200 + Mathf.Pow((500 * scanPower * SpaceshipParts.Instance.allScanners.Length), 1.25f);
-            }
-            else
-            {
-                Camera.main.GetComponent<FollowSpaceship>().camHeight = 200;
+                if (DrainEnergy(scanEnergyDrain * scanPower * SpaceshipParts.Instance.allScanners.Length * Time.deltaTime))
+                {
+                    Camera.main.GetComponent<FollowSpaceship>().camHeight = 250 + Mathf.Pow((150 * scanPower * SpaceshipParts.Instance.allScanners.Length), 1.25f);
+                }
+                else
+                {
+                    Camera.main.GetComponent<FollowSpaceship>().camHeight = 250;
+                }
             }
         } else
         {
-            Camera.main.GetComponent<FollowSpaceship>().camHeight = 150;
+            Camera.main.GetComponent<FollowSpaceship>().camHeight = 200;
         }
     }
 }

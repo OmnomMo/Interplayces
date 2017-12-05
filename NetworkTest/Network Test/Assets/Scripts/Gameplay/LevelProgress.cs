@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class LevelProgress : MonoBehaviour {
+public class LevelProgress : NetworkBehaviour {
 
 
     private static LevelProgress instance;
@@ -23,9 +24,21 @@ public class LevelProgress : MonoBehaviour {
 
         HideObjectivesForNavigator();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    [ClientRpc]
+    public void RpcCompleteActiveConfirmObjective()
+    {
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Complete Current Objective.");
+        }
+
+        GetCurrentObjective().Complete();
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
@@ -114,6 +127,8 @@ public class Objective : MonoBehaviour
         }
 
     }
+
+
 
     public Transform GetTarget()
     {

@@ -32,9 +32,24 @@ public class Tooltip_ConfirmButton : MonoBehaviour {
 
 
     }
+
+    bool alreadyCalled = false;
+
     public void Confirm()
     {
-        confirmObjective.Complete();
+        if (GameState.Instance.isPlayerNavigator())
+        {
+
+            //UI gesture calls button 2 times. only the first one counts.
+            if (!alreadyCalled)
+            {
+                alreadyCalled = true;
+                NetworkActions.Instance.CmdCompleteCurrentConfirmObjective();
+            } else
+            {
+                alreadyCalled = false;
+            }
+        }
     }
 
 

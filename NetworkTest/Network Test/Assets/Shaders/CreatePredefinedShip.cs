@@ -136,6 +136,11 @@ public class CreatePredefinedShip : NetworkActions {
 
         //Debug.Log("SetNewPart");
 
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Set Predefined Part.");
+        }
+
         GameObject newPart = IDToPart(newID);
         GameObject oldPart = PlayingGrid.Instance.containerGrid[x, y].transform.GetChild(0).gameObject;
 

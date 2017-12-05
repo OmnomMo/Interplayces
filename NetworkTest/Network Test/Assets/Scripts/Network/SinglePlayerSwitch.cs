@@ -10,16 +10,20 @@ public class SinglePlayerSwitch : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        
+
         multiplayerSetup = GameObject.Find("MultiplayerSetup");
         MultiplayerSetup.Instance.minPlayers = 2;
 
-        StartCoroutine(DelayedToggle(GetComponent<Toggle>().isOn));
+        StartCoroutine(DelayedToggle(MultiplayerSetup.Instance.singlePlayerAble));
     }
 
     public IEnumerator DelayedToggle(bool toggleState)
     {
         yield return null;
         ToggleSinglePlayer(toggleState);
+
     }
 	
 	// Update is called once per frame

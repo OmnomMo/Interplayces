@@ -81,9 +81,9 @@ public class Sessionmanagement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.anyKey) 
+        if (Input.anyKeyDown) 
         {
-            Debug.Log("New input detected!");
+           // Debug.Log("New input detected!");
             if (NetworkActions.Instance != null)
             {
                 NetworkActions.Instance.CmdRegisterInput();

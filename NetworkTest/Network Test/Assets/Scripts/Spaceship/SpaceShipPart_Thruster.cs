@@ -38,7 +38,7 @@ public class SpaceShipPart_Thruster : MonoBehaviour, ShipPart {
 
     public void Fire()
     {
-        if (!isFiring)
+        if (!isFiring && SpaceshipGameplay.Instance.thrustPower > 0f)
         {
             isFiring = true;
 

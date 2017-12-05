@@ -27,6 +27,13 @@ public class EndBuilding : NetworkBehaviour {
     public void RpcEndPhase()
     {
 
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Enter end phase.");
+        }
+
+
         PuzzlePartPositions.Instance.SavePartPositions(); 
 
         SpaceShipPlans.Instance.ClearAllParts();

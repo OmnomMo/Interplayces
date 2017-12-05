@@ -172,6 +172,14 @@ public class ToEndScreen : NetworkBehaviour {
 
     [ClientRpc] 
     public void RpcEnterEndScreen() {
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Enter end screen.");
+        }
+
+
         if (!hasEnded)
         {
             hasEnded = true;

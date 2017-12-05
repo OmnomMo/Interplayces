@@ -207,67 +207,28 @@ public class SpaceshipMovement : NetworkBehaviour {
 
         //Debug Acceleration without Navigator
 
-
-        if (!outOfBounds)
-        {
-
-            if (GameState.Instance.singlePlayer)
-            {
-                if (isAccelerating && controllable)
-                {
-                    if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
-                    {
-                        GetComponent<Rigidbody>().AddForce(transform.forward * thrusters.Length * thrustMultiplier * boostMultiplier * DEBUGThrustBonus);
-
-                        if (!thrustersFired)
-                        {
-                            gameObject.GetComponent<SpaceshipAudio>().thrustStart_s.Play();
-                            gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Play();
-                            NetworkActions.Instance.CmdFireThrusters();
-                            thrustersFired = true;
-                        }
-                    }
-                } else
-                {
-                    if (thrustersFired)
-                    {
-                        gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Stop();
-                        NetworkActions.Instance.CmdStopThrusters();
-                        thrustersFired = false;
-                    }
-
-                }
-            }
-            else
+        if (GameState.Instance.isPlayerCaptain()) {
+            if (!outOfBounds)
             {
 
-
-
-                //if (SpaceshipGameplay.Instance.energy > 0)
-                if (isAccelerating && SpaceshipGameplay.Instance.energy > 0 && controllable)
+                if (GameState.Instance.singlePlayer)
                 {
-
-
-                    if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
+                    if (isAccelerating && controllable)
                     {
-
-                        GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier * boostMultiplier);
-
-                        SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame * boostMultiplier);
-
-                        if (!thrustersFired)
+                        if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
                         {
+                            GetComponent<Rigidbody>().AddForce(transform.forward * thrusters.Length * thrustMultiplier * boostMultiplier * DEBUGThrustBonus);
 
-                            gameObject.GetComponent<SpaceshipAudio>().thrustStart_s.Play();
-                            gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Play();
-                            NetworkActions.Instance.CmdFireThrusters();
-                            thrustersFired = true;
+                            if (!thrustersFired)
+                            {
+                                gameObject.GetComponent<SpaceshipAudio>().thrustStart_s.Play();
+                                gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Play();
+                                NetworkActions.Instance.CmdFireThrusters();
+                                thrustersFired = true;
+                            }
                         }
                     }
-                }
-                else
-                {
-                    if (GameState.Instance.isPlayerCaptain())
+                    else
                     {
                         if (thrustersFired)
                         {
@@ -275,20 +236,61 @@ public class SpaceshipMovement : NetworkBehaviour {
                             NetworkActions.Instance.CmdStopThrusters();
                             thrustersFired = false;
                         }
+
                     }
                 }
-            }
-        } else //if player is out of bounds
-        {
-            GetComponent<Rigidbody>().AddForce(Vector3.Normalize(mapCenter.transform.position - transform.position) * 1000);
-        }
+                else
+                {
 
-        if (isBraking && controllable)
-        {
-            GetComponent<Rigidbody>().drag = dragBraking;
-        } else
-        {
-            GetComponent<Rigidbody>().drag = dragNormal;
+
+
+                    //if (SpaceshipGameplay.Instance.energy > 0)
+                    if (isAccelerating && SpaceshipGameplay.Instance.energy > 0 && controllable)
+                    {
+
+
+                        if (Vector3.Magnitude(GetComponent<Rigidbody>().velocity) < maxVelocity)
+                        {
+
+                            GetComponent<Rigidbody>().AddForce(transform.forward * SpaceshipGameplay.Instance.thrustPower * thrusters.Length * thrustMultiplier * boostMultiplier);
+
+                            SpaceshipGameplay.Instance.DrainEnergy(SpaceshipGameplay.Instance.thrustPower * thrusters.Length * drainPerFrame * boostMultiplier);
+
+                            if (!thrustersFired)
+                            {
+
+                                gameObject.GetComponent<SpaceshipAudio>().thrustStart_s.Play();
+                                gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Play();
+                                NetworkActions.Instance.CmdFireThrusters();
+                                thrustersFired = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (GameState.Instance.isPlayerCaptain())
+                        {
+                            if (thrustersFired)
+                            {
+                                gameObject.GetComponent<SpaceshipAudio>().thrustLoop_s.Stop();
+                                NetworkActions.Instance.CmdStopThrusters();
+                                thrustersFired = false;
+                            }
+                        }
+                    }
+                }
+            } else //if player is out of bounds
+            {
+                GetComponent<Rigidbody>().AddForce(Vector3.Normalize(mapCenter.transform.position - transform.position) * 1000);
+            }
+
+            if (isBraking && controllable)
+            {
+                GetComponent<Rigidbody>().drag = dragBraking;
+            } else
+            {
+                GetComponent<Rigidbody>().drag = dragNormal;
+            }
         }
     }
 
@@ -296,7 +298,13 @@ public class SpaceshipMovement : NetworkBehaviour {
     public void RpcFireThrusters()
     {
 
-      //  Debug.Log("Startthrusters");
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Fire Thrusters.");
+        }
+
+        //  Debug.Log("Startthrusters");
         foreach (GameObject thruster in thrusters)
         {
             thruster.GetComponent<SpaceShipPart_Thruster>().Fire();
@@ -306,7 +314,13 @@ public class SpaceshipMovement : NetworkBehaviour {
     [ClientRpc]
     public void RpcStopThrusters()
     {
-     //   Debug.Log("Stopthrusters");
+        //   Debug.Log("Stopthrusters");
+
+
+        if (NetworkActions.Instance.logActions)
+        {
+            Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Stop Thrusters.");
+        }
 
         foreach (GameObject thruster in thrusters)
         {

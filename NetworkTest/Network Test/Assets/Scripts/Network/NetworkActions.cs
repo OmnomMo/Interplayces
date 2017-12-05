@@ -9,6 +9,9 @@ public class NetworkActions : NetworkBehaviour {
 
     private static NetworkActions instance;
 
+    public int nLocalActionsTaken;
+    public bool logActions;
+
     public static NetworkActions Instance { get { return instance; } }
 
     private void Awake()
@@ -40,6 +43,12 @@ public class NetworkActions : NetworkBehaviour {
         NetworkPlayer.Instance.RpcRegisterInput();
     }
 
+    [Command]
+    public void CmdCompleteCurrentConfirmObjective()
+    {
+        LevelProgress.Instance.RpcCompleteActiveConfirmObjective();
+    }
+
 
     //Scene Management
     //---------------------------------------------------------------
@@ -57,6 +66,7 @@ public class NetworkActions : NetworkBehaviour {
     [Command]
     public void CmdReturnToLevelSelect()
     {
+
         NetworkPlayer.Instance.RpcReturnToLevelSelect();
     }
 
@@ -166,6 +176,7 @@ public class NetworkActions : NetworkBehaviour {
     [Command]
     public void CmdDrainPower(float amount)
     {
+
         if (SpaceshipGameplay.Instance != null)
         {
             SpaceshipGameplay.Instance.RpcDrainPower(amount);

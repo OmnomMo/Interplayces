@@ -12,6 +12,7 @@ public class SwitchCameras : MonoBehaviour {
         {
             Camera.main.targetDisplay = 1;
             GetComponent<Camera>().targetDisplay = 0;
+            GameObject.Find("Overlay_Camera").GetComponent<Camera>().targetDisplay = 1;
 
             foreach (Canvas ca in FindObjectsOfType<Canvas>())
             {
@@ -19,6 +20,9 @@ public class SwitchCameras : MonoBehaviour {
             }
 
             questDisplay.targetDisplay = 1;
+        } else
+        {
+            GameObject.Find("Overlay_Camera").GetComponent<Camera>().targetDisplay = 0;
         }
 	}
 	

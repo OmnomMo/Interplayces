@@ -224,17 +224,20 @@ public class Objective : MonoBehaviour
 
     public bool Complete()
     {
-
-        //Debug.Log("Try to complete: " + description);
-        if (!HasPrerequisite() || (HasPrerequisite() && prerequisiteDone)) {
-
-
-            if (parentObjective == null || (!parentObjective.HasPrerequisite() || parentObjective.prerequisiteDone))
+        if (!completed)
+        {
+            Debug.Log("Try to complete: " + description);
+            if (!HasPrerequisite() || (HasPrerequisite() && prerequisiteDone))
             {
-                //Debug.Log("Call OnCompletion");
-                completed = true;
-                OnCompletion();
-                return true;
+
+
+                if (parentObjective == null || (!parentObjective.HasPrerequisite() || parentObjective.prerequisiteDone))
+                {
+                    //Debug.Log("Call OnCompletion");
+                    completed = true;
+                    OnCompletion();
+                    return true;
+                }
             }
         }
 

@@ -208,9 +208,10 @@ public class SpaceshipGameplay : NetworkBehaviour {
             }
             else
             {
-                drainAmount = 0;
+               
                 tEnergyLastDrained = Time.time;
                 NetworkActions.Instance.CmdDrainPower(drainAmount);
+                drainAmount = 0;
                 return true;
             }
 
@@ -457,7 +458,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
         if (GameState.Instance.isPlayerNavigator())
         {
-            if (scanPower > 0.01f)
+            if (scanPower >= 0.01f)
             {
                 if (DrainEnergy(scanEnergyDrain * scanPower * SpaceshipParts.Instance.allScanners.Length * Time.deltaTime))
                 {
@@ -467,6 +468,9 @@ public class SpaceshipGameplay : NetworkBehaviour {
                 {
                     Camera.main.GetComponent<FollowSpaceship>().camHeight = 250;
                 }
+            } else
+            {
+                Camera.main.GetComponent<FollowSpaceship>().camHeight = 250;
             }
         } else
         {

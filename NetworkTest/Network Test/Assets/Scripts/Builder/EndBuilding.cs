@@ -91,6 +91,7 @@ public class EndBuilding : NetworkBehaviour {
 
     public void EndPhase()
     {
+        SwitchShipParts.Instance.UpdateAllPartTypesAtOnce();
         NetworkActions.Instance.CmdEndPhase();
         
     }

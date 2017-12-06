@@ -160,6 +160,17 @@ public class SwitchShipParts : NetworkBehaviour {
         }
     }
 
+    public void UpdateAllPartTypesAtOnce()
+    {
+        for (int x = 0; x < nCols; x++)
+        {
+            for (int y = 0; y < nRows; y++)
+            {
+                NetworkActions.Instance.CmdSetPartTypes(x,y, PlayingGrid.Instance.containerGrid[x,y].GetComponentInChildren<ShipPart>().getID());
+            }
+        }
+    }
+
     //Colortracking
     public void SetPartTypes()
     {

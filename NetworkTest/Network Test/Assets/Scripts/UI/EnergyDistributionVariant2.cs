@@ -17,6 +17,8 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
     public GameObject scanSlider;
     public GameObject shieldIconGrey;
 
+    public bool slidersUpdating;
+
     
 
     
@@ -63,16 +65,17 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
 
     public void UpdateThrust()
     {
-        NetworkActions.Instance.CmdSetThrust(thrustSlider.GetComponent<Slider>().value);
+        slidersUpdating = true;
     }
      public void UpdateShield()
     {
-        NetworkActions.Instance.CmdSetShield(shieldSlider.GetComponent<Slider>().value);
+        slidersUpdating = true;
     }
 
     public void UpdateScanner()
     {
         SpaceshipGameplay.Instance.scanPower = scanSlider.GetComponent<Slider>().value;
+        slidersUpdating = true;
     }
 
     public IEnumerator UpdateSliders()
@@ -80,9 +83,14 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(0.2f);
-            UpdateThrust();
-            UpdateShield();
-            UpdateScanner();
+
+            if (slidersUpdating)
+            {
+                NetworkActions.Instance.CmdSetThrust(thrustSlider.GetComponent<Slider>().value);
+                NetworkActions.Instance.CmdSetShield(shieldSlider.GetComponent<Slider>().value);
+                SpaceshipGameplay.Instance.scanPower = scanSlider.GetComponent<Slider>().value;
+                slidersUpdating = false;
+            }
 
         }
     }

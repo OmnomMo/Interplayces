@@ -74,6 +74,7 @@ public class SpaceShipPlans : MonoBehaviour {
     {
        if (SpaceshipParts.Instance != null)
         {
+            
             var currentNode = parts.First;
          
 

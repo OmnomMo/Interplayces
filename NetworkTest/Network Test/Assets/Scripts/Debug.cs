@@ -25,6 +25,17 @@ namespace InterPlayces
                 TooltipManager.Instance.NewTooltip("Testtooltip: " + nTestTooltip, null, 10);
                 nTestTooltip++;
             }
+
+            //if (Input.GetAxis("Horizontal") > 0.5f || Input.GetAxis("Horizontal") < -0.5f)
+            //{
+            //    UnityEngine.Debug.Log("HORIZONTALAXISSSS");
+
+            //}
+            //if (Input.GetAxis("Vertical") > 0.5f || Input.GetAxis("Vertical") < -0.5f)
+            //{
+            //    UnityEngine.Debug.Log("VERTICALAXISSSS");
+
+            //}
         }
     }
 }

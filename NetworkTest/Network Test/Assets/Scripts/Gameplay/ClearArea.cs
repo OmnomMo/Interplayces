@@ -6,6 +6,7 @@ public class ClearArea : MonoBehaviour {
 
     public bool clear;
     public int nObjects;
+    public int clearAreaId;
 
     public GameObject spaceStation;
     
@@ -38,6 +39,7 @@ public class ClearArea : MonoBehaviour {
                 clear = true;
                 if (spaceStation != null)
                 {
+                    NetworkActions.Instance.CmdClearArea(clearAreaId);
                     spaceStation.GetComponent<PopUp>().StartPopup();
                 }
             }

@@ -66,21 +66,21 @@ public class PickupManager : NetworkBehaviour {
 
         Debug.Log("PickUp " + p.id.ToString());
 
-        if (GameState.Instance.holoLensConnected) {
+        //if (GameState.Instance.holoLensConnected) {
 
-            Message m = new Message();
+        //    Message m = new Message();
 
-            string[] ipckupID = new string[1];
+        //    string[] ipckupID = new string[1];
 
 
 
             
-            ipckupID[0] = p.id.ToString();
+        //    ipckupID[0] = p.id.ToString();
 
-            m.commandID = (int)NetworkCommands.CmdPickupResource;
-            m.parameters = ipckupID;
-            TCPSocketServer.Instance.Send(m);
-        }
+        //    m.commandID = (int)NetworkCommands.CmdPickupResource;
+        //    m.parameters = ipckupID;
+        //    TCPSocketServer.Instance.Send(m);
+        //}
     }
 
     
@@ -165,11 +165,17 @@ public class PickupManager : NetworkBehaviour {
         }
         pickup.GetComponent<AudioSource>().Play();
 
+
+        pickup.objective.nCurrent++;
+        pickup.objective.Complete();
+
         pickup.pickedUp = true;
         pickup.gameObject.GetComponentInChildren<MeshRenderer>(true).enabled = false;
 
         Component halo = pickup.transform.GetChild(0).GetComponent("Halo");
         halo.GetType().GetProperty("enabled").SetValue(halo, false, null);
+
+        pickup.enabled = false;
 
     }
 

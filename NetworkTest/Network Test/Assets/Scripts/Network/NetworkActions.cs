@@ -191,6 +191,12 @@ public class NetworkActions : NetworkBehaviour {
         PickupManager.Instance.RpcDestroyPickup(n);
     }
 
+    [Command]
+    public void CmdClearArea(int n)
+    {
+        LevelProgress.Instance.gameObject.GetComponent<ClearAreaManager>().RpcClearArea(n);
+    }
+
 
     [Command]
     public void CmdPickupResource(int n)

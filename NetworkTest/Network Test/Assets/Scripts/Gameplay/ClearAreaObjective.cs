@@ -6,6 +6,7 @@ public class ClearAreaObjective : Objective {
 
 
     public ClearArea areaToClear;
+    public int id;
 
 
     new public int GetPriority()

@@ -33,21 +33,46 @@ public class FollowSpaceship : MonoBehaviour {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, spaceship.transform.eulerAngles.y, transform.eulerAngles.z); 
         }
 
-        camPos.x = spaceship.position.x;
+       
 
 
         if (GameState.Instance != null)
         {
+            camPos.y = camHeight;
+            if (GameState.Instance.isPlayerCaptain())
+            {
+                camPos.x = spaceship.position.x;
+            } else
+            {
+
+                float uiWidth;
+
+                Vector3 rightWorldPoint;
+                Vector3 centerWorldPoint;
+
+
+                rightWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(1920, 540, camHeight));
+                centerWorldPoint = Camera.main.ScreenToWorldPoint(new Vector3(1333, 540, camHeight));
+
+                uiWidth = Vector3.Distance(rightWorldPoint, centerWorldPoint);
+
+                camPos.x = spaceship.position.x + uiWidth/2;
+            }
+
             //if (GameState.Instance.isPlayerCaptain())
             //{
             //    camPos.y = 100;
             //}
             //if (GameState.Instance.isPlayerNavigator())
             //{
-                camPos.y = camHeight;
+           
             // }
 
-           // Debug.Log(Camera.main.transform.position.y.ToString());
+
+            camPos.z = spaceship.position.z;
+
+            transform.position = camPos;
+            // Debug.Log(Camera.main.transform.position.y.ToString());
 
             if (GameState.Instance.holoLensConnected)
             {
@@ -72,8 +97,6 @@ public class FollowSpaceship : MonoBehaviour {
             }
         }
 
-        camPos.z = spaceship.position.z;
-
-        transform.position = camPos;
+       
     }
 }

@@ -45,9 +45,9 @@ public class ResourcePickup : NetworkBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+
         if (GameState.Instance.isPlayerCaptain())
         {
-
             if (other.gameObject.layer == LayerMask.NameToLayer("Player") || GetComponent<Collider>().gameObject.layer == LayerMask.NameToLayer("Shield"))
             {
                 if (!pickedUp)
@@ -55,18 +55,20 @@ public class ResourcePickup : NetworkBehaviour
 
                     Debug.Log("Try to pick up Resource pickup " + id);
 
+
+
                     //SpaceshipGameplay.Instance.RechargeEnergy(energyAmount);
                     PickupManager.Instance.PickupResource(this);
 
 
                     pickedUp = true;
-                    objective.nCurrent++;
-                    objective.Complete();
+                    //objective.nCurrent++;
+                    //objective.Complete();
 
-                    
+
                     //GameObject.Destroy(gameObject);
-                    
-                    this.enabled = false;
+
+                    //this.enabled = false;
                 }
             }
         }

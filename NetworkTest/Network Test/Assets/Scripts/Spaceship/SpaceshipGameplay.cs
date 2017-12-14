@@ -48,6 +48,9 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
     public float timeLastSent;
 
+    public float invulnerableTime;
+    float timeInvulerableStart;
+
     private static SpaceshipGameplay instance;
     public static SpaceshipGameplay Instance
     {
@@ -309,16 +312,20 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
     public void UpdateShieldOpacity()
     {
-        if (shieldCapacity > 0f)
+        if (Time.time - timeInvulerableStart > invulnerableTime)
         {
-            shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, (float)(0.5 * (shield / shieldCapacity)));
-            if (shield <= 0.01f)
+            timeInvulerableStart = Time.time;
+            if (shieldCapacity > 0f)
             {
-                shieldObject.GetComponent<CapsuleCollider>().enabled = false;
-            }
-            else
-            {
-                shieldObject.GetComponent<CapsuleCollider>().enabled = true;
+                shieldMaterial.color = new Color(shieldMaterial.color.r, shieldMaterial.color.g, shieldMaterial.color.b, (float)(0.5 * (shield / shieldCapacity)));
+                if (shield <= 0.01f)
+                {
+                    shieldObject.GetComponent<CapsuleCollider>().enabled = false;
+                }
+                else
+                {
+                    shieldObject.GetComponent<CapsuleCollider>().enabled = true;
+                }
             }
         }
     }

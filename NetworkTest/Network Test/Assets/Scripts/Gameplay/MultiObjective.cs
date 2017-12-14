@@ -22,7 +22,10 @@ public class MultiObjective : Objective {
         Debug.Log("Try to complete MultiObjective: " + description);
 
         timeCompleteLastSubObj = Time.time;
-        helpTooltip.Hide();
+        if (helpTooltip != null)
+        {
+            helpTooltip.Hide();
+        }
 
         bool allCompleted = true;
 

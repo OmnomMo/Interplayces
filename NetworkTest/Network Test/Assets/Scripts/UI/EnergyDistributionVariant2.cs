@@ -88,7 +88,7 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
             {
                 NetworkActions.Instance.CmdSetThrust(thrustSlider.GetComponent<Slider>().value);
                 NetworkActions.Instance.CmdSetShield(shieldSlider.GetComponent<Slider>().value);
-                SpaceshipGameplay.Instance.scanPower = scanSlider.GetComponent<Slider>().value;
+                NetworkActions.Instance.CmdSetScan(scanSlider.GetComponent<Slider>().value);
                 slidersUpdating = false;
             }
 

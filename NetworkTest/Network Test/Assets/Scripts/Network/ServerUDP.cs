@@ -87,7 +87,7 @@ public class ServerUDP : MonoBehaviour {
         if (receiver != null)
         {
             received = receiver.EndReceive(result, ref receiveIPGroup);
-            //receiver.Close();
+    
         }
         else
         {
@@ -130,6 +130,8 @@ public class ServerUDP : MonoBehaviour {
         //Connect to server
 
         //Network.Connect(SplitIP[1], 7777);
+
+        receiver.Close();
 
         try
         {

@@ -17,6 +17,8 @@ public class GameState : MonoBehaviour {
 
     public bool paused;
 
+    public bool gameHasStarted;
+
     public enum PlayerTypes { Captain, Navigator, NavigatorAR, None }
 
     PlayerTypes playerType;
@@ -46,6 +48,9 @@ public class GameState : MonoBehaviour {
 
 
         Object.DontDestroyOnLoad(gameObject);
+
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+
        // Object.DontDestroyOnLoad(touchScriptHolder);
         //Object.DontDestroyOnLoad(GameObject.Find("HololensParent"));
         playerType = PlayerTypes.None;

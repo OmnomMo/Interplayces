@@ -8,7 +8,9 @@ public class LobbyPLayerAutoReady : NetworkLobbyPlayer {
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(this);
-	}
+
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+    }
 	
 	// Update is called once per frame
 	void Update () {

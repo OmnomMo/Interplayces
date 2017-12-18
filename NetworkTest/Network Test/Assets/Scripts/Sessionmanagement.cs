@@ -90,7 +90,7 @@ public class Sessionmanagement : MonoBehaviour {
             }
         }
 
-        if (SceneManager.GetActiveScene().name != "01b_LandingScreen" && SceneManager.GetActiveScene().name != "01_Lobby") {
+        if (SceneManager.GetActiveScene().name != "01b_LandingScreen" && SceneManager.GetActiveScene().name != "01_Lobby" && SceneManager.GetActiveScene().name != "00_MultiplayerSetup") {
 
             if (Time.time - timeLastInput >= timeToTooltip)
             {

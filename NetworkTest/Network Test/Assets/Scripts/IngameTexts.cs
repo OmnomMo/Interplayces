@@ -28,7 +28,9 @@ public class IngameTexts : MonoBehaviour {
     // Use this for initialization
     void Start () {
         DontDestroyOnLoad(this);
-        
+
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+
         textHashtable = new Hashtable();
         ReadFromFile();
         AddTextsToHashTable();

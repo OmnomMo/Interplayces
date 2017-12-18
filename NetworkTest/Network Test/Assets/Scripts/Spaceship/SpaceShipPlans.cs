@@ -61,8 +61,8 @@ public class SpaceShipPlans : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+    }
 	
 	// Update is called once per frame
 	void Update () {

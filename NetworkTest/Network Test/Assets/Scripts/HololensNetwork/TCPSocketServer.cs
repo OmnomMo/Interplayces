@@ -56,7 +56,9 @@ public class TCPSocketServer : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
 
-		broadcast.StartBroadcasting ();
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+
+        broadcast.StartBroadcasting ();
 	
 		startServer ();
 

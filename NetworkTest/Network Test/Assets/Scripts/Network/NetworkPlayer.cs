@@ -21,7 +21,8 @@ public class NetworkPlayer : NetworkBehaviour
 
         instance = this;
         Object.DontDestroyOnLoad(gameObject);
-        
+
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
 
     }
 

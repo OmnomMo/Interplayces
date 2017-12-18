@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class MultiplayerSetup : NetworkLobbyManager{
 
@@ -68,7 +69,7 @@ public class MultiplayerSetup : NetworkLobbyManager{
             }
         }
 
-        
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
             
             if (MultiplayerSetup.Instance == null)
         {
@@ -172,6 +173,31 @@ public class MultiplayerSetup : NetworkLobbyManager{
     void Update () {
 		
 	}
+
+    public override void OnServerDisconnect(UnityEngine.Networking.NetworkConnection conn)
+    {
+        DisconnectAndRestart();
+
+        
+    }
+
+    public override void OnClientDisconnect(UnityEngine.Networking.NetworkConnection conn)
+    {
+        DisconnectAndRestart();
+    }
+
+    public void DisconnectAndRestart()
+    {
+        StopMatchMaker();
+        StopServer();
+        StopClient();
+        StopHost();
+
+        Shutdown();
+       
+
+        SceneManager.LoadScene(1);
+    }
 
     public void StartGame()
     {

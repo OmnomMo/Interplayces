@@ -39,9 +39,13 @@ public class AudioManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
         DontDestroyOnLoad(gameObject);
-	}
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+    }
 	
 	// Update is called once per frame
 	void Update () {

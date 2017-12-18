@@ -7,7 +7,8 @@ public class ConfirmAudio : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(gameObject);
-	}
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+    }
 
     public bool startedPlaying = false;
 

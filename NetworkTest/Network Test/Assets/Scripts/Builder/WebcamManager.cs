@@ -19,8 +19,12 @@ public class WebcamManager : MonoBehaviour {
 
     void Awake()
     {
-        instance = this;
-        Object.DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+
+            Object.DontDestroyOnLoad(gameObject);
+        }
 
         try
         {
@@ -40,7 +44,9 @@ public class WebcamManager : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        
+
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+
     }
 	
 	// Update is called once per frame

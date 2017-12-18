@@ -46,6 +46,8 @@ public class DataCollection : MonoBehaviour {
     void Start () {
         DontDestroyOnLoad(gameObject);
 
+        LoadedObjectManager.Instance.AddPersistenObject(gameObject);
+
         dataPath = Application.dataPath + "/DataCollection";
 
         if (!Directory.Exists(dataPath))

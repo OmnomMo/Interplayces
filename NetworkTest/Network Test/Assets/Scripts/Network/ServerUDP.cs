@@ -76,7 +76,7 @@ public class ServerUDP : MonoBehaviour {
         }
         catch (SocketException e)
         {
-            Debug.Log(e.Message);
+            Debug.Log("Socket Exception (ServerUDP):" + e.Message);
         }
     }
     private void ReceiveData(IAsyncResult result)
@@ -87,6 +87,7 @@ public class ServerUDP : MonoBehaviour {
         if (receiver != null)
         {
             received = receiver.EndReceive(result, ref receiveIPGroup);
+            //receiver.Close();
         }
         else
         {

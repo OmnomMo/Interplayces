@@ -16,13 +16,15 @@ public class AnimateInterface : NetworkBehaviour {
     public void RpcWobbleSliders()
     {
 
+        Debug.Log("WobbleSlider");
+
         if (NetworkActions.Instance.logActions)
         {
             Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Wobble Sliders.");
         }
 
         Debug.Log("Wobblewoblle");
-        if (GameState.Instance.isPlayerNavigator() && SpaceshipGameplay.Instance.thrustPower == 0 && !animatedSlider1.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Wobbling"))
+        if (GameState.Instance.isPlayerNavigator() && SpaceshipGameplay.Instance.thrustPower <= 0.01f && !animatedSlider1.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Wobbling"))
         {
             animatedSlider1.GetComponent<Animator>().SetTrigger("WobbleTrigger");
         }

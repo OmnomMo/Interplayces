@@ -109,8 +109,8 @@ public class SpaceshipMovement : NetworkBehaviour {
                     //If there is any keyboard input at all, place rotationtarget in direction of input, look at direction rotation target is transformed to
                     if (!(noHorizontalInput && noVerticalInput) && controllable)
                     {
-             
 
+                        Sessionmanagement.Instance.GetNewInput();
                         //rotates spaceship towards joystick direction
 
 
@@ -153,7 +153,7 @@ public class SpaceshipMovement : NetworkBehaviour {
                         if (Mathf.Abs(targetAngle - transform.eulerAngles.y) < 10 || Mathf.Abs(targetAngle - transform.eulerAngles.y) >350)
                         {
                             isAccelerating = true;
-                            Sessionmanagement.Instance.GetNewInput();
+                            
                         }
                         else
                         {
@@ -241,8 +241,15 @@ public class SpaceshipMovement : NetworkBehaviour {
                 }
                 else
                 {
+                    bool noHorizontalInput = Input.GetAxis("HorizontalKeyboard") < 0.3f && Input.GetAxis("HorizontalKeyboard") > 0.3f * -1;
+                    bool noVerticalInput = Input.GetAxis("VerticalKeyboard") < 0.3f && Input.GetAxis("VerticalKeyboard") > 0.3f * -1;
 
-
+                    if ((!noHorizontalInput || !noVerticalInput) && SpaceshipGameplay.Instance.energy < 0.01f)
+                    {
+                     //   if (isAccelerating && SpaceshipGameplay.Instance.energy < 0.01f) {
+                        Debug.Log("TryToWobbleSliders");
+                        NetworkActions.Instance.CmdWobbleThrusterSlider();
+                    }
 
                     //if (SpaceshipGameplay.Instance.energy > 0)
                     if (isAccelerating && SpaceshipGameplay.Instance.energy > 0 && controllable)

@@ -68,6 +68,12 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void RpcEnterLandingScene()
+    {
+        MultiplayerSetup.Instance.ServerChangeScene("01b_LandingScreen");
+    }
+
+    [ClientRpc]
     public void RpcReturnToLevelSelect()
     {
 

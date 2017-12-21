@@ -52,7 +52,7 @@ public class Sessionmanagement : MonoBehaviour {
         PuzzlePartPositions.Instance.resetShip = true;
 
 
-        MultiplayerSetup.Instance.ServerChangeScene("01b_LandingScreen");
+        NetworkActions.Instance.CmdEnterLandingScene();
 
 
     }

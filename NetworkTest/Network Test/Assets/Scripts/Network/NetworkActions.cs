@@ -54,6 +54,12 @@ public class NetworkActions : NetworkBehaviour {
     //---------------------------------------------------------------
 
     [Command]
+    public void CmdEnterLandingScene()
+    {
+        NetworkPlayer.Instance.RpcEnterLandingScene();
+    }
+    
+    [Command]
     public void CmdRestartGame()
     {
 

@@ -56,7 +56,7 @@ public class FollowSpaceship : MonoBehaviour {
 
                 uiWidth = Vector3.Distance(rightWorldPoint, centerWorldPoint);
 
-                camPos.x = spaceship.position.x + uiWidth/2;
+                camPos.x = spaceship.position.x + uiWidth/3;
             }
 
             //if (GameState.Instance.isPlayerCaptain())

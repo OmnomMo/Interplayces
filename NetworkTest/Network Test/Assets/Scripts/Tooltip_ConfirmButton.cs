@@ -11,7 +11,7 @@ public class Tooltip_ConfirmButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //StartCoroutine(SetVisibilityDelayed());
+        StartCoroutine(SetVisibilityDelayed());
 	}
 
     public IEnumerator SetVisibilityDelayed()

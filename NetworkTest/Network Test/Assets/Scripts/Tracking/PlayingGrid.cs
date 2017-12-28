@@ -99,6 +99,8 @@ public class PlayingGrid : MonoBehaviour
 
         //NetworkActions.Instance.CmdSetPartTypes(oldPiece.GetComponentInChildren<ShipPart>().GetPosX(), oldPiece.GetComponentInChildren<ShipPart>().GetPosY(), 4);
         NetworkActions.Instance.CmdSetPartTypes(oldPiece.GetComponentInChildren<ShipPart>().GetPosX(), oldPiece.GetComponentInChildren<ShipPart>().GetPosY(), 4);
+        //oldPiece.GetComponentInChildren<ShipPart>().SetPosX(10);
+        //oldPiece.GetComponentInChildren<ShipPart>().SetPosY(10);
 
 
         return oldPiece;

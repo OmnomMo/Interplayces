@@ -256,12 +256,20 @@ public class SwitchShipParts : NetworkBehaviour {
             throw new Exception("test");
         }
 
+        Collider[] allPartColliders = newPart.GetComponentsInChildren<BoxCollider>();
+
+        foreach (Collider c in allPartColliders)
+        {
+            c.enabled = false;
+        }
+
         var oldPartType = oldPart.GetComponent<ShipPart>().GetType();
         
 
         PlayingGrid.Instance.ClearChildren(x, y);
         newPart.transform.parent = PlayingGrid.Instance.containerGrid[x, y].transform;
-        newPart.transform.localPosition = Vector3.zero;
+        newPart.transform.localPosition = new Vector3(38, 0, 0);
+
         newPart.transform.Rotate(new Vector3(-90, 0, 0));
         newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);
         newPart.GetComponentInChildren<ShipPart>().SetPosY(y);// colorTracker.GetComponent<ColorPickerNew>().nRows - 1 - y);

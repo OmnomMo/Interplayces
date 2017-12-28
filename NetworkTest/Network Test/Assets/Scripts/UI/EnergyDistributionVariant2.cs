@@ -82,7 +82,7 @@ public class EnergyDistributionVariant2 : MonoBehaviour {
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.05f);
 
             if (slidersUpdating)
             {

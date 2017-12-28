@@ -25,11 +25,23 @@ public class TouchRecognition : MonoBehaviour {
     //        Debug.Log(pointer.Id + " touched down at " + pointer.Position);
     //}
 
-    void OnGestureStateChanged(Gesture sender)
+    //void OnTouchesBegan(string msgName, SendMessageOptions options)
+    //{
+    //    Debug.Log("Touch recognized!");
+    //    NetworkActions.Instance.CmdRegisterInput();
+    //}
+
+        void OnTouchesBegan(IList<TouchPoint> touches)
     {
         Debug.Log("Touch recognized!");
         NetworkActions.Instance.CmdRegisterInput();
     }
+
+    //void OnGestureStateChanged(Gesture sender)
+    //{
+    //    Debug.Log("Touch recognized!");
+    //    NetworkActions.Instance.CmdRegisterInput();
+    //}
 
     // Use this for initialization
     void Start () {

@@ -208,13 +208,16 @@ public class TooltipManager : MonoBehaviour {
                 if (Application.isEditor)
                 {
 #if UNITY_EDITOR
-                    tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250 * (GetMainGameViewSize().x / 1920f));
+                    tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(-50 * (GetMainGameViewSize().x / 1920f), n * -200 * (GetMainGameViewSize().x / 1920f));
 #endif
                 }
                 else
                 {
-                    tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, n * -250);
+                    tt.GetComponent<RectTransform>().anchoredPosition = new Vector2(-50, n * -200);
                 }
+
+                tt.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 0.8f);
+
                 if (n < maxTooltipSlots)
                 {
                     if (!tt.gameObject.activeInHierarchy)

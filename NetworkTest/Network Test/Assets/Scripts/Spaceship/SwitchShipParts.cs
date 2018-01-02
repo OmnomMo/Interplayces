@@ -268,7 +268,7 @@ public class SwitchShipParts : NetworkBehaviour {
 
         PlayingGrid.Instance.ClearChildren(x, y);
         newPart.transform.parent = PlayingGrid.Instance.containerGrid[x, y].transform;
-        newPart.transform.localPosition = new Vector3(38, 0, 0);
+        newPart.transform.localPosition = new Vector3(24.5f, 0.5f, 0);
 
         newPart.transform.Rotate(new Vector3(-90, 0, 0));
         newPart.GetComponentInChildren<ShipPart>().SetPosX(x);//colorTracker.GetComponent<ColorPickerNew>().nCols - 1 - x);

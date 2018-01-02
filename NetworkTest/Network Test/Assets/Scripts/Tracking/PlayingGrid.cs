@@ -14,6 +14,7 @@ public class PlayingGrid : MonoBehaviour
 
     public GameObject gridPart;
 
+    public int xOffset;
 
 
     private static PlayingGrid instance;
@@ -220,7 +221,7 @@ public class PlayingGrid : MonoBehaviour
                     nearest = distanceSq;
                 
 
-                    pos = new Vector3(gridPiece.transform.position.x, gridPiece.transform.position.y, -2);//gridPiece.transform.position.z);
+                    pos = new Vector3(gridPiece.transform.position.x , gridPiece.transform.position.y, -2);//gridPiece.transform.position.z);
 
 
                 nearestGridPeace = gridPiece;
@@ -238,7 +239,7 @@ public class PlayingGrid : MonoBehaviour
                 piece.GetComponentInChildren<ShipPart>().SetPosX(nearestGridPeace.GetComponentInChildren<ShipPart>().GetPosX());
                 piece.GetComponentInChildren<ShipPart>().SetPosY(nearestGridPeace.GetComponentInChildren<ShipPart>().GetPosY());
 
-                piece.transform.position = pos;
+                piece.transform.position = new Vector3 (pos.x + xOffset, pos.y, pos.z);
                 piece.GetComponent<FollowSphere>().partIncluded = true;
             }
             else

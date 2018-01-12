@@ -129,7 +129,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
 
         thrustPower = energy;
-        Sessionmanagement.Instance.GetNewInput();
+        NetworkActions.Instance.CmdRegisterInput();
     }
 
     [ClientRpc]
@@ -142,7 +142,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
             Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Set Shield.");
         }
         shieldPower = energy;
-        Sessionmanagement.Instance.GetNewInput();
+        NetworkActions.Instance.CmdRegisterInput();
     }
 
     [ClientRpc]
@@ -154,7 +154,7 @@ public class SpaceshipGameplay : NetworkBehaviour {
             Debug.Log(NetworkActions.Instance.nLocalActionsTaken++ + ". Set Scan");
         }
         scanPower = energy;
-        Sessionmanagement.Instance.GetNewInput();
+        NetworkActions.Instance.CmdRegisterInput();
     }
 
     [ClientRpc]

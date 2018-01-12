@@ -109,7 +109,7 @@ public class Sessionmanagement : MonoBehaviour {
             {
                 if (!waitForInput)
                 {
-                    EndSession(dateTimeLastInput);
+                    NetworkActions.Instance.CmdEndSession();
                     waitForInput = true;
                 }
             }

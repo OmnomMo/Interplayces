@@ -44,6 +44,11 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void RpcEndSession()
+    {
+        Sessionmanagement.Instance.EndSession(Sessionmanagement.Instance.dateTimeLastInput);    }
+
+    [ClientRpc]
     public void RpcRestartGame()
     {
         //GameObject.Destroy(Score.Instance.gameObject);

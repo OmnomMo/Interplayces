@@ -101,7 +101,7 @@ public class SpaceshipMovement : NetworkBehaviour {
 
                 if (!noHorizontalInput || !noVerticalInput)
                 {
-                    Sessionmanagement.Instance.GetNewInput();
+                    NetworkActions.Instance.CmdRegisterInput();
                 }
 
                 if (!rotateVersion02)
@@ -110,7 +110,7 @@ public class SpaceshipMovement : NetworkBehaviour {
                     if (!(noHorizontalInput && noVerticalInput) && controllable)
                     {
 
-                        Sessionmanagement.Instance.GetNewInput();
+                        NetworkActions.Instance.CmdRegisterInput();
                         //rotates spaceship towards joystick direction
 
 

@@ -360,13 +360,15 @@ public class PlayingGrid : MonoBehaviour
     {
         bool hasThruster = false;
         bool hasBatteries = false;
+        bool hasScanner = false;
+        bool hasShield = false;
 
         for (int x = 0; x < gridColumns; x++)
         {
             for (int y = 0; y < gridRows; y++)
             {
 
-                if (hasThruster && hasBatteries)
+                if (hasThruster && hasBatteries && hasScanner && hasShield)
                 {
                     break;
                 }
@@ -382,12 +384,22 @@ public class PlayingGrid : MonoBehaviour
                     {
                         hasThruster = true;
                     }
+
+                    if (containerGrid[x, y].GetComponentInChildren<ShipPart>().getID() == 2)
+                    {
+                        hasShield = true;
+                    }
+
+                    if (containerGrid[x, y].GetComponentInChildren<ShipPart>().getID() == 3)
+                    {
+                        hasScanner = true;
+                    }
                 }
             }
         }
 
 
-        return (hasThruster && hasBatteries);
+        return (hasThruster && hasBatteries && hasScanner && hasShield);
     }
 
 

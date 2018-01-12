@@ -44,6 +44,12 @@ public class NetworkActions : NetworkBehaviour {
     }
 
     [Command]
+    public void CmdEndSession()
+    {
+        NetworkPlayer.Instance.RpcEndSession();
+    }
+
+    [Command]
     public void CmdCompleteCurrentConfirmObjective()
     {
         LevelProgress.Instance.RpcCompleteActiveConfirmObjective();

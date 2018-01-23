@@ -322,12 +322,12 @@ public class PlayingGrid : MonoBehaviour
         int oldPosX = piece.GetComponentInChildren<ShipPart>().GetPosX();
         int oldPosY = piece.GetComponentInChildren<ShipPart>().GetPosY();
 
-
+        bool previouslyIncluded = piece.GetComponent<FollowSphere>().partIncluded;
 
         //returns null if part has no place on field
         if (SnapTranslationToNearest(piece) != null)
         {
-
+            
             //If piece moved
             if (piece.GetComponentInChildren<ShipPart>().GetPosX() != oldPosX || piece.GetComponentInChildren<ShipPart>().GetPosY() != oldPosY)
             {
@@ -335,6 +335,13 @@ public class PlayingGrid : MonoBehaviour
                 NetworkActions.Instance.CmdSetPartTypes(oldPosX, oldPosY, 4);
 
                 NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), piece.GetComponentInChildren<ShipPart>().getID());
+            } else
+            {
+                //If part was not included but is now)
+                if (!previouslyIncluded && piece.GetComponent<FollowSphere>().partIncluded)
+                {
+                    NetworkActions.Instance.CmdSetPartTypes(piece.GetComponentInChildren<ShipPart>().GetPosX(), piece.GetComponentInChildren<ShipPart>().GetPosY(), piece.GetComponentInChildren<ShipPart>().getID());
+                }
             }
             // Debug.Log(piece.GetComponentInChildren<ShipPart>().getID());
         }

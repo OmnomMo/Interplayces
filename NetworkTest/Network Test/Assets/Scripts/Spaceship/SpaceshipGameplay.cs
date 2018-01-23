@@ -206,7 +206,10 @@ public class SpaceshipGameplay : NetworkBehaviour {
 
             if (drainAmount > energy)
             {
+
+                NetworkActions.Instance.CmdDrainPower(energy);
                 drainAmount = 0;
+                
                 return false;
             }
             else
